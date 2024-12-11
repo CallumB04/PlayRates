@@ -1,12 +1,16 @@
 function Navbar() {
 
     return (
-        <nav className="absolute top-0 left-0 w-screen h-16 px-24 bg-transparent flex justify-between items-center">
-            <h2 className="font-semibold font-ssp text-3xl tracking-wide">PlayRates</h2>
-            <div className="font-ssp h-full flex gap-7 items-center">
-                <p>Browse Games</p>
-                <input type="text" placeholder="Search for game..."/>
+        <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-24 bg-transparent flex justify-between items-center">
+            <h2 className="font-semibold font-ssp text-gray-100 text-3xl tracking-wide">PlayRates</h2>
+            <div className="font-ssp text-gray-100 h-full flex gap-7 items-center">
                 <p>My Account</p>
+                <p>Browse Games</p>
+                <input 
+                    type="text" 
+                    placeholder="Search for game..."
+                    className="w-60 px-2 py-1.5 bg-neutral-700 rounded"
+                />
             </div>
         </nav>
     );
