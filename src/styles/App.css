@@ -1,0 +1,8 @@
+main {
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 4rem;
+}
