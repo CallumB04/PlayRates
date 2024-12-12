@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 function Navbar() {
 
     return (
-        <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-24 bg-transparent flex justify-between items-center">
-            <h2 className="font-semibold font-ssp text-gray-100 text-3xl tracking-wide">PlayRates</h2>
+        <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-16 bg-transparent flex justify-between items-center">
+            <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">PlayRates</h2>
             <div className="font-ssp font-normal text-gray-100 h-full flex gap-4 items-center">
                 <Link to="/account">
-                    <p className="p-2 transition duration-50 hover:cursor-pointer hover:text-purple-600">
+                    <p className="flex gap-1 items-center p-2 transition duration-50 hover:cursor-pointer hover:text-purple-600">
                         My Account
+                        <i className="fa fa-chevron-down text-sm"></i>
                     </p>
                 </Link>
                 <Link to="/library">
