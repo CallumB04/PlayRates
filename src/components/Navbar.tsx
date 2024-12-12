@@ -8,12 +8,13 @@ function Navbar() {
             <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">PlayRates</h2>
             <div className="hidden md:flex font-ssp font-normal text-gray-100 h-full gap-4 items-center">
                 <span className="relative group">
-                    <Link to="/account" className="flex gap-1 items-center p-2 hover:cursor-pointer">
+                    <Link to="/account" className="flex gap-1 items-center p-2 hover:cursor-pointer 
+                                                   group-hover:pb-5 group-hover:mt-3">
                         <p className="group-hover:text-purple-600 transition duration-75">My Account</p>
                         <i className="fa fa-chevron-down text-sm group-hover:text-purple-600 transition duration-75"></i>
                     </Link>
 
-                    <div className="absolute mx-auto w-72 h-0 top-10 pt-3
+                    <div className="absolute mx-auto w-72 h-0 top-[52px] group-hover:top-16
                                     group-hover:h-52 transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
                         <div className="w-full h-full bg-neutral-700 rounded-b-md overflow-hidden
