@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         ssp: ['Source Sans Pro', 'sans-serif'],
       },
+      transitionProperty: {
+        height: 'height',
+      },
     },
   },
   plugins: [],
