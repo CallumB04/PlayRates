@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 function Navbar() {
 
     // common styles used on all items in the My Account dropdown menu
-    const dropdownItemStyles: string = "opacity-0 group-hover:opacity-100 transition-opacity duration-200";
+    const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition-opacity duration-200 
+                                        w-10/12 text-center`;
 
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
@@ -17,12 +18,20 @@ function Navbar() {
                         <i className="fa fa-chevron-down text-sm group-hover:text-purple-600 transition duration-75"></i>
                     </Link>
 
-                    <div className="absolute mx-auto w-72 h-0 top-[52px] group-hover:top-16
-                                    group-hover:h-52 transition-height duration-[400ms] delay-50 ease-in-out
+                    <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-16
+                                    group-hover:h-64 transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
                         <div className="w-full h-full bg-neutral-700 rounded-b-md overflow-hidden
-                                        flex items-center flex-col">
-                            <p className={`${dropdownItemStyles} pt-3`}>Test</p>
+                                        flex items-center flex-col font-normal">
+                            <p className={`${dropdownItemStyles} pt-3`}>My Profile</p>
+
+                            <p className={`${dropdownItemStyles} pt-2 mt-2 border-t border-t-gray-100`}>Played</p>
+                            <p className={`${dropdownItemStyles} mt-[6px]`}>Playing</p>
+                            <p className={`${dropdownItemStyles} mt-[6px]`}>Plan-to-Play</p>
+                            <p className={`${dropdownItemStyles} mt-[6px]`}>Wishlist</p>
+
+                            <p className={`${dropdownItemStyles} pt-2 mt-2 border-t border-t-gray-100 w-9/12 text-center`}>Settings</p>
+                            <p className={`${dropdownItemStyles} mt-[6px]`}>Sign out</p>
                         </div>
                     </div>
                 </span>
