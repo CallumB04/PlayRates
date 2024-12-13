@@ -40,7 +40,7 @@ function Navbar() {
                                 purposes (callum). In the future the links will navigate to the logged in
                                 account's pages. E.G: /user/<username>/played */}
 
-                            <Link className={`${dropdownItemStyles} mt-3 gap-[9px]`} to="/user/callum">
+                            <Link className={`${dropdownItemStyles} mt-3 pl-[9px]`} to="/user/callum">
                                 <i className="fa-solid fa-user text-purple-600"></i>
                                 <p>My Profile</p>
                             </Link>
