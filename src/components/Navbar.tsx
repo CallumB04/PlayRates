@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 function Navbar() {
 
     // common styles used on all items in the My Account dropdown menu
-    const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-                                        w-10/12 text-center`;
+    const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition duration-200 
+                                        w-11/12 py-1 text-left hover:bg-[#4a4a4a] hover:cursor-pointer rounded
+                                        flex gap-2 items-center pl-2`;
 
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
@@ -19,19 +20,43 @@ function Navbar() {
                     </Link>
 
                     <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-16
-                                    group-hover:h-64 transition-height duration-[400ms] delay-50 ease-in-out
+                                    group-hover:h-[280px] transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
-                        <div className="w-full h-full bg-neutral-700 rounded-b-md overflow-hidden
-                                        flex items-center flex-col font-normal">
-                            <p className={`${dropdownItemStyles} pt-3`}>My Profile</p>
+                        <div className="w-full h-full bg-[#333] rounded-b-md overflow-hidden
+                                        flex items-center flex-col gap-[2px] font-normal">
+                            <Link className={`${dropdownItemStyles} mt-3 gap-[9px]`} to="">
+                                <i className="fa-solid fa-user text-purple-600"></i>
+                                <p>My Profile</p>
+                            </Link>
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
+                                            pt-[1px] my-1 w-11/12 bg-gray-100"></span>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-regular fa-check-circle text-purple-600"></i>
+                                <p>Played</p>
+                            </Link>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-regular fa-play-circle text-purple-600"></i>
+                                <p>Playing</p>
+                            </Link>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-regular fa-calendar-plus text-purple-600"></i>
+                                <p>Plan-to-Play</p>
+                            </Link>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-solid fa-heart text-purple-600"></i>
+                                <p>Wishlist</p>
+                            </Link>
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
+                                            pt-[1px] my-1 w-11/12 bg-gray-100"></span>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-solid fa-cog text-purple-600"></i>
+                                <p>Settings</p>
+                            </Link>
+                            <Link className={`${dropdownItemStyles}`} to="">
+                                <i className="fa-solid fa-right-from-bracket text-purple-600"></i>
+                                <p>Sign Out</p>
+                            </Link>
 
-                            <p className={`${dropdownItemStyles} pt-2 mt-2 border-t border-t-gray-100`}>Played</p>
-                            <p className={`${dropdownItemStyles} mt-[6px]`}>Playing</p>
-                            <p className={`${dropdownItemStyles} mt-[6px]`}>Plan-to-Play</p>
-                            <p className={`${dropdownItemStyles} mt-[6px]`}>Wishlist</p>
-
-                            <p className={`${dropdownItemStyles} pt-2 mt-2 border-t border-t-gray-100 w-9/12 text-center`}>Settings</p>
-                            <p className={`${dropdownItemStyles} mt-[6px]`}>Sign out</p>
                         </div>
                     </div>
                 </span>
