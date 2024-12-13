@@ -26,31 +26,36 @@ function Navbar() {
                                     hover:block hover:cursor-default group-hover:block">
                         <div className="w-full h-full bg-[#333] rounded-b-md overflow-hidden
                                         flex items-center flex-col gap-[2px] font-normal">
-                            <Link className={`${dropdownItemStyles} mt-3 gap-[9px]`} to="">
+                            
+                            {/* All dropdown links currently link to a template account for testing
+                                purposes (callum). In the future the links will navigate to the logged in
+                                account's pages. E.G: /user/<username>/played */}
+
+                            <Link className={`${dropdownItemStyles} mt-3 gap-[9px]`} to="/user/callum">
                                 <i className="fa-solid fa-user text-purple-600"></i>
                                 <p>My Profile</p>
                             </Link>
                             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
                                             pt-[1px] my-1 w-11/12 bg-gray-100"></span>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/user/callum/played">
                                 <i className="fa-regular fa-check-circle text-purple-600"></i>
                                 <p>Played</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/user/callum/playing">
                                 <i className="fa-regular fa-play-circle text-purple-600"></i>
                                 <p>Playing</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/user/callum/backlog">
                                 <i className="fa-regular fa-calendar-plus text-purple-600"></i>
-                                <p>Plan-to-Play</p>
+                                <p>Backlog</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/user/callum/wishlist">
                                 <i className="fa-solid fa-heart text-purple-600"></i>
                                 <p>Wishlist</p>
                             </Link>
                             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
                                             pt-[1px] my-1 w-11/12 bg-gray-100"></span>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/settings">
                                 <i className="fa-solid fa-cog text-purple-600"></i>
                                 <p>Settings</p>
                             </Link>
