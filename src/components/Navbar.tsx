@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
 
+    // common styles used on all items in the My Account dropdown menu
+    const dropdownItemStyles: string = "opacity-0 group-hover:opacity-100 transition-opacity duration-200";
+
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
                         flex justify-center md:justify-between items-center">
@@ -19,9 +22,7 @@ function Navbar() {
                                     hover:block hover:cursor-default group-hover:block">
                         <div className="w-full h-full bg-neutral-700 rounded-b-md overflow-hidden
                                         flex items-center flex-col">
-                            <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pt-3">Test</p>
-                            <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Test</p>
-                            <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Test</p>
+                            <p className={`${dropdownItemStyles} pt-3`}>Test</p>
                         </div>
                     </div>
                 </span>
