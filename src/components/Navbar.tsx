@@ -10,7 +10,9 @@ function Navbar() {
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
                         flex justify-center md:justify-between items-center">
-            <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">PlayRates</h2>
+            <Link to="/">
+                <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">PlayRates</h2>
+            </Link>
             <div className="hidden md:flex font-ssp font-normal text-gray-100 h-full gap-4 items-center">
                 <span className="relative group">
                     <Link to="/account" className="flex gap-1 items-center p-2 hover:cursor-pointer 
