@@ -10,20 +10,29 @@ function Navbar() {
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
                         flex justify-center md:justify-between items-center">
+            {/* Site logo, links to home page */}
             <Link to="/">
-                <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">PlayRates</h2>
+                <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">
+                    PlayRates
+                </h2>
             </Link>
+
+            {/* Navbar items wrapper */}
             <div className="hidden md:flex font-ssp font-normal text-gray-100 h-full gap-4 items-center">
+                {/* My Account and Dropdown wrapper */}
                 <span className="relative group">
+                    {/* My Account text */}
                     <span className="flex gap-1 items-center p-2 hover:cursor-pointer 
                                                    group-hover:pb-5 group-hover:mt-3">
                         <p className="group-hover:text-purple-600 transition duration-75">My Account</p>
                         <i className="fa fa-chevron-down text-sm group-hover:text-purple-600 transition duration-75"></i>
                     </span>
 
+                    {/* Dropdown menu wrapper */}
                     <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-16
                                     group-hover:h-[280px] transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
+                        {/* Dropdown menu content */}
                         <div className="w-full h-full bg-[#333] rounded-b-md overflow-hidden
                                         flex items-center flex-col gap-[2px] font-normal">
                             
@@ -67,11 +76,13 @@ function Navbar() {
                         </div>
                     </div>
                 </span>
+                {/* Games library link text */}
                 <Link to="/library">
                     <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-purple-600">
                         Browse Games
                     </p>
                 </Link>
+                {/* Text input to search for game */}
                 <input 
                     type="text" 
                     placeholder="Search for game..."
