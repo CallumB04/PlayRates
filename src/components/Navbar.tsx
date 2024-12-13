@@ -15,11 +15,11 @@ function Navbar() {
             </Link>
             <div className="hidden md:flex font-ssp font-normal text-gray-100 h-full gap-4 items-center">
                 <span className="relative group">
-                    <Link to="/account" className="flex gap-1 items-center p-2 hover:cursor-pointer 
+                    <span className="flex gap-1 items-center p-2 hover:cursor-pointer 
                                                    group-hover:pb-5 group-hover:mt-3">
                         <p className="group-hover:text-purple-600 transition duration-75">My Account</p>
                         <i className="fa fa-chevron-down text-sm group-hover:text-purple-600 transition duration-75"></i>
-                    </Link>
+                    </span>
 
                     <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-16
                                     group-hover:h-[280px] transition-height duration-[400ms] delay-50 ease-in-out
