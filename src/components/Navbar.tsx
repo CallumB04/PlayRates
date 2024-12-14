@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -6,6 +7,21 @@ function Navbar() {
     const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition duration-200 
                                         w-11/12 py-1 text-left hover:bg-[#4a4a4a] hover:cursor-pointer rounded
                                         flex gap-2 items-center pl-2`;
+
+    // Phone dropdown DOM elements
+    const phoneDropdownBtn = useRef<HTMLDivElement | null>(null);
+    const phoneDropdown = useRef<HTMLDivElement | null>(null);
+
+    // Function to open / close phone dropdown menu
+    const togglePhoneDropdown = () => {
+        phoneDropdown.current!.classList.toggle("w-10/12");
+    }
+
+    // Opening phone dropdown menu on button click
+    useEffect(() => {
+        phoneDropdownBtn.current!.addEventListener("click", togglePhoneDropdown);
+    }, [])
+
 
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
@@ -18,11 +34,20 @@ function Navbar() {
             </Link>
 
             {/* Dropdown menu button for phone screens */}
-            <div className="md:hidden absolute right-5 flex flex-col gap-1 group p-[6px]
+            <div ref={phoneDropdownBtn} 
+                 className="md:hidden absolute right-5 flex flex-col gap-1 group p-[6px]
                             hover:cursor-pointer">
                 <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
                 <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
                 <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
+            </div>
+
+            {/* Phone dropdown menu */}
+            <div ref={phoneDropdown} 
+                 className="bg-[#333] absolute top-16 right-0 w-0 h-screen rounded-l
+                            overflow-y-scroll overflow-x-hidden transition-width duration-300
+                            delay-50 ease-in-out md:hidden">
+
             </div>
 
             {/* Navbar items wrapper */}
