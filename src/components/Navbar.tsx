@@ -15,7 +15,6 @@ function Navbar() {
     // Phone dropdown state
     const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
 
-
     // Function to close phone dropdown menu
     const closePhoneDropdown = () => {
         setPhoneDropdownOpen(false);
@@ -50,41 +49,41 @@ function Navbar() {
                     purposes (callum). In the future the links will navigate to the logged in
                     account's pages. E.G: /user/<username>/played */}
                 
-                <Link className={`${phoneDropdownItemStyles} pl-[9px]`} to="/user/callum">
+                <Link className={`${phoneDropdownItemStyles} pl-[9px]`} to="/user/callum" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-user text-highlightPurple"></i>
                     <p>My Profile</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum">
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum" onClick={closePhoneDropdown}>
                     <i className="fas fa-magnifying-glass text-highlightPurple"></i>
                     <p>Browse Games</p>
                 </Link>
 
                 <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
 
-                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/played">
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/played" onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-check-circle text-highlightPurple"></i>
                     <p>Played</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/playing">
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/playing" onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-play-circle text-highlightPurple"></i>
                     <p>Playing</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/backlog">
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/backlog" onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
                     <p>Backlog</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/wishlist">
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/wishlist" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-heart text-highlightPurple"></i>
                     <p>Wishlist</p>
                 </Link>
 
                 <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
 
-                <Link className={`${phoneDropdownItemStyles}`} to="/settings">
+                <Link className={`${phoneDropdownItemStyles}`} to="/settings" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-cog text-highlightPurple"></i>
                     <p>Settings</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="">
+                <Link className={`${phoneDropdownItemStyles}`} to="" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
                     <p>Sign Out</p>
                 </Link>
