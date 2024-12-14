@@ -28,7 +28,7 @@ function Navbar() {
 
 
     return (
-        <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-navbarColor 
+        <nav className="absolute top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
                         flex justify-center md:justify-between items-center">
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
@@ -48,7 +48,7 @@ function Navbar() {
 
             {/* Phone dropdown menu */}
             <div ref={phoneDropdown} 
-                 className="bg-dropdownColor absolute top-16 right-0 w-0 h-screen rounded-l-md
+                 className="bg-dropdownColor absolute top-navbar right-0 w-0 h-screen rounded-l-md
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
                             delay-50 ease-in-out md:hidden">
 
@@ -66,7 +66,7 @@ function Navbar() {
                     </span>
 
                     {/* Dropdown menu wrapper */}
-                    <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-16
+                    <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-navbar
                                     group-hover:h-[280px] transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
                         {/* Dropdown menu content */}

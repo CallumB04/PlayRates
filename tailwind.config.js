@@ -17,6 +17,12 @@ export default {
         dropdownColor: "#333333",
         textColor: "#f3f4f6",
         highlightPurple: "#9333ea",
+      },
+      height: {
+        navbar: "4rem",
+      },
+      spacing: {
+        navbar: "4rem",
       }
     },
   },
