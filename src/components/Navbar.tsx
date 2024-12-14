@@ -48,7 +48,7 @@ function Navbar() {
 
             {/* Phone dropdown menu */}
             <div ref={phoneDropdown} 
-                 className="bg-[#333] absolute top-16 right-0 w-0 h-screen rounded-l
+                 className="bg-[#333] absolute top-16 right-0 w-0 h-screen rounded-l-md
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
                             delay-50 ease-in-out md:hidden">
 
