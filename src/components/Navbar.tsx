@@ -48,6 +48,18 @@ function Navbar() {
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
                     account's pages. E.G: /user/<username>/played */}
+
+                <span className="relative">
+                    <input 
+                        type="text" 
+                        placeholder="Search for game..."
+                        className="w-[75vw] h-12 px-2 bg-neutral-700 rounded focus:outline-none pr-9"
+                    />
+                    <i className="fas fa-magnifying-glass absolute 
+                                  transform -translate-y-1/2 top-1/2 right-1 p-2
+                                  text-neutral-400 hover:text-highlightPurple hover:cursor-pointer
+                                  transition-colors"></i>
+                </span>
                 
                 <Link className={`${phoneDropdownItemStyles} pl-[9px]`} to="/user/callum" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-user text-highlightPurple"></i>
