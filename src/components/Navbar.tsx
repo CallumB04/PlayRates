@@ -12,10 +12,18 @@ function Navbar() {
                         flex justify-center md:justify-between items-center">
             {/* Site logo, links to home page */}
             <Link to="/">
-                <h2 className="font-semibold font-ssp text-gray-100 text-4xl tracking-wide">
+                <h2 className="font-semibold font-ssp text-gray-100 text-3xl md:text-4xl tracking-wide">
                     PlayRates
                 </h2>
             </Link>
+
+            {/* Dropdown menu button for phone screens */}
+            <div className="md:hidden absolute right-5 flex flex-col gap-1 group p-[6px]
+                            hover:cursor-pointer">
+                <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
+                <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
+                <div className="w-[22px] h-[2px] bg-gray-100 group-hover:bg-purple-600 transition-colors"></div>
+            </div>
 
             {/* Navbar items wrapper */}
             <div className="hidden md:flex font-ssp font-normal text-gray-100 h-full gap-4 items-center">
