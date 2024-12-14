@@ -13,13 +13,17 @@ function Navbar() {
     const phoneDropdown = useRef<HTMLDivElement | null>(null);
 
     // Function to open / close phone dropdown menu
-    const togglePhoneDropdown = () => {
-        phoneDropdown.current!.classList.toggle("w-10/12");
+    const closePhoneDropdown = () => {
+        phoneDropdown.current!.classList.remove("w-10/12");
     }
 
     // Opening phone dropdown menu on button click
     useEffect(() => {
-        phoneDropdownBtn.current!.addEventListener("click", togglePhoneDropdown);
+        phoneDropdownBtn.current!.addEventListener("click", 
+            () => {
+                phoneDropdown.current!.classList.toggle("w-10/12");
+            }
+        );
     }, [])
 
 
@@ -27,7 +31,7 @@ function Navbar() {
         <nav className="absolute top-0 left-0 z-50 w-screen h-16 px-6 xl:px-8 bg-[#232323] 
                         flex justify-center md:justify-between items-center">
             {/* Site logo, links to home page */}
-            <Link to="/">
+            <Link to="/" onClick={closePhoneDropdown}>
                 <h2 className="font-semibold font-ssp text-gray-100 text-3xl md:text-4xl tracking-wide">
                     PlayRates
                 </h2>
