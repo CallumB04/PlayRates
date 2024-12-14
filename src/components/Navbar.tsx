@@ -52,15 +52,15 @@ function Navbar() {
 
             {/* Phone dropdown menu */}
             <div ref={phoneDropdown} 
-                 className="bg-dropdownColor absolute top-navbar right-0 w-0 h-screen rounded-l-md
+                 className="bg-dropdownColor absolute top-navbar right-0 w-0 rounded-l-md
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
-                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor">
+                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3">
                 
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
                     account's pages. E.G: /user/<username>/played */}
                 
-                <Link className={`${phoneDropdownItemStyles} mt-3 pl-[9px]`} to="/user/callum">
+                <Link className={`${phoneDropdownItemStyles} pl-[9px]`} to="/user/callum">
                     <i className="fa-solid fa-user text-highlightPurple"></i>
                     <p>My Profile</p>
                 </Link>
