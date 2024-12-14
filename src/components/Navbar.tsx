@@ -8,6 +8,10 @@ function Navbar() {
                                         w-11/12 py-1 text-left hover:bg-[#4a4a4a] hover:cursor-pointer rounded
                                         flex gap-2 items-center pl-2`;
 
+    // common styles used on all items in phone dropdown menu
+    const phoneDropdownItemStyles: string = `w-11/12 py-2 text-left text-lg hover:bg-[#4a4a4a] hover:cursor-pointer
+                                             rounded-md flex gap-3 items-center pl-2`
+
     // Phone dropdown DOM elements
     const phoneDropdownBtn = useRef<HTMLDivElement | null>(null);
     const phoneDropdown = useRef<HTMLDivElement | null>(null);
@@ -50,7 +54,50 @@ function Navbar() {
             <div ref={phoneDropdown} 
                  className="bg-dropdownColor absolute top-navbar right-0 w-0 h-screen rounded-l-md
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
-                            delay-50 ease-in-out md:hidden">
+                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor">
+                
+                {/* All dropdown links currently link to a template account for testing
+                    purposes (callum). In the future the links will navigate to the logged in
+                    account's pages. E.G: /user/<username>/played */}
+                
+                <Link className={`${phoneDropdownItemStyles} mt-3 pl-[9px]`} to="/user/callum">
+                    <i className="fa-solid fa-user text-highlightPurple"></i>
+                    <p>My Profile</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum">
+                    <i className="fas fa-magnifying-glass text-highlightPurple"></i>
+                    <p>Browse Games</p>
+                </Link>
+
+                <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
+
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/played">
+                    <i className="fa-regular fa-check-circle text-highlightPurple"></i>
+                    <p>Played</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/playing">
+                    <i className="fa-regular fa-play-circle text-highlightPurple"></i>
+                    <p>Playing</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/backlog">
+                    <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
+                    <p>Backlog</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles}`} to="/user/callum/wishlist">
+                    <i className="fa-solid fa-heart text-highlightPurple"></i>
+                    <p>Wishlist</p>
+                </Link>
+
+                <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
+
+                <Link className={`${phoneDropdownItemStyles}`} to="/settings">
+                    <i className="fa-solid fa-cog text-highlightPurple"></i>
+                    <p>Settings</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles}`} to="">
+                    <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
+                    <p>Sign Out</p>
+                </Link>
 
             </div>
 
