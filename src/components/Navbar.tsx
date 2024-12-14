@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 function Navbar() {
 
@@ -12,24 +12,14 @@ function Navbar() {
     const phoneDropdownItemStyles: string = `w-11/12 py-2 text-left text-lg hover:bg-[#4a4a4a] hover:cursor-pointer
                                              rounded-md flex gap-3 items-center pl-2 whitespace-nowrap`;
 
-    // Phone dropdown DOM elements
-    const phoneDropdownBtn = useRef<HTMLDivElement | null>(null);
-    const phoneDropdown = useRef<HTMLDivElement | null>(null);
+    // Phone dropdown state
+    const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
 
-    // Function to open / close phone dropdown menu
+
+    // Function to close phone dropdown menu
     const closePhoneDropdown = () => {
-        phoneDropdown.current!.classList.remove("w-10/12");
+        setPhoneDropdownOpen(false);
     };
-
-    // Opening phone dropdown menu on button click
-    useEffect(() => {
-        phoneDropdownBtn.current!.addEventListener("click", 
-            () => {
-                phoneDropdown.current!.classList.toggle("w-10/12");
-            }
-        );
-    }, []);
-
 
     return (
         <nav className="absolute top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
@@ -42,7 +32,7 @@ function Navbar() {
             </Link>
 
             {/* Dropdown menu button for phone screens */}
-            <div ref={phoneDropdownBtn} 
+            <div onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)} 
                  className="md:hidden absolute right-5 flex flex-col gap-1 group p-[6px]
                             hover:cursor-pointer">
                 <div className="w-[22px] h-[2px] bg-textColor group-hover:bg-highlightPurple transition-colors"></div>
@@ -51,10 +41,10 @@ function Navbar() {
             </div>
 
             {/* Phone dropdown menu */}
-            <div ref={phoneDropdown} 
-                 className="bg-dropdownColor absolute top-navbar right-0 w-0 rounded-l-md
+            <div className={`bg-dropdownColor absolute top-navbar right-0 rounded-l-md
+                            ${phoneDropdownOpen ? "w-10/12" : "w-0"}
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
-                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3">
+                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3`}>
                 
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
