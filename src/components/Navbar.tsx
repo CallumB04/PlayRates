@@ -83,11 +83,17 @@ function Navbar() {
                     </p>
                 </Link>
                 {/* Text input to search for game */}
-                <input 
-                    type="text" 
-                    placeholder="Search for game..."
-                    className="block w-60 lg:w-72 px-2 py-1.5 bg-neutral-700 rounded focus:outline-none"
-                />
+                <span className="relative">
+                    <input 
+                        type="text" 
+                        placeholder="Search for game..."
+                        className="block w-60 lg:w-72 px-2 py-1.5 bg-neutral-700 rounded focus:outline-none pr-9"
+                    />
+                    <i className="fas fa-magnifying-glass absolute 
+                                  transform -translate-y-1/2 top-1/2 right-1 p-2
+                                  text-neutral-400 hover:text-purple-600 hover:cursor-pointer
+                                  transition-colors"></i>
+                </span>
             </div>            
         </nav>
     );
