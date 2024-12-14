@@ -10,6 +10,7 @@ export default {
       },
       transitionProperty: {
         height: 'height',
+        width: 'width',
       },
     },
   },
