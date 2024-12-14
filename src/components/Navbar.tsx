@@ -10,7 +10,7 @@ function Navbar() {
 
     // common styles used on all items in phone dropdown menu
     const phoneDropdownItemStyles: string = `w-11/12 py-2 text-left text-lg hover:bg-[#4a4a4a] hover:cursor-pointer
-                                             rounded-md flex gap-3 items-center pl-2`
+                                             rounded-md flex gap-3 items-center pl-2 whitespace-nowrap`;
 
     // Phone dropdown DOM elements
     const phoneDropdownBtn = useRef<HTMLDivElement | null>(null);
@@ -19,7 +19,7 @@ function Navbar() {
     // Function to open / close phone dropdown menu
     const closePhoneDropdown = () => {
         phoneDropdown.current!.classList.remove("w-10/12");
-    }
+    };
 
     // Opening phone dropdown menu on button click
     useEffect(() => {
@@ -28,7 +28,7 @@ function Navbar() {
                 phoneDropdown.current!.classList.toggle("w-10/12");
             }
         );
-    }, [])
+    }, []);
 
 
     return (
