@@ -41,7 +41,7 @@ function Navbar() {
 
             {/* Phone dropdown menu */}
             <div className={`bg-dropdownColor absolute top-navbar right-0 rounded-l-md
-                            ${phoneDropdownOpen ? "w-10/12" : "w-0"}
+                            ${phoneDropdownOpen ? "w-9/12" : "w-0"}
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
                             delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3`}>
                 
@@ -53,11 +53,11 @@ function Navbar() {
                     <input 
                         type="text" 
                         placeholder="Search for game..."
-                        className="w-[75vw] h-12 px-2 bg-neutral-700 rounded focus:outline-none pr-9"
+                        className="w-[70vw] h-12 px-2 bg-searchInputColor rounded focus:outline-none pr-9"
                     />
                     <i className="fas fa-magnifying-glass absolute 
                                   transform -translate-y-1/2 top-1/2 right-1 p-2
-                                  text-neutral-400 hover:text-highlightPurple hover:cursor-pointer
+                                  text-searchInputIconColor hover:text-highlightPurple hover:cursor-pointer
                                   transition-colors"></i>
                 </span>
                 
@@ -172,11 +172,11 @@ function Navbar() {
                     <input 
                         type="text" 
                         placeholder="Search for game..."
-                        className="block w-60 lg:w-72 px-2 py-1.5 bg-neutral-700 rounded focus:outline-none pr-9"
+                        className="block w-60 lg:w-72 px-2 py-1.5 bg-searchInputColor rounded focus:outline-none pr-9"
                     />
                     <i className="fas fa-magnifying-glass absolute 
                                   transform -translate-y-1/2 top-1/2 right-1 p-2
-                                  text-neutral-400 hover:text-highlightPurple hover:cursor-pointer
+                                  text-searchInputIconColor hover:text-highlightPurple hover:cursor-pointer
                                   transition-colors"></i>
                 </span>
             </div>            
