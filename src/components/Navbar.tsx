@@ -61,7 +61,11 @@ function Navbar() {
                                   transition-colors"></i>
                 </span>
                 
-                <Link className={`${phoneDropdownItemStyles} pl-[9px]`} to="/user/callum" onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles} pl-[6px] gap-[11px]`} to="/" onClick={closePhoneDropdown}>
+                    <i className="fas fa-house text-highlightPurple"></i>
+                    <p>Home</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to="/user/callum" onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-user text-highlightPurple"></i>
                     <p>My Profile</p>
                 </Link>
@@ -115,7 +119,7 @@ function Navbar() {
 
                     {/* Dropdown menu wrapper */}
                     <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-navbar
-                                    group-hover:h-[280px] transition-height duration-[400ms] delay-50 ease-in-out
+                                    group-hover:h-[315px] transition-height duration-[400ms] delay-50 ease-in-out
                                     hover:block hover:cursor-default group-hover:block">
                         {/* Dropdown menu content */}
                         <div className="w-full h-full bg-dropdownColor rounded-b-md overflow-hidden
@@ -125,7 +129,11 @@ function Navbar() {
                                 purposes (callum). In the future the links will navigate to the logged in
                                 account's pages. E.G: /user/<username>/played */}
 
-                            <Link className={`${dropdownItemStyles} mt-3 pl-[9px]`} to="/user/callum">
+                            <Link className={`${dropdownItemStyles} mt-3 pl-[6px]`} to="/">
+                                <i className="fas fa-house text-highlightPurple"></i>
+                                <p>Home</p>
+                            </Link>
+                            <Link className={`${dropdownItemStyles} pl-2 gap-[10px]`} to="/user/callum">
                                 <i className="fa-solid fa-user text-highlightPurple"></i>
                                 <p>My Profile</p>
                             </Link>
