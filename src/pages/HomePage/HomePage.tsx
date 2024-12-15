@@ -14,15 +14,16 @@ function HomePage() {
             {/* in the future, this will be rendered depending if the user has an
                 account or not, currently just shows for building purposes */}
             <div className="w-full mx-auto flex flex-col md:flex-row justify-center md:justify-start 
-                            gap-3 items-center mt-12 md:mt-16">
-                <Link to="/signup" className="px-6 py-4 md:px-4 md:py-[10px] bg-highlightPurple text-textColor
-                                              text-4xl md:text-2xl font-semibold
-                                   hover:text-[#0e0e0e] active:transform active:-translate-y-[2px]
-                                   transition-all duration-300 rounded-md">
+                            gap-5 md:gap-3 items-center mt-12 md:mt-16">
+                <Link to="/signup" className="px-6 py-4 md:px-5 md:py-3 bg-highlightPurple text-textColor
+                                              text-4xl md:text-3xl font-semibold
+                                            hover:bg-purple-500 active:transform active:-translate-y-[2px]
+                                              transition-transform duration-200 rounded-lg">
                     Sign up
                 </Link>
-                <p className="text-textColor font-light text-xl">
-                    or  <Link to="/login" className="underline hover:text-highlightPurple">log in</Link> if you have an account
+                <p className="text-textColor font-light text-2xl">
+                    or  <Link to="/login" className="underline hover:text-highlightPurple">
+                    log in</Link> if you have an account
                 </p>
             </div>
         </main>
