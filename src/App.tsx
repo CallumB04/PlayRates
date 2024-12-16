@@ -4,12 +4,40 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage/HomePage';
 import { useEffect, useState } from 'react';
 
-// Interface for the game data
+// Structure for the game data
 // Will add further data for each game in future
 export interface Game {
   id: number;
   title: string;
 }
+
+// Structure for a user's log of a game
+// Will fetch Game using the gameId
+export interface GameLog {
+  id: number;
+  gameId: number;
+  status: "played" | "playing" | "backlog" | "wishlist";
+  rating?: number;
+}
+
+// Structure for game list in user account
+export interface GameList {
+  played: GameLog[];
+  playing: GameLog[];
+  backlog: GameLog[];
+  wishlist: GameLog[];
+}
+
+// Structure for user account
+// Currently uses json for easy development, will implement secure database in future
+export interface UserAccount {
+  id: number;
+  accountName: string;
+  email: string;
+  password: string;
+  games: GameList;
+}
+
 
 function App() {
 
