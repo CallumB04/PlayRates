@@ -32,7 +32,7 @@ const HomePage: React.FC<HomePageProps> = ({ gamesData }) => {
                                               transition-transform duration-200 rounded-lg">
                     Sign up
                 </Link>
-                <p className="text-textColor font-light text-2xl">
+                <p className="text-textColor font-light text-xl">
                     or  <Link to="/login" className="underline hover:text-highlightPurple">
                     log in</Link> if you have an account
                 </p>
