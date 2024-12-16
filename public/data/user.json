@@ -1,6 +1,6 @@
 {
     "id": 0,
-    "account_name": "callum",
+    "accountName": "callum",
     "email": "thisisanemail@gmail.com",
     "password": "Password123",
     "games": {
