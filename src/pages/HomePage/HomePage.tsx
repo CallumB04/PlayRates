@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
+import { Game } from '../../App';
+import { useEffect } from "react";
 
-function HomePage() {
+// Defining type of props
+interface HomePageProps {
+  gamesData: Game[] | null;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ gamesData }) => {
+
+    useEffect(() => {
+        console.log(gamesData);
+    }, [gamesData])
 
     return (
         <main className="px-4 sm:px-10 md:px-16 xl:px-28 pt-24 md:pt-32">
@@ -25,6 +36,11 @@ function HomePage() {
                     or  <Link to="/login" className="underline hover:text-highlightPurple">
                     log in</Link> if you have an account
                 </p>
+            </div>
+
+            {/* Trending games */}
+            <div className="">
+
             </div>
         </main>
     );
