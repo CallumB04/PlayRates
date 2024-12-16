@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 // Structure for the game data
 // Will add further data for each game in future
 export interface Game {
+  id: number;
   title: string;
 }
 
