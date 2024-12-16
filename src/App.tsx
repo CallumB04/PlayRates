@@ -79,7 +79,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar userData={userData}/>
       <Routes>
         <Route path='/' element={<HomePage gamesData={gamesData} userData={userData}/>} />
       </Routes>
