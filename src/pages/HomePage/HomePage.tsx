@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
-import { Game } from '../../App';
+import { Game, UserAccount } from '../../App';
 import { useEffect } from "react";
 
 // Defining type of props
 interface HomePageProps {
   gamesData: Game[] | null;
+  userData: UserAccount | null;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ gamesData }) => {
+const HomePage: React.FC<HomePageProps> = ({ gamesData, userData }) => {
 
     useEffect(() => {
         console.log(gamesData);
-    }, [gamesData])
+        console.log(userData);
+    }, [gamesData, userData])
 
     return (
         <main className="px-4 sm:px-10 md:px-16 xl:px-28 pt-24 md:pt-32">

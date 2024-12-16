@@ -42,8 +42,12 @@ export interface UserAccount {
 function App() {
 
   const [gamesData, setGamesData] = useState<Game[] | null>(null);
+  const [userData, setUserData] = useState<UserAccount | null>(null);
 
-  // fetching game data from json
+  /* In the future, I will use a secure database to hold user and game data,
+     however currently I am using local json files to simplify development */
+
+  // fetch game data from json
   useEffect(() => {
     const fetchGameData = async () => {
       try {
@@ -58,12 +62,27 @@ function App() {
     fetchGameData();
   }, [])
 
+  // fetch user data from json
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/data/user.json");
+        const userData = await response.json();
+        setUserData(userData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
 
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path='/' element={<HomePage gamesData={gamesData} />} />
+        <Route path='/' element={<HomePage gamesData={gamesData} userData={userData}/>} />
       </Routes>
     </Router>
   )
