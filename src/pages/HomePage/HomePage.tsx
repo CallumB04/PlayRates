@@ -27,9 +27,9 @@ const HomePage: React.FC<HomePageProps> = ({ gamesData, userData }) => {
             {/* in the future, this will be rendered depending if the user has an
                 account or not, currently just shows for building purposes */}
             <div className="w-full mx-auto flex flex-col md:flex-row justify-center md:justify-start 
-                            gap-5 md:gap-3 items-center mt-12 md:mt-16">
+                            gap-4 md:gap-3 items-center mt-12 md:mt-16">
                 <Link to="/signup" className="px-6 py-4 md:px-5 md:py-3 bg-highlightPurple text-textColor
-                                              text-4xl md:text-3xl font-semibold
+                                              text-3xl font-semibold
                                             hover:bg-purple-500 active:transform active:-translate-y-[2px]
                                               transition-transform duration-200 rounded-lg">
                     Sign up
