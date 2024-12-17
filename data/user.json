@@ -1,0 +1,12 @@
+{
+    "id": 0,
+    "accountName": "callum",
+    "email": "thisisanemail@gmail.com",
+    "password": "Password123",
+    "games": {
+        "played": [],
+        "playing": [],
+        "backlog": [],
+        "wishlist": []
+    }
+}
