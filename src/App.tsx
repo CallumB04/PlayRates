@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     const fetchGameData = async () => {
       try {
-        const response = await fetch("/data/games.json");
+        const response = await fetch("/PlayRates/data/games.json");
         const gameData = await response.json();
         setGamesData(gameData);
       } catch (error) {
@@ -66,7 +66,7 @@ function App() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/data/user.json");
+        const response = await fetch("/PlayRates/data/user.json");
         const userData = await response.json();
         setUserData(userData);
       } catch (error) {
@@ -79,7 +79,7 @@ function App() {
 
 
   return (
-    <Router>
+    <Router basename="/PlayRates">
       <Navbar userData={userData}/>
       <Routes>
         <Route path='/' element={<HomePage gamesData={gamesData} userData={userData}/>} />
