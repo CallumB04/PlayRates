@@ -11,6 +11,7 @@ import games from '../data/games.json';
 export interface Game {
     id: number;
     title: string;
+    trending: boolean;
 }
 
 // fetches whole games array
@@ -24,5 +25,12 @@ export const fetchGames = async (): Promise<Game[]> => {
 export const fetchGameById = async (id: number): Promise<Game | undefined> => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(games.find((game) => game.id === id)), 500);
+    });
+};
+
+// fetches all games marked with trending
+export const fetchTrendingGames = async (): Promise<Game[]> => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(games.filter((game) => game.trending)), 500)
     });
 };
