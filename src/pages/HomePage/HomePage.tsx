@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchGames, Game, UserAccount } from "../../api";
+import { fetchTrendingGames, Game, UserAccount } from "../../api";
 import GameSection from "./components/GameSection";
 
 interface HomePageProps {
@@ -13,13 +13,12 @@ const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wid
 
 const HomePage: React.FC<HomePageProps> = ({ user }) => {
 
-    // fetching games data using React Query for caching
-    // games: game data once loaded
-    // gamesAreLoading: boolean whether games are still being fetched
-    // gameLoadError: Error if games cannot be fetched
-    const { data: games, error: gameLoadError, isLoading: gamesAreLoading } = useQuery<Game[]>({
-        queryKey: ['games'],
-        queryFn: fetchGames,
+    /* Fetching games data using React Query for caching */
+
+    // fetching trending games
+    const { data: trendingGames, error: trendingGamesError, isLoading: trendingGamesLoading } = useQuery<Game[]>({
+        queryKey: ['trendingGames'],
+        queryFn: fetchTrendingGames,
     });
 
     return (
@@ -51,7 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({ user }) => {
 
             {/* Trending games */}
             <h2 className={gameSectionTitleStyles}>Trending Games</h2>
-            <GameSection games={games} loading={gamesAreLoading} error={gameLoadError}/>
+            <GameSection games={trendingGames} loading={trendingGamesLoading} error={trendingGamesError}/>
 
         </main>
     );
