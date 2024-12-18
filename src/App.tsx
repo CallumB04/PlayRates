@@ -4,7 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage/HomePage';
 import { fetchUserById, UserAccount } from "./api";
+import { createContext, useContext } from 'react';
 
+// creating context for user, to be accessed throughout whole application
+const UserContext = createContext<UserAccount | null>(null);
+export const useUser = () => useContext(UserContext);
 
 function App() {
 
@@ -26,20 +30,16 @@ function App() {
         loadUser();
     }, []);
 
-	// displays loading message until user account is loaded
-	// later will remove this and load pages differently depending on if user is logged in or not
-    if (!user) { 
-      	return <p className="text-center text-5xl text-textColor pt-20">Loading...</p>;
-    }
-
     
     return (
-        <Router basename="/PlayRates">
-            <Navbar user={user}/>
-            <Routes>
-                <Route path='/' element={<HomePage user={user}/>} />
-            </Routes>
-        </Router>
+		<UserContext.Provider value={user}>
+			<Router basename="/PlayRates">
+				<Navbar />
+				<Routes>
+					<Route path='/' element={<HomePage />} />
+				</Routes>
+			</Router>
+		</UserContext.Provider>
     )
 }
 
