@@ -7,11 +7,16 @@ interface HomePageProps {
     user: UserAccount | null;
 }
 
+// common styles for all game section titles in home page
 const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wide
                                 text-3xl uppercase mt-16 text-center md:text-left`;
 
 const HomePage: React.FC<HomePageProps> = ({ user }) => {
 
+    // fetching games data using React Query for caching
+    // games: game data once loaded
+    // gamesAreLoading: boolean whether games are still being fetched
+    // gameLoadError: Error if games cannot be fetched
     const { data: games, 
             error: gameLoadError, 
             isLoading: gamesAreLoading 
@@ -50,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ user }) => {
             {/* Trending games */}
             <h2 className={gameSectionTitleStyles}>Trending Games</h2>
             <GameSection games={games} loading={gamesAreLoading} error={gameLoadError}/>
-            
+
         </main>
     );
 }

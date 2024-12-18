@@ -5,7 +5,7 @@ import './styles/fonts.css';
 import App from './App.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Create a Query Client
+// create a query client for caching and error handling when fetching data
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(

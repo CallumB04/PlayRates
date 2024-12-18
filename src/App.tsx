@@ -8,12 +8,16 @@ import { fetchUserById, UserAccount } from "./api";
 
 function App() {
 
-    const [user, setUser] = useState<UserAccount | undefined>(undefined);
+    // user account in state
+    const [user, setUser] = useState<UserAccount | null>(null);
 
+	// fetching user account from API
     useEffect(() => {
         const loadUser = async () => {
+			// temporarily fetching user with ID: 0, for testing
             const fetchedUser = await fetchUserById(0);
 
+			// sets user account in state when fetched
             if (fetchedUser) { 
                 setUser(fetchedUser); 
             }
@@ -22,10 +26,12 @@ function App() {
         loadUser();
     }, []);
 
+	// displays loading message until user account is loaded
+	// later will remove this and load pages differently depending on if user is logged in or not
     if (!user) { 
-      return <p className="text-center text-5xl text-textColor pt-20">Loading...</p>;
+      	return <p className="text-center text-5xl text-textColor pt-20">Loading...</p>;
     }
-    
+
     
     return (
         <Router basename="/PlayRates">

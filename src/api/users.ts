@@ -9,12 +9,12 @@ import users from '../data/users.json';
 /* Structure of user data in database */
 
 export interface GameLog {
-    id: number;
-    gameId: number;
+    id: number; // log id, unique for all users
+    gameId: number; // corresponding game id
     status: "played" | "playing" | "backlog" | "wishlist";
-    rating?: number;
+    rating?: number; // optional rating, in range of 1-10
 }
-  
+
 export interface GameList {
     played: GameLog[];
     playing: GameLog[];
@@ -24,9 +24,9 @@ export interface GameList {
   
 export interface UserAccount {
     id: number;
-    username: string;
+    username: string; // account name, no spaces allowed, used in url too
     email: string;
-    password: string;
+    password: string; // temporary non-encrypted password for testing
     games: GameList;
 }
 
