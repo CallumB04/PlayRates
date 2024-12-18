@@ -1,0 +1,14 @@
+[
+    {
+        "id": 0,
+        "username": "callum",
+        "email": "thisisanemail@gmail.com",
+        "password": "Password123",
+        "games": {
+            "played": [],
+            "playing": [],
+            "backlog": [],
+            "wishlist": []
+        }
+    }
+]
