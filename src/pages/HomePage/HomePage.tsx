@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
-import { Game, UserAccount } from '../../App';
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchGames, Game, UserAccount } from "../../api";
+import GameSection from "./components/GameSection";
 
-// Defining type of props
 interface HomePageProps {
-  gamesData: Game[] | null;
-  userData: UserAccount | null;
+    user: UserAccount | null;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ gamesData, userData }) => {
+const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wide
+                                text-3xl uppercase mt-16 text-center md:text-left`;
 
-    useEffect(() => {
-        console.log(gamesData);
-        console.log(userData);
-    }, [gamesData, userData])
+const HomePage: React.FC<HomePageProps> = ({ user }) => {
+
+    const { data: games, 
+            error: gameLoadError, 
+            isLoading: gamesAreLoading 
+    } = useQuery<Game[]>({
+        queryKey: ['games'],
+        queryFn: fetchGames,
+    });
 
     return (
         <main className="px-4 sm:px-8 py-24 md:py-32">
@@ -43,20 +48,9 @@ const HomePage: React.FC<HomePageProps> = ({ gamesData, userData }) => {
             </div>
 
             {/* Trending games */}
-            <h2 className="text-textColor font-ssp font-normal tracking-wide
-                           text-3xl uppercase mt-16 text-center md:text-left">Trending Games</h2>
-
-            <div className="mt-4 w-full mx-auto md:9/12 flex justify-evenly gap-x-2 md:gap-x-4 gap-y-5 flex-wrap">
-                {gamesData?.map(game => {
-                    return (
-                        <div key={game.id} 
-                             className="w-[170px] md:w-[200px] 2xl:w-[230px] h-72 bg-red-500
-                                        rounded-md">
-                            {game.title}
-                        </div>
-                    )
-                })}
-            </div>
+            <h2 className={gameSectionTitleStyles}>Trending Games</h2>
+            <GameSection games={games} loading={gamesAreLoading} error={gameLoadError}/>
+            
         </main>
     );
 }
