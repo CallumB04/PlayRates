@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTrendingGames, Game, UserAccount } from "../../api";
 import GameSection from "./components/GameSection";
-
-interface HomePageProps {
-    user: UserAccount | null;
-}
+import { useUser } from "../../App";
 
 // common styles for all game section titles in home page
 const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wide
                                 text-3xl uppercase mt-16 text-center md:text-left`;
 
-const HomePage: React.FC<HomePageProps> = ({ user }) => {
+const HomePage = () => {
+
+    // fetching user data from react context
+    const user: UserAccount | null = useUser();
 
     /* Fetching games data using React Query for caching */
 

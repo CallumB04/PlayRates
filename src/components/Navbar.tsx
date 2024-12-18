@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAccount } from "../api";
+import { useUser } from "../App";
 
-interface NavbarProps {
-    user: UserAccount | null;
-}
+const Navbar = () => {
 
-const Navbar: React.FC<NavbarProps> = ({ user }) => {
+    // fetching user data from react context
+    const user: UserAccount | null = useUser();
 
     // common styles used on all items in the My Account dropdown menu
     const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition duration-200 
@@ -70,7 +70,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                     <i className="fas fa-house text-highlightPurple"></i>
                     <p>Home</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to={`/user/${user!.username}`} onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to={`/user/${user?.username}`} onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-user text-highlightPurple"></i>
                     <p>My Profile</p>
                 </Link>
@@ -81,19 +81,19 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
 
                 <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
 
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user!.username}/played`} onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/played`} onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-check-circle text-highlightPurple"></i>
                     <p>Played</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user!.username}/playing`} onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/playing`} onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-play-circle text-highlightPurple"></i>
                     <p>Playing</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user!.username}/backlog`} onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/backlog`} onClick={closePhoneDropdown}>
                     <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
                     <p>Backlog</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user!.username}/wishlist`} onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/wishlist`} onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-heart text-highlightPurple"></i>
                     <p>Wishlist</p>
                 </Link>
@@ -138,25 +138,25 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                                 <i className="fas fa-house text-highlightPurple"></i>
                                 <p>Home</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles} pl-2 gap-[10px]`} to={`/user/${user!.username}`}>
+                            <Link className={`${dropdownItemStyles} pl-2 gap-[10px]`} to={`/user/${user?.username}`}>
                                 <i className="fa-solid fa-user text-highlightPurple"></i>
                                 <p>My Profile</p>
                             </Link>
                             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
                                             pt-[1px] my-1 w-11/12 bg-textColor"></span>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user!.username}/played`}>
+                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/played`}>
                                 <i className="fa-regular fa-check-circle text-highlightPurple"></i>
                                 <p>Played</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user!.username}/playing`}>
+                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/playing`}>
                                 <i className="fa-regular fa-play-circle text-highlightPurple"></i>
                                 <p>Playing</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user!.username}/backlog`}>
+                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/backlog`}>
                                 <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
                                 <p>Backlog</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user!.username}/wishlist`}>
+                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/wishlist`}>
                                 <i className="fa-solid fa-heart text-highlightPurple"></i>
                                 <p>Wishlist</p>
                             </Link>
