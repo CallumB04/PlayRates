@@ -17,7 +17,7 @@ const GameSection: React.FC<GameSectionProps> = ({ games, loading, error }) => {
     return (
         <div className="mt-4 w-full mx-auto md:9/12 flex justify-evenly gap-x-2 md:gap-x-4 gap-y-5 flex-wrap">
             {/* Mapping over and display games in array */}
-            { games?.map(game => <GameElement game={game} />) }
+            { games?.map(game => <GameElement key={game.id} game={game} />) }
         </div>
     )
 };
