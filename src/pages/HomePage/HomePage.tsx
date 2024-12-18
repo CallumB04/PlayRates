@@ -17,10 +17,7 @@ const HomePage: React.FC<HomePageProps> = ({ user }) => {
     // games: game data once loaded
     // gamesAreLoading: boolean whether games are still being fetched
     // gameLoadError: Error if games cannot be fetched
-    const { data: games, 
-            error: gameLoadError, 
-            isLoading: gamesAreLoading 
-    } = useQuery<Game[]>({
+    const { data: games, error: gameLoadError, isLoading: gamesAreLoading } = useQuery<Game[]>({
         queryKey: ['games'],
         queryFn: fetchGames,
     });
