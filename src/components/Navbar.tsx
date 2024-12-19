@@ -74,15 +74,16 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                     <i className="fas fa-house text-highlightPurple"></i>
                     <p>Home</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to={`/user/${user?.username}`} onClick={closePhoneDropdown}>
+                {user ? <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to={`/user/${user?.username}`} onClick={closePhoneDropdown}>
                     <i className="fa-solid fa-user text-highlightPurple"></i>
                     <p>My Profile</p>
-                </Link>
+                </Link> : null}
                 <Link className={`${phoneDropdownItemStyles}`} to="/library" onClick={closePhoneDropdown}>
                     <i className="fas fa-magnifying-glass text-highlightPurple"></i>
                     <p>Browse Games</p>
                 </Link>
 
+                {user ? <>
                 <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
 
                 <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/played`} onClick={closePhoneDropdown}>
@@ -112,12 +113,23 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                     <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
                     <p>Sign Out</p>
                 </Link>
+                </> : <>
+                <Link className={`${phoneDropdownItemStyles}`} to="/login" onClick={closePhoneDropdown}>
+                    <i className="fas fa-sign-in-alt text-highlightPurple"></i>
+                    <p>Log In</p>
+                </Link>
+                <Link className={`${phoneDropdownItemStyles} gap-[8px]`} to="/signup" onClick={closePhoneDropdown}>
+                    <i className="fas fa-user-plus text-highlightPurple"></i>
+                    <p>Sign Up</p>
+                </Link>
+                </>}
 
             </div>
 
             {/* Navbar items wrapper */}
             <div className="hidden md:flex font-ssp font-normal text-textColor h-full gap-4 items-center">
                 {/* My Account and Dropdown wrapper */}
+                {user ? 
                 <span className="relative group">
                     {/* My Account text */}
                     <span className="flex gap-1 items-center p-2 hover:cursor-pointer 
@@ -178,6 +190,19 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                         </div>
                     </div>
                 </span>
+                : <>
+                {/* Sign up and login buttons if no user account */}
+                <Link to="/login">
+                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
+                        Log in
+                    </p>
+                </Link>
+                <Link to="/signup">
+                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
+                        Sign up
+                    </p>
+                </Link>
+                </>}
                 {/* Games library link text */}
                 <Link to="/library">
                     <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
