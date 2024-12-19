@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { UserAccount } from "../api";
 import { useUser } from "../App";
 
-const Navbar = () => {
+interface NavbarProps {
+    signOutUser: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
 
     // fetching user data from react context
     const user: UserAccount | null = useUser();
@@ -104,7 +108,7 @@ const Navbar = () => {
                     <i className="fa-solid fa-cog text-highlightPurple"></i>
                     <p>Settings</p>
                 </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="" onClick={closePhoneDropdown}>
+                <Link className={`${phoneDropdownItemStyles}`} to="/" onClick={() => { closePhoneDropdown(); signOutUser(); }}>
                     <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
                     <p>Sign Out</p>
                 </Link>
@@ -166,7 +170,7 @@ const Navbar = () => {
                                 <i className="fa-solid fa-cog text-highlightPurple"></i>
                                 <p>Settings</p>
                             </Link>
-                            <Link className={`${dropdownItemStyles}`} to="">
+                            <Link className={`${dropdownItemStyles}`} to="/" onClick={signOutUser}>
                                 <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
                                 <p>Sign Out</p>
                             </Link>
