@@ -23,7 +23,7 @@ const HomePage = () => {
 
     return (
         <main className="px-4 sm:px-8 py-24 md:py-32">
-            <div className="sm:px-2 md:px-16 xl:px-28 min-h-[50vh]">
+            <div className="sm:px-2 md:px-16 xl:px-28 md:min-h-[50vh]">
                 <h1 className="font-ssp font-bold text-7xl md:text-8xl lg:text-[7rem] text-textColor
                             text-center md:text-left">PlayRates</h1>
                 <h2 className="font-ssp font-semibold text-2xl lg:text-3xl text-[#cacaca]
@@ -45,7 +45,9 @@ const HomePage = () => {
                         log in</Link> if you have an account
                     </p>
                 </div>
-                : null}
+                : <p className="text-center md:text-left text-xl md:text-2xl italic font-thin font-ssp mt-12 text-textColor">
+                    Welcome back <span className="capitalize">{user.username}</span>!
+                </p>}
             </div>
 
             {/* Trending games */}
