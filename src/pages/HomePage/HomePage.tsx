@@ -23,7 +23,7 @@ const HomePage = () => {
 
     return (
         <main className="px-4 sm:px-8 py-24 md:py-32">
-            <div className="sm:px-2 md:px-16 xl:px-28">
+            <div className="sm:px-2 md:px-16 xl:px-28 min-h-[50vh]">
                 <h1 className="font-ssp font-bold text-7xl md:text-8xl lg:text-[7rem] text-textColor
                             text-center md:text-left">PlayRates</h1>
                 <h2 className="font-ssp font-semibold text-2xl lg:text-3xl text-[#cacaca]
@@ -31,8 +31,7 @@ const HomePage = () => {
 
                 {/* Signup / login wrapper */}
 
-                {/* in the future, this will be rendered depending if the user has an
-                    account or not, currently just shows for building purposes */}
+                {!user ? 
                 <div className="w-full mx-auto flex flex-col md:flex-row justify-center md:justify-start 
                                 gap-4 md:gap-3 items-center mt-12 md:mt-16">
                     <Link to="/signup" className="px-6 py-4 md:px-5 md:py-3 bg-highlightPurple text-textColor
@@ -46,6 +45,7 @@ const HomePage = () => {
                         log in</Link> if you have an account
                     </p>
                 </div>
+                : null}
             </div>
 
             {/* Trending games */}
