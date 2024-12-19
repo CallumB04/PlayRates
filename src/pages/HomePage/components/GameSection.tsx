@@ -8,11 +8,22 @@ interface GameSectionProps {
     error: Error | null;
 }
 
+// common styles for loading and error message
+const loadingTextStyles = `text-center text-textColor text-2xl flex justify-center
+                           items-center gap-3`;
+
 const GameSection: React.FC<GameSectionProps> = ({ games, loading, error }) => {
 
     // displaying error / loading message when games aren't fetched
-    if (error) { return <p>Error Loading Games...</p>}
-    if (loading) { return <p>Loading Games...</p>}
+    if (error) { return <p className={loadingTextStyles}>Error Loading Games...</p>}
+    if (loading) { return (
+                            <span className={loadingTextStyles}>
+                                {/* loading spinner */}
+                                <div className="size-5 border-2 border-textColor 
+                                              border-t-highlightPurple rounded-full animate-spin">
+                                </div>
+                                <p>Loading Games...</p>
+                            </span>)}
 
     return (
         <div className="mt-4 w-full mx-auto md:9/12 flex justify-evenly gap-x-2 md:gap-x-4 gap-y-5 flex-wrap">
