@@ -43,3 +43,10 @@ export const fetchUserByID = async (id: number): Promise<UserAccount | undefined
         setTimeout(() => resolve(users.find((user) => user.id === id)), 500);
     });
 };
+
+// fetches a specific user by the given email
+export const fetchUserByEmail = async (email: string): Promise<UserAccount | undefined> => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(users.find((user) => user.email === email)), 500);
+    })
+}
