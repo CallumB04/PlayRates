@@ -10,5 +10,17 @@
             "backlog": [],
             "wishlist": []
         }
+    },
+    {
+        "id": 1,
+        "username": "testaccount",
+        "email": "otheremail@gmail.com",
+        "password": "Password321",
+        "games": {
+            "played": [],
+            "playing": [],
+            "backlog": [],
+            "wishlist": []
+        }
     }
 ]
