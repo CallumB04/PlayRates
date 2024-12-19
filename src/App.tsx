@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage/HomePage';
-import { fetchUserById, UserAccount } from "./api";
+import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from 'react';
 
 // creating context for user, to be accessed throughout whole application
@@ -20,7 +20,7 @@ function App() {
     const loadUserByID = async (id: number) => {
 		
 		// fetching user with given ID
-		const fetchedUser = await fetchUserById(id);
+		const fetchedUser = await fetchUserByID(id);
 
 		// sets user account in state when fetched
 		if (fetchedUser) { 
@@ -45,7 +45,7 @@ function App() {
 			<Router basename="/PlayRates">
 				<Navbar signOutUser={signOutUser}/>
 				<Routes>
-					<Route path='/' element={<HomePage signOutUser={signOutUser}/>} />
+					<Route path='/' element={<HomePage />} />
 				</Routes>
 			</Router>
 		</UserContext.Provider>

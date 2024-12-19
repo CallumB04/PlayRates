@@ -38,7 +38,7 @@ export const fetchUsers = async (): Promise<UserAccount[]> => {
 ;}
 
 // fetches a specific user by the given user ID
-export const fetchUserById = async (id: number): Promise<UserAccount | undefined> => {
+export const fetchUserByID = async (id: number): Promise<UserAccount | undefined> => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(users.find((user) => user.id === id)), 500);
     });
