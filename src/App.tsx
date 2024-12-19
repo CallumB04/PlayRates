@@ -15,28 +15,37 @@ function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);
 
-	// fetching user account from API
-    useEffect(() => {
-        const loadUser = async () => {
-			// temporarily fetching user with ID: 0, for testing
-            const fetchedUser = await fetchUserById(0);
+	// function to fetch user account from API and change in state
+	// will be passed to login / signup pages
+    const loadUserByID = async (id: number) => {
+		
+		// fetching user with given ID
+		const fetchedUser = await fetchUserById(id);
 
-			// sets user account in state when fetched
-            if (fetchedUser) { 
-                setUser(fetchedUser); 
-            }
-        };
+		// sets user account in state when fetched
+		if (fetchedUser) { 
+			setUser(fetchedUser); 
+		}
+	};
 
-        loadUser();
-    }, []);
+	// function to sign out user
+	// will be passed to all components that allow for signing out
+	const signOutUser = () => {
+		setUser(null);
+	}
+	
+	// temporarily initialising user with ID: 0, for testing
+	useEffect(() => {
+		loadUserByID(0);
+	}, [])
 
     
     return (
 		<UserContext.Provider value={user}>
 			<Router basename="/PlayRates">
-				<Navbar />
+				<Navbar signOutUser={signOutUser}/>
 				<Routes>
-					<Route path='/' element={<HomePage />} />
+					<Route path='/' element={<HomePage signOutUser={signOutUser}/>} />
 				</Routes>
 			</Router>
 		</UserContext.Provider>
