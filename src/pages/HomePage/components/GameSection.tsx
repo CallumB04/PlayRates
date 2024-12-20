@@ -1,4 +1,5 @@
 import { Game } from "../../../api";
+import LoadingSpinner from "../../../components/LoadingSpinner.tsx";
 import GameElement from "./GameElement.tsx";
 
 
@@ -18,10 +19,7 @@ const GameSection: React.FC<GameSectionProps> = ({ games, loading, error }) => {
     if (error) { return <p className={loadingTextStyles}>Error Loading Games...</p>}
     if (loading) { return (
                             <span className={loadingTextStyles}>
-                                {/* loading spinner */}
-                                <div className="size-5 border-2 border-textColor 
-                                              border-t-highlightPurple rounded-full animate-spin">
-                                </div>
+                                <LoadingSpinner size={5}/>
                                 <p>Loading Games...</p>
                             </span>)}
 
