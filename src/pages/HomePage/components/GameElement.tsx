@@ -16,7 +16,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
                        flex justify-center items-center group">
             {/* Text displayed if image can't be loaded */}
             <p className={`text-center text-xl text-textColor break-words whitespace-normal
-                          group-hover:z-20 group-hover:animate-pulse font-semibold
+                          group-hover:z-20 font-semibold
                           ${imgLoaded ? "opacity-0" : "opacity-100"} group-hover:opacity-100 
                           transition-opacity duration-300`}>
                 {game.title}
