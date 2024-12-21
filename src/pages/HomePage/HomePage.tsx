@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingGames, fetchMostPopularGames, Game, UserAccount } from "../../api";
+import { fetchGames, Game, UserAccount } from "../../api";
 import GameSection from "./components/GameSection";
 import { useUser } from "../../App";
 
@@ -15,16 +15,10 @@ const HomePage = () => {
 
     /* Fetching games data using React Query for caching */
 
-    // fetching trending games
-    const { data: trendingGames, error: trendingGamesError, isLoading: trendingGamesLoading } = useQuery<Game[]>({
-        queryKey: ['trendingGames'],
-        queryFn: fetchTrendingGames,
-    });
-
-    // fetching 6 most popular games
-    const { data: mostPopularGames, error: mostPopularGamesError, isLoading: mostPopularGamesLoading } = useQuery<Game[]>({
-        queryKey: ['mostPopularGames'],
-        queryFn: fetchMostPopularGames,
+    // fetching games from API
+    const { data: games, error: gamesError, isLoading: gamesLoading } = useQuery<Game[]>({
+        queryKey: ['games'],
+        queryFn: fetchGames,
     });
 
     return (
@@ -58,11 +52,13 @@ const HomePage = () => {
 
             {/* Trending games */}
             <h2 className={gameSectionTitleStyles}>Trending Games</h2>
-            <GameSection games={trendingGames} loading={trendingGamesLoading} error={trendingGamesError}/>
+            <GameSection games={games?.filter((game) => game.trending)} loading={gamesLoading} error={gamesError}/>
 
             {/* Most Popular games (by amount of user listings) */}
             <h2 className={gameSectionTitleStyles}>Most Popular</h2>
-            <GameSection games={mostPopularGames} loading={mostPopularGamesLoading} error={mostPopularGamesError}/>
+            <GameSection games={games?.sort((a, b) => b.listings.overall - a.listings.overall)
+                                      .slice(0, 6)
+            } loading={gamesLoading} error={gamesError}/>
 
         </main>
     );
