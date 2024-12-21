@@ -6,7 +6,7 @@ import { useUser } from "../../App";
 
 // common styles for all game section titles in home page
 const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wide
-                                text-3xl uppercase mt-16 text-center md:text-left`;
+                                text-3xl md:text-4xl uppercase mt-16 text-center`;
 
 const HomePage = () => {
 
