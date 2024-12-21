@@ -30,7 +30,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
                 to their account from the home page. */}
             <i className="fa-solid fa-plus text-textColor absolute bottom-3 mx-auto px-5
                           pb-[1px] bg-[#ffffff22] rounded-md text-xl opacity-0 group-hover:opacity-100
-                          transition-opacity duration-300 hover:bg-[#ffffff33]"></i>
+                          transition-all duration-300 hover:bg-[#ffffff33]"></i>
         </Link>
     )
 };
