@@ -25,6 +25,12 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
                             group-hover:opacity-15 transition-opacity duration-300"
                  src={`./PlayRates/assets/game-covers/${game.id}.png`} 
                  onError={(e) => {e.currentTarget.style.display = "none"; setImgLoaded(false)}}/>
+            {/* Quick add button - Plus sign 
+                Currently no functionality, will allow users to add games
+                to their account from the home page. */}
+            <i className="fa-solid fa-plus text-textColor absolute bottom-2 right-2 px-[5px]
+                          pb-[1px] bg-[#ffffff22] rounded-md text-xl opacity-0 group-hover:opacity-100
+                          transition-opacity duration-300 hover:text-highlightPurple"></i>
         </Link>
     )
 };
