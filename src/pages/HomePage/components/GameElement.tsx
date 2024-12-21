@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Game } from "../../../api";
+import { Link } from "react-router-dom";
 
 interface GameElementProps {
     game: Game;
@@ -10,7 +11,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
     const [imgLoaded, setImgLoaded] = useState(true);
 
     return (
-        <div key={game.id} 
+        <Link to={`/game/${game.id}`} key={game.id} 
             className="w-[170px] md:w-[200px] 2xl:w-[220px] h-60 md:h-72 bg-[#0e0e0e] rounded-md relative
                        flex justify-center items-center group">
             {/* Text displayed if image can't be loaded */}
@@ -24,7 +25,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
                             group-hover:opacity-15 transition-opacity duration-300"
                  src={`./PlayRates/assets/game-covers/${game.id}.png`} 
                  onError={(e) => {e.currentTarget.style.display = "none"; setImgLoaded(false)}}/>
-        </div>
+        </Link>
     )
 };
 
