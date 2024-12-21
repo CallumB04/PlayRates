@@ -22,7 +22,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
                 {game.title}
             </p>
             <img className="absolute top-0 left-0 object-cover w-full h-full rounded-md
-                            group-hover:opacity-15 transition-opacity duration-300"
+                            group-hover:opacity-10 transition-opacity duration-300"
                  src={`./PlayRates/assets/game-covers/${game.id}.png`} 
                  onError={(e) => {e.currentTarget.style.display = "none"; setImgLoaded(false)}}/>
             {/* Quick add button - Plus sign 
