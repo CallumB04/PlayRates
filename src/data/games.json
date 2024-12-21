@@ -3,6 +3,7 @@
         "id": 0,
         "title": "Hollow Knight",
         "trending": true,
+        "releaseDate": "2017-02-24",
         "listings": {
             "played": 0,
             "playing": 0,
@@ -15,6 +16,7 @@
         "id": 1,
         "title": "Hades",
         "trending": true,
+        "releaseDate": "2020-09-17",
         "listings": {
             "played": 0,
             "playing": 0,
@@ -27,6 +29,7 @@
         "id": 2,
         "title": "Portal 2",
         "trending": true,
+        "releaseDate": "2011-04-18",
         "listings": {
             "played": 0,
             "playing": 0,
@@ -39,6 +42,7 @@
         "id": 3,
         "title": "Terraria",
         "trending": true,
+        "releaseDate": "2011-05-16",
         "listings": {
             "played": 0,
             "playing": 0,
@@ -51,6 +55,7 @@
         "id": 4,
         "title": "Stardew Valley",
         "trending": true,
+        "releaseDate": "2016-02-26",
         "listings": {
             "played": 0,
             "playing": 0,
@@ -63,6 +68,7 @@
         "id": 5,
         "title": "Undertale",
         "trending": true,
+        "releaseDate": "2015-09-15",
         "listings": {
             "played": 0,
             "playing": 0,

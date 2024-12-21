@@ -11,7 +11,8 @@ import games from '../data/games.json';
 export interface Game {
     id: number;
     title: string;
-    trending: boolean;
+    trending: boolean; // temporary feature, in future will be based on weekly listings
+    releaseDate: string; // stored in ISO 8601 format for easy Date object conversion
     listings: {
         played: number;
         playing: number;
