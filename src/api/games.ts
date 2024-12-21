@@ -32,6 +32,14 @@ export const fetchGameById = async (id: number): Promise<Game | undefined> => {
 // fetches all games marked with trending
 export const fetchTrendingGames = async (): Promise<Game[]> => {
     return new Promise((resolve) => {
-        setTimeout(() => resolve(games.filter((game) => game.trending)), 500)
+        setTimeout(() => resolve(games.filter((game) => game.trending)), 500);
+    });
+};
+
+// fetch top 6 most listed games
+export const fetchMostPopularGames = async (): Promise<Game[]> => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(games.sort((a, b) => b.listings - a.listings)
+                                      .slice(0, 6)), 500);
     });
 };
