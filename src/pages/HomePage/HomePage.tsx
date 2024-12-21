@@ -60,6 +60,12 @@ const HomePage = () => {
                                       .slice(0, 6)
             } loading={gamesLoading} error={gamesError}/>
 
+            {/* Most recent games (by order of release date) */}
+            <h2 className={gameSectionTitleStyles}>Most Recent</h2>
+            <GameSection games={games?.sort((a, b) => Date.parse(b.releaseDate) - Date.parse(a.releaseDate))
+                                      .slice(0, 6)
+            } loading={gamesLoading} error={gamesError}/>
+
         </main>
     );
 }
