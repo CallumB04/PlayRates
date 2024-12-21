@@ -12,6 +12,7 @@ export interface Game {
     id: number;
     title: string;
     trending: boolean;
+    listings: number; // number of users that have listed the game (played, playing, etc)
 }
 
 // fetches whole games array

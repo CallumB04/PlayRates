@@ -2,31 +2,37 @@
     {
         "id": 0,
         "title": "Hollow Knight",
-        "trending": true
+        "trending": true,
+        "listings": 0
     },
     {
         "id": 1,
         "title": "Hades",
-        "trending": true
+        "trending": true,
+        "listings": 0
     },
     {
         "id": 2,
         "title": "Portal 2",
-        "trending": true
+        "trending": true,
+        "listings": 0
     },
     {
         "id": 3,
         "title": "Terraria",
-        "trending": true
+        "trending": true,
+        "listings": 0
     },
     {
         "id": 4,
         "title": "Stardew Valley",
-        "trending": true
+        "trending": true,
+        "listings": 0
     },
     {
         "id": 5,
         "title": "Undertale",
-        "trending": true
+        "trending": true,
+        "listings": 0
     }
 ]
