@@ -3,36 +3,72 @@
         "id": 0,
         "title": "Hollow Knight",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     },
     {
         "id": 1,
         "title": "Hades",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     },
     {
         "id": 2,
         "title": "Portal 2",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     },
     {
         "id": 3,
         "title": "Terraria",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     },
     {
         "id": 4,
         "title": "Stardew Valley",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     },
     {
         "id": 5,
         "title": "Undertale",
         "trending": true,
-        "listings": 0
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
     }
 ]

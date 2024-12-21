@@ -12,7 +12,13 @@ export interface Game {
     id: number;
     title: string;
     trending: boolean;
-    listings: number; // number of users that have listed the game (played, playing, etc)
+    listings: {
+        played: number;
+        playing: number;
+        backlog: number;
+        wishlist: number;
+        overall: number;
+    }; 
 }
 
 // fetches whole games array
@@ -39,7 +45,7 @@ export const fetchTrendingGames = async (): Promise<Game[]> => {
 // fetch top 6 most listed games
 export const fetchMostPopularGames = async (): Promise<Game[]> => {
     return new Promise((resolve) => {
-        setTimeout(() => resolve(games.sort((a, b) => b.listings - a.listings)
+        setTimeout(() => resolve(games.sort((a, b) => b.listings.overall - a.listings.overall)
                                       .slice(0, 6)), 500);
     });
 };
