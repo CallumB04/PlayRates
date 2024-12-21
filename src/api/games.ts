@@ -20,7 +20,7 @@ export interface Game {
         wishlist: number;
         overall: number;
     }; 
-}
+};
 
 // fetches whole games array
 export const fetchGames = async (): Promise<Game[]> => {
@@ -33,20 +33,5 @@ export const fetchGames = async (): Promise<Game[]> => {
 export const fetchGameById = async (id: number): Promise<Game | undefined> => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(games.find((game) => game.id === id)), 500);
-    });
-};
-
-// fetches all games marked with trending
-export const fetchTrendingGames = async (): Promise<Game[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(games.filter((game) => game.trending)), 500);
-    });
-};
-
-// fetch top 6 most listed games
-export const fetchMostPopularGames = async (): Promise<Game[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(games.sort((a, b) => b.listings.overall - a.listings.overall)
-                                      .slice(0, 6)), 500);
     });
 };
