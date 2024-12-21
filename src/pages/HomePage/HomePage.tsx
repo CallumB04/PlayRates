@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingGames, Game, UserAccount } from "../../api";
+import { fetchTrendingGames, fetchMostPopularGames, Game, UserAccount } from "../../api";
 import GameSection from "./components/GameSection";
 import { useUser } from "../../App";
 
@@ -19,6 +19,12 @@ const HomePage = () => {
     const { data: trendingGames, error: trendingGamesError, isLoading: trendingGamesLoading } = useQuery<Game[]>({
         queryKey: ['trendingGames'],
         queryFn: fetchTrendingGames,
+    });
+
+    // fetching 6 most popular games
+    const { data: mostPopularGames, error: mostPopularGamesError, isLoading: mostPopularGamesLoading } = useQuery<Game[]>({
+        queryKey: ['mostPopularGames'],
+        queryFn: fetchMostPopularGames,
     });
 
     return (
@@ -53,6 +59,10 @@ const HomePage = () => {
             {/* Trending games */}
             <h2 className={gameSectionTitleStyles}>Trending Games</h2>
             <GameSection games={trendingGames} loading={trendingGamesLoading} error={trendingGamesError}/>
+
+            {/* Most Popular games (by amount of user listings) */}
+            <h2 className={gameSectionTitleStyles}>Most Popular</h2>
+            <GameSection games={mostPopularGames} loading={mostPopularGamesLoading} error={mostPopularGamesError}/>
 
         </main>
     );
