@@ -46,7 +46,9 @@ const HomePage = () => {
                     </p>
                 </div>
                 : <p className="text-center md:text-left text-xl md:text-2xl italic font-thin font-ssp mt-12 text-textColor">
-                    Welcome back <span className="capitalize">{user.username}</span>!
+                    Welcome back <Link to={`/user/${user.username}`} 
+                                       className="font-normal hover:text-highlightPurple transition-colors
+                                                  duration-100">{user.username}</Link>!
                 </p>}
             </div>
 
