@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
     };
     
     return (
-        <nav className="absolute top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
+        <nav className="fixed top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
                         flex justify-center md:justify-between items-center">
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
