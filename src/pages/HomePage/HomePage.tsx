@@ -75,14 +75,14 @@ const HomePage = () => {
                     </div>
                     <div className="flex flex-col text-center gap-y-1">
                         <i className="fa-solid fa-gamepad text-3xl md:text-[32px]"></i>
-                        <p>{games?.length} Games</p>
+                        <p>{games?.length || 0} Games</p>
                     </div>
                     <div className="flex flex-col text-center gap-y-1">
                         <i className="fa-solid fa-chart-bar text-3xl md:text-[32px]"></i>
                         <p>
                             {games?.reduce((acc, el) => {
                                 return acc + el.listings.overall;
-                            }, 0)} Listings
+                            }, 0) || 0} Listings
                         </p>
                     </div>
                 </div>
