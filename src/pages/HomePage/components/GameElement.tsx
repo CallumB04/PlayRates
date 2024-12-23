@@ -12,8 +12,8 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
 
     return (
         <Link to={`/game/${game.id}`} key={game.id} 
-            className="w-[170px] md:w-[200px] 2xl:w-[220px] h-60 md:h-72 bg-[#0e0e0e] rounded-md relative
-                       flex justify-center items-center group">
+            className="w-[31%] md:w-[15%] aspect-[3/4] 
+                     bg-[#0e0e0e] rounded-md relative flex justify-center items-center group">
             {/* Text displayed if image can't be loaded */}
             <p className={`text-center text-xl text-textColor break-words whitespace-normal
                           group-hover:z-20 font-semibold
@@ -28,9 +28,10 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
             {/* Quick add button - Plus sign 
                 Currently no functionality, will allow users to add games
                 to their account from the home page. */}
-            <i className="fa-solid fa-plus text-textColor absolute bottom-3 mx-auto px-5
-                          pb-[1px] bg-[#ffffff22] rounded-md text-xl opacity-0 group-hover:opacity-100
-                          transition-all duration-300 hover:bg-[#ffffff33]"></i>
+            <i className="fa-solid fa-plus text-textColor absolute bottom-3 mx-auto w-1/3 h-[14%]
+                          bg-[#ffffff22] rounded-md text-lg sm:text-xl md:text-base lg:text-lg xl:text-xl opacity-0 
+                          group-hover:opacity-100 transition-all duration-300 hover:bg-[#ffffff33] flex justify-center
+                          items-center"></i>
         </Link>
     )
 };
