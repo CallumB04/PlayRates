@@ -28,7 +28,7 @@
     {
         "id": 2,
         "title": "Portal 2",
-        "trending": true,
+        "trending": false,
         "releaseDate": "2011-04-18",
         "listings": {
             "played": 0,
@@ -41,7 +41,7 @@
     {
         "id": 3,
         "title": "Terraria",
-        "trending": true,
+        "trending": false,
         "releaseDate": "2011-05-16",
         "listings": {
             "played": 0,
@@ -54,7 +54,7 @@
     {
         "id": 4,
         "title": "Stardew Valley",
-        "trending": true,
+        "trending": false,
         "releaseDate": "2016-02-26",
         "listings": {
             "played": 0,
@@ -67,8 +67,281 @@
     {
         "id": 5,
         "title": "Undertale",
-        "trending": true,
+        "trending": false,
         "releaseDate": "2015-09-15",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 6,
+        "title": "Celeste",
+        "trending": false,
+        "releaseDate": "2018-01-25",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 7,
+        "title": "The Witcher 3: Wild Hunt",
+        "trending": true,
+        "releaseDate": "2015-05-19",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 8,
+        "title": "Dark Souls III",
+        "trending": false,
+        "releaseDate": "2016-04-12",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 9,
+        "title": "DOOM Eternal",
+        "trending": false,
+        "releaseDate": "2020-03-20",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 10,
+        "title": "Bloodborne",
+        "trending": false,
+        "releaseDate": "2015-03-24",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 11,
+        "title": "God of War",
+        "trending": false,
+        "releaseDate": "2018-04-20",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 12,
+        "title": "Cyberpunk 2077",
+        "trending": false,
+        "releaseDate": "2020-12-10",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 13,
+        "title": "Final Fantasy VII Remake",
+        "trending": false,
+        "releaseDate": "2020-04-10",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 14,
+        "title": "Slay the Spire",
+        "trending": false,
+        "releaseDate": "2019-01-23",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 15,
+        "title": "Monster Hunter: World",
+        "trending": false,
+        "releaseDate": "2018-01-26",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 16,
+        "title": "Dead Cells",
+        "trending": false,
+        "releaseDate": "2018-08-07",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 17,
+        "title": "Ori and the Will of the Wisps",
+        "trending": false,
+        "releaseDate": "2020-03-11",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 18,
+        "title": "Sekiro: Shadows Die Twice",
+        "trending": false,
+        "releaseDate": "2019-03-22",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 19,
+        "title": "The Legend of Zelda: Breath of the Wild",
+        "trending": false,
+        "releaseDate": "2017-03-03",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 20,
+        "title": "Super Mario Odyssey",
+        "trending": false,
+        "releaseDate": "2017-10-27",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 21,
+        "title": "Astro Bot",
+        "trending": true,
+        "releaseDate": "2024-09-06",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 22,
+        "title": "Balatro",
+        "trending": true,
+        "releaseDate": "2024-02-20",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 23,
+        "title": "Black Myth: Wukong",
+        "trending": false,
+        "releaseDate": "2024-08-19",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 24,
+        "title": "Elden Ring: Shadow of the Erdtree",
+        "trending": false,
+        "releaseDate": "2024-06-21",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 25,
+        "title": "Final Fantasy VII Rebirth",
+        "trending": true,
+        "releaseDate": "2024-02-29",
+        "listings": {
+            "played": 0,
+            "playing": 0,
+            "backlog": 0,
+            "wishlist": 0,
+            "overall": 0
+        }
+    },
+    {
+        "id": 26,
+        "title": "Metaphor: ReFantazio",
+        "trending": false,
+        "releaseDate": "2024-10-11",
         "listings": {
             "played": 0,
             "playing": 0,
