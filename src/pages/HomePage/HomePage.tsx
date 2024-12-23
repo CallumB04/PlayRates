@@ -67,8 +67,8 @@ const HomePage = () => {
                                                       duration-100">{user.username}</Link>!
                     </p>}
                 </div>
-                <div className="w-full md:w-1/2 md:pl-10 flex justify-evenly items-center text-textColor text-xl font-ssp
-                                md:pt-24 lg:pt-0 lg:text-[22px]">
+                <div className="w-full md:w-1/2 md:pl-10 flex justify-evenly md:justify-between lg:justify-evenly 
+                                items-center text-textColor text-xl font-ssp md:pt-24 lg:pt-0 lg:text-[22px]">
                     <div className="flex flex-col text-center gap-y-1">
                         <i className="fa-solid fa-user text-3xl md:text-[32px]"></i>
                         <p>{userCount} Users</p>
