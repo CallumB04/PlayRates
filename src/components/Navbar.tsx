@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAccount } from "../api";
 import { useUser } from "../App";
@@ -28,10 +28,20 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
     const closePhoneDropdown = () => {
         setPhoneDropdownOpen(false);
     };
+
+    // checking for window scorll to changed navbar opacity
+    const [scrollHeight, setScrollHeight] = useState<number>(0);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScrollHeight(window.scrollY);
+        })
+    }, []);
     
     return (
-        <nav className="fixed top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
-                        flex justify-center md:justify-between items-center">
+        <nav className={`fixed top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
+                        ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbarColor"} transition-colors duration-300
+                        flex justify-center md:justify-between items-center`}>
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
                 <h2 className="font-semibold font-ssp text-textColor text-3xl md:text-4xl tracking-wide">
