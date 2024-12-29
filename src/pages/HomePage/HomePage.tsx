@@ -62,7 +62,7 @@ const HomePage = () => {
                             log in</Link> if you have an account
                         </p>
                     </div>
-                    : <p className="text-center md:text-left text-xl md:text-2xl 2xl:text-3xl italic font-thin font-ssp 
+                    : <p className="text-center md:text-left text-[22px] md:text-2xl 2xl:text-3xl italic font-thin font-ssp 
                                     mt-12 2xl:mt-20 text-textColor">
                         Welcome back <Link to={`/user/${user.username}`} 
                                            className="font-normal hover:text-highlightPurple transition-colors
