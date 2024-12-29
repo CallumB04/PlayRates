@@ -50,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
 
             {/* Phone dropdown menu */}
             <div className={`bg-dropdownColor absolute top-navbar right-0 rounded-l-md
-                            ${phoneDropdownOpen ? "w-9/12" : "w-0"}
+                            ${phoneDropdownOpen ? "w-9/12" : "w-0"} max-w-80
                             overflow-y-scroll overflow-x-hidden transition-width duration-300
                             delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3`}>
                 
@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                     <input 
                         type="text" 
                         placeholder="Search for game..."
-                        className="w-[70vw] h-12 px-2 bg-searchInputColor rounded focus:outline-none pr-9"
+                        className="w-[70vw] max-w-[300px] h-12 px-2 bg-searchInputColor rounded focus:outline-none pr-9"
                     />
                     <i className="fas fa-magnifying-glass absolute 
                                   transform -translate-y-1/2 top-1/2 right-1 p-2
