@@ -15,6 +15,18 @@ function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);
 
+	// fetching user id from localstorage
+	// temporary feature for testing to simulate using cookies to remember user
+	// will replace in future for security reasons	
+	useEffect(() => {
+		const userToken: string | null = localStorage.getItem("user_id");
+		
+		if (userToken) {
+			loadUserByID(Number(userToken));
+		}
+	}, []);
+
+
 	// function to fetch user account from API and change in state
 	// will be passed to login / signup pages
     const loadUserByID = async (id: number) => {
@@ -32,12 +44,8 @@ function App() {
 	// will be passed to all components that allow for signing out
 	const signOutUser = () => {
 		setUser(null);
-	}
-	
-	// temporarily initialising user with ID: 0, for testing
-	useEffect(() => {
-		loadUserByID(0);
-	}, [])
+		localStorage.removeItem("user_id");
+	};
 
     
     return (
