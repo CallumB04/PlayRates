@@ -10,4 +10,5 @@ main {
     top: 0;
     left: 0;
     padding-top: 4rem;
+    background: url("../../public/assets/background-texture.svg");
 }
