@@ -38,7 +38,7 @@ const HomePage = () => {
     });
 
     return (
-        <main className="px-4 sm:px-8 py-24 md:py-32 2xl:py-40">
+        <>
             <div className="sm:px-2 md:px-8 xl:px-20 md:min-h-[50vh] flex flex-wrap gap-y-10">
                 <div className="w-full md:w-1/2">
                     <h1 className="font-ssp font-bold text-7xl md:text-8xl lg:text-[7rem] 2xl:text-[9rem] text-textColor
@@ -107,7 +107,7 @@ const HomePage = () => {
                                       .slice(0, 6)
             } loading={gamesLoading} error={gamesError}/>
 
-        </main>
+        </>
     );
 }
 

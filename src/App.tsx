@@ -53,9 +53,11 @@ function App() {
 		<UserContext.Provider value={user}>
 			<Router basename="/PlayRates">
 				<Navbar signOutUser={signOutUser}/>
-				<Routes>
-					<Route path='/' element={<HomePage />} />
-				</Routes>
+				<main className="px-4 sm:px-8 py-24 md:py-32 2xl:py-40">
+					<Routes>
+						<Route path='/' element={<HomePage />} />
+					</Routes>
+				</main>
 				<Footer />
 			</Router>
 		</UserContext.Provider>
