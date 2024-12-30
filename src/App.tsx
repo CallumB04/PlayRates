@@ -45,7 +45,7 @@ function App() {
 	// will be passed to all components that allow for signing out
 	const signOutUser = () => {
 		setUser(null);
-		localStorage.removeItem("user_id");
+		localStorage.clear();
 	};
 
     
