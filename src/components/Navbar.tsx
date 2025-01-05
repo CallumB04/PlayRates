@@ -8,7 +8,6 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
-
     // fetching user data from react context
     const user: UserAccount | null = useUser();
 
@@ -35,184 +34,253 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
     useEffect(() => {
         window.addEventListener("scroll", () => {
             setScrollHeight(window.scrollY);
-        })
+        });
     }, []);
-    
+
     return (
-        <nav className={`fixed top-0 left-0 z-50 w-screen h-navbar px-6 xl:px-8 bg-navbarColor 
-                        ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbarColor"} transition-colors duration-300
-                        flex justify-center md:justify-between items-center`}>
+        <nav
+            className={`fixed left-0 top-0 z-50 h-navbar w-screen bg-navbarColor px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbarColor"} flex items-center justify-center transition-colors duration-300 md:justify-between`}
+        >
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
-                <h2 className="font-semibold font-ssp text-textColor text-3xl md:text-4xl tracking-wide">
+                <h2 className="font-ssp text-3xl font-semibold tracking-wide text-textColor md:text-4xl">
                     PlayRates
                 </h2>
             </Link>
 
             {/* Dropdown menu button for phone screens */}
-            <div onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)} 
-                 className="md:hidden absolute right-5 flex flex-col gap-1 group p-[6px]
-                            hover:cursor-pointer">
-                <div className="w-[22px] h-[2px] bg-textColor group-hover:bg-highlightPurple transition-colors"></div>
-                <div className="w-[22px] h-[2px] bg-textColor group-hover:bg-highlightPurple transition-colors"></div>
-                <div className="w-[22px] h-[2px] bg-textColor group-hover:bg-highlightPurple transition-colors"></div>
+            <div
+                onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)}
+                className="group absolute right-5 flex flex-col gap-1 p-[6px] hover:cursor-pointer md:hidden"
+            >
+                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
+                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
+                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
             </div>
 
             {/* Phone dropdown menu */}
-            <div className={`bg-dropdownColor absolute top-navbar right-0 rounded-l-md
-                            ${phoneDropdownOpen ? "w-9/12" : "w-0"} max-w-80
-                            overflow-y-scroll overflow-x-hidden transition-width duration-300
-                            delay-50 ease-in-out md:hidden flex flex-col items-center gap-2 text-textColor py-3`}>
-                
+            <div
+                className={`absolute right-0 top-navbar rounded-l-md bg-dropdownColor ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-textColor transition-width duration-300 ease-in-out md:hidden`}
+            >
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
                     account's pages. E.G: /user/<username>/played */}
 
                 <span className="relative">
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Search for game..."
-                        className="w-[70vw] max-w-[300px] h-12 px-2 bg-searchInputColor rounded focus:outline-none pr-9"
+                        className="h-12 w-[70vw] max-w-[300px] rounded bg-searchInputColor px-2 pr-9 focus:outline-none"
                     />
-                    <i className="fas fa-magnifying-glass absolute 
-                                  transform -translate-y-1/2 top-1/2 right-1 p-2
-                                  text-searchInputIconColor hover:text-highlightPurple hover:cursor-pointer
-                                  transition-colors"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInputIconColor transition-colors hover:cursor-pointer hover:text-highlightPurple"></i>
                 </span>
-                
-                <Link className={`${phoneDropdownItemStyles} pl-[6px] gap-[11px]`} to="/" onClick={closePhoneDropdown}>
+
+                <Link
+                    className={`${phoneDropdownItemStyles} gap-[11px] pl-[6px]`}
+                    to="/"
+                    onClick={closePhoneDropdown}
+                >
                     <i className="fas fa-house text-highlightPurple"></i>
                     <p>Home</p>
                 </Link>
-                {user ? <Link className={`${phoneDropdownItemStyles} gap-[14px]`} to={`/user/${user?.username}`} onClick={closePhoneDropdown}>
-                    <i className="fa-solid fa-user text-highlightPurple"></i>
-                    <p>My Profile</p>
-                </Link> : null}
-                <Link className={`${phoneDropdownItemStyles}`} to="/library" onClick={closePhoneDropdown}>
+                {user ? (
+                    <Link
+                        className={`${phoneDropdownItemStyles} gap-[14px]`}
+                        to={`/user/${user?.username}`}
+                        onClick={closePhoneDropdown}
+                    >
+                        <i className="fa-solid fa-user text-highlightPurple"></i>
+                        <p>My Profile</p>
+                    </Link>
+                ) : null}
+                <Link
+                    className={`${phoneDropdownItemStyles}`}
+                    to="/library"
+                    onClick={closePhoneDropdown}
+                >
                     <i className="fas fa-magnifying-glass text-highlightPurple"></i>
                     <p>Browse Games</p>
                 </Link>
 
-                {user ? <>
-                <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
+                {user ? (
+                    <>
+                        <span className="my-1 w-11/12 bg-textColor pt-[1px]"></span>
 
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/played`} onClick={closePhoneDropdown}>
-                    <i className="fa-regular fa-check-circle text-highlightPurple"></i>
-                    <p>Played</p>
-                </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/playing`} onClick={closePhoneDropdown}>
-                    <i className="fa-regular fa-play-circle text-highlightPurple"></i>
-                    <p>Playing</p>
-                </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/backlog`} onClick={closePhoneDropdown}>
-                    <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
-                    <p>Backlog</p>
-                </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to={`/user/${user?.username}/wishlist`} onClick={closePhoneDropdown}>
-                    <i className="fa-solid fa-heart text-highlightPurple"></i>
-                    <p>Wishlist</p>
-                </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to={`/user/${user?.username}/played`}
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fa-regular fa-check-circle text-highlightPurple"></i>
+                            <p>Played</p>
+                        </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to={`/user/${user?.username}/playing`}
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fa-regular fa-play-circle text-highlightPurple"></i>
+                            <p>Playing</p>
+                        </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to={`/user/${user?.username}/backlog`}
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
+                            <p>Backlog</p>
+                        </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to={`/user/${user?.username}/wishlist`}
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fa-solid fa-heart text-highlightPurple"></i>
+                            <p>Wishlist</p>
+                        </Link>
 
-                <span className="pt-[1px] my-1 w-11/12 bg-textColor"></span>
+                        <span className="my-1 w-11/12 bg-textColor pt-[1px]"></span>
 
-                <Link className={`${phoneDropdownItemStyles}`} to="/settings" onClick={closePhoneDropdown}>
-                    <i className="fa-solid fa-cog text-highlightPurple"></i>
-                    <p>Settings</p>
-                </Link>
-                <Link className={`${phoneDropdownItemStyles}`} to="/" onClick={() => { closePhoneDropdown(); signOutUser(); }}>
-                    <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
-                    <p>Sign Out</p>
-                </Link>
-                </> : <>
-                <Link className={`${phoneDropdownItemStyles}`} to="/login" onClick={closePhoneDropdown}>
-                    <i className="fas fa-sign-in-alt text-highlightPurple"></i>
-                    <p>Log In</p>
-                </Link>
-                <Link className={`${phoneDropdownItemStyles} gap-[8px]`} to="/signup" onClick={closePhoneDropdown}>
-                    <i className="fas fa-user-plus text-highlightPurple"></i>
-                    <p>Sign Up</p>
-                </Link>
-                </>}
-
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to="/settings"
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fa-solid fa-cog text-highlightPurple"></i>
+                            <p>Settings</p>
+                        </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to="/"
+                            onClick={() => {
+                                closePhoneDropdown();
+                                signOutUser();
+                            }}
+                        >
+                            <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
+                            <p>Sign Out</p>
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <Link
+                            className={`${phoneDropdownItemStyles}`}
+                            to="/login"
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fas fa-sign-in-alt text-highlightPurple"></i>
+                            <p>Log In</p>
+                        </Link>
+                        <Link
+                            className={`${phoneDropdownItemStyles} gap-[8px]`}
+                            to="/signup"
+                            onClick={closePhoneDropdown}
+                        >
+                            <i className="fas fa-user-plus text-highlightPurple"></i>
+                            <p>Sign Up</p>
+                        </Link>
+                    </>
+                )}
             </div>
 
             {/* Navbar items wrapper */}
-            <div className="hidden md:flex font-ssp font-normal text-textColor h-full gap-4 items-center">
+            <div className="hidden h-full items-center gap-4 font-ssp font-normal text-textColor md:flex">
                 {/* My Account and Dropdown wrapper */}
-                {user ? 
-                <span className="relative group">
-                    {/* My Account text */}
-                    <span className="flex gap-1 items-center p-2 hover:cursor-pointer 
-                                                   group-hover:pb-5 group-hover:mt-3">
-                        <p className="group-hover:text-highlightPurple transition duration-75">My Account</p>
-                        <i className="fa fa-chevron-down text-sm group-hover:text-highlightPurple transition duration-75"></i>
-                    </span>
+                {user ? (
+                    <span className="group relative">
+                        {/* My Account text */}
+                        <span className="flex items-center gap-1 p-2 hover:cursor-pointer group-hover:mt-3 group-hover:pb-5">
+                            <p className="transition duration-75 group-hover:text-highlightPurple">
+                                My Account
+                            </p>
+                            <i className="fa fa-chevron-down text-sm transition duration-75 group-hover:text-highlightPurple"></i>
+                        </span>
 
-                    {/* Dropdown menu wrapper */}
-                    <div className="absolute mx-auto w-60 h-0 top-[52px] group-hover:top-navbar
-                                    group-hover:h-[315px] transition-height duration-[400ms] delay-50 ease-in-out
-                                    hover:block hover:cursor-default group-hover:block">
-                        {/* Dropdown menu content */}
-                        <div className="w-full h-full bg-dropdownColor rounded-b-md overflow-hidden
-                                        flex items-center flex-col gap-[2px] font-normal">
-                            
-                            {/* All dropdown links currently link to a template account for testing
+                        {/* Dropdown menu wrapper */}
+                        <div className="delay-50 absolute top-[52px] mx-auto h-0 w-60 transition-height duration-[400ms] ease-in-out hover:block hover:cursor-default group-hover:top-navbar group-hover:block group-hover:h-[315px]">
+                            {/* Dropdown menu content */}
+                            <div className="flex h-full w-full flex-col items-center gap-[2px] overflow-hidden rounded-b-md bg-dropdownColor font-normal">
+                                {/* All dropdown links currently link to a template account for testing
                                 purposes (callum). In the future the links will navigate to the logged in
                                 account's pages. E.G: /user/<username>/played */}
 
-                            <Link className={`${dropdownItemStyles} mt-3 pl-[6px]`} to="/">
-                                <i className="fas fa-house text-highlightPurple"></i>
-                                <p>Home</p>
-                            </Link>
-                            <Link className={`${dropdownItemStyles} pl-2 gap-[10px]`} to={`/user/${user?.username}`}>
-                                <i className="fa-solid fa-user text-highlightPurple"></i>
-                                <p>My Profile</p>
-                            </Link>
-                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-                                            pt-[1px] my-1 w-11/12 bg-textColor"></span>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/played`}>
-                                <i className="fa-regular fa-check-circle text-highlightPurple"></i>
-                                <p>Played</p>
-                            </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/playing`}>
-                                <i className="fa-regular fa-play-circle text-highlightPurple"></i>
-                                <p>Playing</p>
-                            </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/backlog`}>
-                                <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
-                                <p>Backlog</p>
-                            </Link>
-                            <Link className={`${dropdownItemStyles}`} to={`/user/${user?.username}/wishlist`}>
-                                <i className="fa-solid fa-heart text-highlightPurple"></i>
-                                <p>Wishlist</p>
-                            </Link>
-                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-                                            pt-[1px] my-1 w-11/12 bg-textColor"></span>
-                            <Link className={`${dropdownItemStyles}`} to="/settings">
-                                <i className="fa-solid fa-cog text-highlightPurple"></i>
-                                <p>Settings</p>
-                            </Link>
-                            <Link className={`${dropdownItemStyles}`} to="/" onClick={signOutUser}>
-                                <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
-                                <p>Sign Out</p>
-                            </Link>
-
+                                <Link
+                                    className={`${dropdownItemStyles} mt-3 pl-[6px]`}
+                                    to="/"
+                                >
+                                    <i className="fas fa-house text-highlightPurple"></i>
+                                    <p>Home</p>
+                                </Link>
+                                <Link
+                                    className={`${dropdownItemStyles} gap-[10px] pl-2`}
+                                    to={`/user/${user?.username}`}
+                                >
+                                    <i className="fa-solid fa-user text-highlightPurple"></i>
+                                    <p>My Profile</p>
+                                </Link>
+                                <span className="my-1 w-11/12 bg-textColor pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to={`/user/${user?.username}/played`}
+                                >
+                                    <i className="fa-regular fa-check-circle text-highlightPurple"></i>
+                                    <p>Played</p>
+                                </Link>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to={`/user/${user?.username}/playing`}
+                                >
+                                    <i className="fa-regular fa-play-circle text-highlightPurple"></i>
+                                    <p>Playing</p>
+                                </Link>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to={`/user/${user?.username}/backlog`}
+                                >
+                                    <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
+                                    <p>Backlog</p>
+                                </Link>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to={`/user/${user?.username}/wishlist`}
+                                >
+                                    <i className="fa-solid fa-heart text-highlightPurple"></i>
+                                    <p>Wishlist</p>
+                                </Link>
+                                <span className="my-1 w-11/12 bg-textColor pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to="/settings"
+                                >
+                                    <i className="fa-solid fa-cog text-highlightPurple"></i>
+                                    <p>Settings</p>
+                                </Link>
+                                <Link
+                                    className={`${dropdownItemStyles}`}
+                                    to="/"
+                                    onClick={signOutUser}
+                                >
+                                    <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
+                                    <p>Sign Out</p>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                </span>
-                : <>
-                {/* Sign up and login buttons if no user account */}
-                <Link to="/login">
-                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
-                        Log in
-                    </p>
-                </Link>
-                <Link to="/signup">
-                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
-                        Sign up
-                    </p>
-                </Link>
-                </>}
+                    </span>
+                ) : (
+                    <>
+                        {/* Sign up and login buttons if no user account */}
+                        <Link to="/login">
+                            <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
+                                Log in
+                            </p>
+                        </Link>
+                        <Link to="/signup">
+                            <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
+                                Sign up
+                            </p>
+                        </Link>
+                    </>
+                )}
                 {/* Games library link text */}
                 <Link to="/library">
                     <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
@@ -221,19 +289,16 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                 </Link>
                 {/* Text input to search for game */}
                 <span className="relative">
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         placeholder="Search for game..."
-                        className="block w-60 lg:w-72 px-2 py-1.5 bg-searchInputColor rounded focus:outline-none pr-9"
+                        className="block w-60 rounded bg-searchInputColor px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
                     />
-                    <i className="fas fa-magnifying-glass absolute 
-                                  transform -translate-y-1/2 top-1/2 right-1 p-2
-                                  text-searchInputIconColor hover:text-highlightPurple hover:cursor-pointer
-                                  transition-colors"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInputIconColor transition-colors hover:cursor-pointer hover:text-highlightPurple"></i>
                 </span>
-            </div>            
+            </div>
         </nav>
     );
-}
+};
 
 export default Navbar;

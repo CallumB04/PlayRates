@@ -1,4 +1,4 @@
-import games from '../data/games.json';
+import games from "../data/games.json";
 
 /*
     This is a mock API that I am using during development to simulate API calls.
@@ -19,8 +19,8 @@ export interface Game {
         backlog: number;
         wishlist: number;
         overall: number;
-    }; 
-};
+    };
+}
 
 // fetches whole games array
 export const fetchGames = async (): Promise<Game[]> => {

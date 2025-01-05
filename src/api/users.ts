@@ -1,4 +1,4 @@
-import users from '../data/users.json';
+import users from "../data/users.json";
 
 /*
     This is a mock API that I am using during development to simulate API calls.
@@ -21,7 +21,7 @@ export interface GameList {
     backlog: GameLog[];
     wishlist: GameLog[];
 }
-  
+
 export interface UserAccount {
     id: number;
     username: string; // account name, no spaces allowed, used in url too
@@ -35,18 +35,25 @@ export const fetchUsers = async (): Promise<UserAccount[]> => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(users), 500);
     });
-;}
+};
 
 // fetches a specific user by the given user ID
-export const fetchUserByID = async (id: number): Promise<UserAccount | undefined> => {
+export const fetchUserByID = async (
+    id: number
+): Promise<UserAccount | undefined> => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(users.find((user) => user.id === id)), 500);
     });
 };
 
 // fetches a specific user by the given email
-export const fetchUserByEmail = async (email: string): Promise<UserAccount | undefined> => {
+export const fetchUserByEmail = async (
+    email: string
+): Promise<UserAccount | undefined> => {
     return new Promise((resolve) => {
-        setTimeout(() => resolve(users.find((user) => user.email === email)), 500);
-    })
-}
+        setTimeout(
+            () => resolve(users.find((user) => user.email === email)),
+            500
+        );
+    });
+};
