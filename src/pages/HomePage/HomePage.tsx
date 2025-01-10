@@ -57,7 +57,7 @@ const HomePage = () => {
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-4 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
                             <Link
                                 to="/signup"
-                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 hover:bg-purple-500 active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                                className="hover:bg-highlightHover rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
                             >
                                 Sign up
                             </Link>
