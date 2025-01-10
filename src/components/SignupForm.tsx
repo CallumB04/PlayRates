@@ -68,7 +68,7 @@ const SignupForm: React.FC<FormProps> = ({ visible }) => {
 
     return (
         <dialog
-            className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] ${visible ? "" : "hidden"}`}
+            className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-3 ${visible ? "" : "hidden"}`}
         >
             <form
                 onSubmit={handleSignup}
