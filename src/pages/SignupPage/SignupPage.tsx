@@ -6,6 +6,7 @@ const SignupPage = () => {
     // username and email taken text elements
     const usernameTakenText = useRef<HTMLParagraphElement>(null);
     const emailTakenText = useRef<HTMLParagraphElement>(null);
+    const passwordLengthText = useRef<HTMLParagraphElement>(null);
 
     // function to handle user signup on form submission
     const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
@@ -38,6 +39,17 @@ const SignupPage = () => {
         } else {
             if (!emailTakenText.current!.classList.contains("hidden")) {
                 emailTakenText.current!.classList.add("hidden");
+            }
+        }
+
+        // checking if password is long enough
+        if (password!.toString().length < 6) {
+            console.log(password);
+            passwordLengthText.current!.classList.remove("hidden");
+            errored = true;
+        } else {
+            if (!passwordLengthText.current!.classList.contains("hidden")) {
+                passwordLengthText.current!.classList.add("hidden");
             }
         }
 
@@ -94,13 +106,21 @@ const SignupPage = () => {
                         Sorry that email is already being used.
                     </p>
                 </div>
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
-                    required
-                />
+                <div>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                        required
+                    />
+                    <p
+                        className="hidden pt-3 text-red-500"
+                        ref={passwordLengthText}
+                    >
+                        Password needs to be atleast 6 characters long.
+                    </p>
+                </div>
             </div>
             <div className="mx-auto w-11/12 space-y-3 pt-10 sm:mx-0 sm:w-full md:pt-12">
                 <button
