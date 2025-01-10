@@ -17,14 +17,14 @@ const SignupPage = () => {
     return (
         <form
             onSubmit={handleSignup}
-            className="mx-auto mt-8 flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-dropdownColor px-5 py-16 font-ssp text-textColor shadow-md sm:px-12 md:w-[630px] md:px-16"
+            className="mx-auto mt-8 flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-16 font-ssp text-textColor shadow-md sm:px-12 md:w-[630px] md:px-16"
         >
             <div className="text-center">
                 <h2 className="text-4xl">Sign up for PlayRates</h2>
                 <p className="mt-1 text-lg">
                     Create a free account or{" "}
                     <Link to="/login">
-                        <span className="hover:text-highlightHover text-highlightPurple">
+                        <span className="text-highlightPurple hover:text-highlightHover">
                             log in
                         </span>
                     </Link>
@@ -56,7 +56,7 @@ const SignupPage = () => {
             <div className="space-y-3 pt-10 md:pt-12">
                 <button
                     type="submit"
-                    className="hover:bg-highlightHover w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300"
+                    className="w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover"
                 >
                     Sign up
                 </button>
