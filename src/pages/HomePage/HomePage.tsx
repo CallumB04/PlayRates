@@ -42,7 +42,7 @@ const HomePage = () => {
 
     return (
         <>
-            <div className="flex flex-wrap gap-y-10 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20">
+            <div className="flex flex-wrap gap-y-10 pt-8 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20">
                 <div className="w-full md:w-1/2">
                     <h1 className="text-center font-ssp text-7xl font-bold text-textColor md:text-left md:text-8xl lg:text-[7rem] 2xl:text-[9rem]">
                         PlayRates
@@ -57,7 +57,7 @@ const HomePage = () => {
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-4 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
                             <Link
                                 to="/signup"
-                                className="hover:bg-highlightHover rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 hover:bg-highlightHover active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
                             >
                                 Sign up
                             </Link>

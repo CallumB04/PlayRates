@@ -50,7 +50,7 @@ function App() {
         <UserContext.Provider value={user}>
             <Router basename="/PlayRates">
                 <Navbar signOutUser={signOutUser} />
-                <main className="px-4 py-24 sm:px-8 md:py-32 2xl:py-40">
+                <main className="px-4 py-24 sm:px-8 md:py-32">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/signup" element={<SignupPage />} />
