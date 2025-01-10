@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage/HomePage";
 import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from "react";
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -52,6 +53,7 @@ function App() {
                 <main className="px-4 py-24 sm:px-8 md:py-32 2xl:py-40">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
+                        <Route path="/signup" element={<SignupPage />} />
                     </Routes>
                 </main>
                 <Footer />
