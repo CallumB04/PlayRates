@@ -30,7 +30,7 @@ const SignupPage = () => {
                     </Link>
                 </p>
             </div>
-            <div className="space-y-6 pt-12 sm:space-y-8">
+            <div className="mx-auto w-11/12 space-y-6 pt-12 sm:mx-0 sm:w-full sm:space-y-8">
                 <input
                     name="username"
                     type="text"
@@ -53,7 +53,7 @@ const SignupPage = () => {
                     required
                 />
             </div>
-            <div className="space-y-3 pt-10 md:pt-12">
+            <div className="mx-auto w-11/12 space-y-3 pt-10 sm:mx-0 sm:w-full md:pt-12">
                 <button
                     type="submit"
                     className="w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover"
