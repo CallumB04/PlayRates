@@ -1,9 +1,14 @@
-import { FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 import { Link } from "react-router-dom";
+import { fetchUserByUsername, fetchUserByEmail } from "../../api";
 
 const SignupPage = () => {
+    // username and email taken text elements
+    const usernameTakenText = useRef<HTMLParagraphElement>(null);
+    const emailTakenText = useRef<HTMLParagraphElement>(null);
+
     // function to handle user signup on form submission
-    const handleSignup = (event: FormEvent<HTMLFormElement>) => {
+    const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // preventing page from refreshing
 
         // getting data from form inputs
@@ -12,6 +17,26 @@ const SignupPage = () => {
         const email = data.get("email");
         const password = data.get("password");
         const remember = data.get("remember");
+
+        // checking if username is already used
+        const fetchedUsername = await fetchUserByUsername(username!.toString());
+        if (fetchedUsername) {
+            usernameTakenText.current!.classList.remove("hidden");
+        } else {
+            if (!usernameTakenText.current!.classList.contains("hidden")) {
+                usernameTakenText.current!.classList.add("hidden");
+            }
+        }
+
+        // checking if email is already used
+        const fetchedEmail = await fetchUserByEmail(email!.toString());
+        if (fetchedEmail) {
+            emailTakenText.current!.classList.remove("hidden");
+        } else {
+            if (!emailTakenText.current!.classList.contains("hidden")) {
+                emailTakenText.current!.classList.add("hidden");
+            }
+        }
     };
 
     return (
@@ -31,20 +56,36 @@ const SignupPage = () => {
                 </p>
             </div>
             <div className="mx-auto w-11/12 space-y-6 pt-12 sm:mx-0 sm:w-full sm:space-y-8">
-                <input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
-                    required
-                />
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
-                    required
-                />
+                <div>
+                    <input
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                        required
+                    />
+                    <p
+                        className="hidden pt-3 text-red-500"
+                        ref={usernameTakenText}
+                    >
+                        Sorry that username is taken.
+                    </p>
+                </div>
+                <div>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                        required
+                    />
+                    <p
+                        className="hidden pt-3 text-red-500"
+                        ref={emailTakenText}
+                    >
+                        Sorry that email is already being used.
+                    </p>
+                </div>
                 <input
                     name="password"
                     type="password"
