@@ -56,7 +56,7 @@ const SignupPage = () => {
             <div className="space-y-3 pt-10 md:pt-12">
                 <button
                     type="submit"
-                    className="hover:bg-highlightHover w-full rounded bg-highlightPurple py-3 transition-colors duration-300"
+                    className="hover:bg-highlightHover w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300"
                 >
                     Sign up
                 </button>
