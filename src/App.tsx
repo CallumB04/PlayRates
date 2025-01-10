@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage/HomePage";
 import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from "react";
-import SignupPage from "./pages/SignupPage/SignupPage";
+import SignupForm from "./components/SignupForm";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -15,6 +15,11 @@ export const useUser = () => useContext(UserContext);
 function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);
+
+    // signup form visibility
+    const [signupFormVisible, setSignupFormVisible] = useState<Boolean>(false);
+    const openSignupForm = () => setSignupFormVisible(true);
+    const closeSignupForm = () => setSignupFormVisible(false);
 
     // fetching user id from localstorage
     // temporary feature for testing to simulate using cookies to remember user
@@ -49,14 +54,17 @@ function App() {
     return (
         <UserContext.Provider value={user}>
             <Router basename="/PlayRates">
-                <Navbar signOutUser={signOutUser} />
+                <Navbar
+                    signOutUser={signOutUser}
+                    openSignupForm={openSignupForm}
+                />
                 <main className="px-4 py-24 sm:px-8 md:py-32">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/signup" element={<SignupPage />} />
                     </Routes>
                 </main>
                 <Footer />
+                <SignupForm visible={signupFormVisible} />
             </Router>
         </UserContext.Provider>
     );

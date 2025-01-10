@@ -5,9 +5,10 @@ import { useUser } from "../App";
 
 interface NavbarProps {
     signOutUser: () => void;
+    openSignupForm: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
+const Navbar: React.FC<NavbarProps> = ({ signOutUser, openSignupForm }) => {
     // fetching user data from react context
     const user: UserAccount | null = useUser();
 
@@ -171,14 +172,16 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                             <i className="fas fa-sign-in-alt text-highlightPurple"></i>
                             <p>Log In</p>
                         </Link>
-                        <Link
+                        <p
                             className={`${phoneDropdownItemStyles} gap-[8px]`}
-                            to="/signup"
-                            onClick={closePhoneDropdown}
+                            onClick={() => {
+                                closePhoneDropdown();
+                                openSignupForm();
+                            }}
                         >
                             <i className="fas fa-user-plus text-highlightPurple"></i>
                             <p>Sign Up</p>
-                        </Link>
+                        </p>
                     </>
                 )}
             </div>
@@ -274,11 +277,11 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser }) => {
                                 Log in
                             </p>
                         </Link>
-                        <Link to="/signup">
+                        <p onClick={openSignupForm}>
                             <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
                                 Sign up
                             </p>
-                        </Link>
+                        </p>
                     </>
                 )}
                 {/* Games library link text */}
