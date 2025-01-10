@@ -17,7 +17,7 @@ const SignupPage = () => {
     return (
         <form
             onSubmit={handleSignup}
-            className="mx-auto mt-8 flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-16 font-ssp text-textColor shadow-md sm:px-12 md:w-[630px] md:px-16"
+            className="mx-auto mt-8 flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
         >
             <div className="text-center">
                 <h2 className="text-4xl">Sign up for PlayRates</h2>
