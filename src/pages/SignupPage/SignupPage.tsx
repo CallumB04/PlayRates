@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchUserByUsername, fetchUserByEmail } from "../../api";
 
@@ -7,6 +7,9 @@ const SignupPage = () => {
     const usernameTakenText = useRef<HTMLParagraphElement>(null);
     const emailTakenText = useRef<HTMLParagraphElement>(null);
     const passwordLengthText = useRef<HTMLParagraphElement>(null);
+
+    // password hidden or show setting
+    const [passwordHide, setPasswordHide] = useState<Boolean>(true);
 
     // function to handle user signup on form submission
     const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
@@ -106,10 +109,10 @@ const SignupPage = () => {
                         Sorry that email is already being used.
                     </p>
                 </div>
-                <div>
+                <div className="relative">
                     <input
                         name="password"
-                        type="password"
+                        type={passwordHide ? "password" : "text"}
                         placeholder="Password"
                         className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
                         required
@@ -120,6 +123,10 @@ const SignupPage = () => {
                     >
                         Password needs to be atleast 6 characters long.
                     </p>
+                    <i
+                        className={`fas ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute right-3 top-2 hover:cursor-pointer hover:text-highlightPurple`}
+                        onClick={() => setPasswordHide(!passwordHide)}
+                    ></i>
                 </div>
             </div>
             <div className="mx-auto w-11/12 space-y-3 pt-10 sm:mx-0 sm:w-full md:pt-12">
