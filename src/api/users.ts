@@ -57,3 +57,15 @@ export const fetchUserByEmail = async (
         );
     });
 };
+
+// fetches a specific user by the given username
+export const fetchUserByUsername = async (
+    username: string
+): Promise<UserAccount | undefined> => {
+    return new Promise((resolve) => {
+        setTimeout(
+            () => resolve(users.find((user) => user.username === username)),
+            500
+        );
+    });
+};
