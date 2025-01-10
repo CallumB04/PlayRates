@@ -8,6 +8,10 @@ const SignupPage = () => {
 
         // getting data from form inputs
         const data = new FormData(event.currentTarget);
+        const username = data.get("username");
+        const email = data.get("email");
+        const password = data.get("password");
+        const remember = data.get("remember");
     };
 
     return (
@@ -32,24 +36,26 @@ const SignupPage = () => {
                     type="text"
                     placeholder="Username"
                     className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                    required
                 />
                 <input
                     name="email"
                     type="email"
                     placeholder="Email"
                     className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                    required
                 />
                 <input
                     name="password"
                     type="password"
                     placeholder="Password"
                     className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                    required
                 />
             </div>
             <div className="space-y-3 pt-10 md:pt-12">
                 <button
                     type="submit"
-                    name="submit"
                     className="hover:bg-highlightHover w-full rounded bg-highlightPurple py-3 transition-colors duration-300"
                 >
                     Sign up
