@@ -10,6 +10,7 @@ const SignupPage = () => {
     // function to handle user signup on form submission
     const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // preventing page from refreshing
+        let errored = false; // set to true if any of inputs causes error, to return after all checks
 
         // getting data from form inputs
         const data = new FormData(event.currentTarget);
@@ -22,6 +23,7 @@ const SignupPage = () => {
         const fetchedUsername = await fetchUserByUsername(username!.toString());
         if (fetchedUsername) {
             usernameTakenText.current!.classList.remove("hidden");
+            errored = true;
         } else {
             if (!usernameTakenText.current!.classList.contains("hidden")) {
                 usernameTakenText.current!.classList.add("hidden");
@@ -32,10 +34,16 @@ const SignupPage = () => {
         const fetchedEmail = await fetchUserByEmail(email!.toString());
         if (fetchedEmail) {
             emailTakenText.current!.classList.remove("hidden");
+            errored = true;
         } else {
             if (!emailTakenText.current!.classList.contains("hidden")) {
                 emailTakenText.current!.classList.add("hidden");
             }
+        }
+
+        // exit function if any of inputs caused error
+        if (errored) {
+            return;
         }
     };
 
