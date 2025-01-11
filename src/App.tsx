@@ -19,18 +19,18 @@ function App() {
     // signup / login form visibility
     const [accountFormVisible, setAccountFormVisible] =
         useState<Boolean>(false);
-    const [currentForm, setCurrentForm] = useState<"signup" | "login" | null>(
-        null
+    const [currentForm, setCurrentForm] = useState<"signup" | "login">(
+        "signup"
     );
 
     // functions to open signup / login forms
     const openSignupForm = () => {
-        setAccountFormVisible(true);
         setCurrentForm("signup");
+        setAccountFormVisible(true);
     };
     const openLoginForm = () => {
-        setAccountFormVisible(true);
         setCurrentForm("login");
+        setAccountFormVisible(true);
     };
     const closeAccountForm = () => setAccountFormVisible(false);
 

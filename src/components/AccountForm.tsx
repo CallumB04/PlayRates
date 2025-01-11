@@ -3,7 +3,7 @@ import { fetchUserByUsername, fetchUserByEmail } from "../api";
 
 interface FormProps {
     visible: Boolean;
-    formType: "signup" | "login" | null;
+    formType: "signup" | "login";
     closeAccountForm: () => void;
     openSignupForm: () => void;
     openLoginForm: () => void;
