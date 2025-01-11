@@ -6,9 +6,14 @@ import { useUser } from "../App";
 interface NavbarProps {
     signOutUser: () => void;
     openSignupForm: () => void;
+    openLoginForm: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ signOutUser, openSignupForm }) => {
+const Navbar: React.FC<NavbarProps> = ({
+    signOutUser,
+    openSignupForm,
+    openLoginForm,
+}) => {
     // fetching user data from react context
     const user: UserAccount | null = useUser();
 
@@ -164,14 +169,16 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser, openSignupForm }) => {
                     </>
                 ) : (
                     <>
-                        <Link
+                        <p
                             className={`${phoneDropdownItemStyles}`}
-                            to="/login"
-                            onClick={closePhoneDropdown}
+                            onClick={() => {
+                                closePhoneDropdown();
+                                openLoginForm();
+                            }}
                         >
                             <i className="fas fa-sign-in-alt text-highlightPurple"></i>
                             <p>Log In</p>
-                        </Link>
+                        </p>
                         <p
                             className={`${phoneDropdownItemStyles} gap-[8px]`}
                             onClick={() => {
@@ -272,15 +279,17 @@ const Navbar: React.FC<NavbarProps> = ({ signOutUser, openSignupForm }) => {
                 ) : (
                     <>
                         {/* Sign up and login buttons if no user account */}
-                        <Link to="/login">
-                            <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
-                                Log in
-                            </p>
-                        </Link>
-                        <p onClick={openSignupForm}>
-                            <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
-                                Sign up
-                            </p>
+                        <p
+                            onClick={openLoginForm}
+                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple"
+                        >
+                            Log in
+                        </p>
+                        <p
+                            onClick={openSignupForm}
+                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple"
+                        >
+                            Sign up
                         </p>
                     </>
                 )}

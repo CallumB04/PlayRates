@@ -70,6 +70,7 @@ function App() {
                 <Navbar
                     signOutUser={signOutUser}
                     openSignupForm={openSignupForm}
+                    openLoginForm={openLoginForm}
                 />
                 <main className="px-4 py-24 sm:px-8 md:py-32">
                     <Routes>
