@@ -4,13 +4,24 @@ import { fetchUserByUsername, fetchUserByEmail } from "../api";
 
 interface FormProps {
     visible: Boolean;
+    initialType: "signup" | "login" | null;
+    closeAccountForm: () => void;
 }
 
-const SignupForm: React.FC<FormProps> = ({ visible }) => {
+const AccountForm: React.FC<FormProps> = ({
+    visible,
+    initialType,
+    closeAccountForm,
+}) => {
     // username and email taken text elements
     const usernameTakenText = useRef<HTMLParagraphElement>(null);
     const emailTakenText = useRef<HTMLParagraphElement>(null);
     const passwordLengthText = useRef<HTMLParagraphElement>(null);
+
+    // active form type in state
+    const [activeForm, setActiveForm] = useState<"signup" | "login" | null>(
+        initialType
+    );
 
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);
@@ -72,7 +83,7 @@ const SignupForm: React.FC<FormProps> = ({ visible }) => {
         >
             <form
                 onSubmit={handleSignup}
-                className="mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
             >
                 <div className="text-center">
                     <h2 className="text-4xl">Sign up for PlayRates</h2>
@@ -148,9 +159,14 @@ const SignupForm: React.FC<FormProps> = ({ visible }) => {
                         <p>Remember me</p>
                     </div>
                 </div>
+                {/* Close form button (X) */}
+                <i
+                    className="fas fa-xmark absolute right-5 top-4 px-1 text-3xl transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple"
+                    onClick={closeAccountForm}
+                ></i>
             </form>
         </dialog>
     );
 };
 
-export default SignupForm;
+export default AccountForm;

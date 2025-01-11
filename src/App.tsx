@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage/HomePage";
 import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from "react";
-import SignupForm from "./components/SignupForm";
+import AccountForm from "./components/AccountForm";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -16,10 +16,23 @@ function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);
 
-    // signup form visibility
-    const [signupFormVisible, setSignupFormVisible] = useState<Boolean>(false);
-    const openSignupForm = () => setSignupFormVisible(true);
-    const closeSignupForm = () => setSignupFormVisible(false);
+    // signup / login form visibility
+    const [accountFormVisible, setAccountFormVisible] =
+        useState<Boolean>(false);
+    const [currentForm, setCurrentForm] = useState<"signup" | "login" | null>(
+        null
+    );
+
+    // functions to open signup / login forms
+    const openSignupForm = () => {
+        setAccountFormVisible(true);
+        setCurrentForm("signup");
+    };
+    const openLoginForm = () => {
+        setAccountFormVisible(true);
+        setCurrentForm("login");
+    };
+    const closeAccountForm = () => setAccountFormVisible(false);
 
     // fetching user id from localstorage
     // temporary feature for testing to simulate using cookies to remember user
@@ -64,7 +77,11 @@ function App() {
                     </Routes>
                 </main>
                 <Footer />
-                <SignupForm visible={signupFormVisible} />
+                <AccountForm
+                    visible={accountFormVisible}
+                    initialType={currentForm}
+                    closeAccountForm={closeAccountForm}
+                />
             </Router>
         </UserContext.Provider>
     );
