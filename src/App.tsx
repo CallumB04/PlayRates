@@ -86,13 +86,16 @@ function App() {
                     </Routes>
                 </main>
                 <Footer />
-                <AccountForm
-                    visible={accountFormVisible}
-                    formType={currentForm}
-                    closeAccountForm={closeAccountForm}
-                    openSignupForm={openSignupForm}
-                    openLoginForm={openLoginForm}
-                />
+                {accountFormVisible ? (
+                    <AccountForm
+                        formType={currentForm}
+                        closeAccountForm={closeAccountForm}
+                        openSignupForm={openSignupForm}
+                        openLoginForm={openLoginForm}
+                    />
+                ) : (
+                    ""
+                )}
             </Router>
         </UserContext.Provider>
     );
