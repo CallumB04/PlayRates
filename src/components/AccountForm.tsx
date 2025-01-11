@@ -1,5 +1,4 @@
 import { FormEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { fetchUserByUsername, fetchUserByEmail } from "../api";
 
 interface FormProps {
@@ -122,21 +121,25 @@ const AccountForm: React.FC<FormProps> = ({
                             Sorry that username is taken.
                         </p>
                     </div>
-                    <div>
-                        <input
-                            name="email"
-                            type="email"
-                            placeholder="Email"
-                            className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
-                            required
-                        />
-                        <p
-                            className="hidden pt-3 text-red-500"
-                            ref={emailTakenText}
-                        >
-                            Sorry that email is already being used.
-                        </p>
-                    </div>
+                    {formType === "signup" ? (
+                        <div>
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="Email"
+                                className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                                required
+                            />
+                            <p
+                                className="hidden pt-3 text-red-500"
+                                ref={emailTakenText}
+                            >
+                                Sorry that email is already being used.
+                            </p>
+                        </div>
+                    ) : (
+                        ""
+                    )}
                     <div className="relative">
                         <input
                             name="password"
@@ -162,7 +165,7 @@ const AccountForm: React.FC<FormProps> = ({
                         type="submit"
                         className="w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover"
                     >
-                        Sign up
+                        {formType === "signup" ? "Sign up" : "Log in"}
                     </button>
                     <div className="flex flex-row items-center gap-x-[6px]">
                         <input name="remember" type="checkbox" />
