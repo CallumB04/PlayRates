@@ -177,7 +177,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             }}
                         >
                             <i className="fas fa-sign-in-alt text-highlightPurple"></i>
-                            <p>Log In</p>
+                            <span>Log In</span>
                         </p>
                         <p
                             className={`${phoneDropdownItemStyles} gap-[8px]`}
@@ -187,7 +187,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             }}
                         >
                             <i className="fas fa-user-plus text-highlightPurple"></i>
-                            <p>Sign Up</p>
+                            <span>Sign Up</span>
                         </p>
                     </>
                 )}
