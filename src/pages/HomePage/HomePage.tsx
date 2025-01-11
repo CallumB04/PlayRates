@@ -93,7 +93,7 @@ const HomePage: React.FC<HomePageProps> = ({
                         </p>
                     )}
                 </div>
-                <div className="flex w-full items-center justify-evenly font-ssp text-xl text-textColor md:w-1/2 md:justify-between md:pl-10 md:pt-24 lg:justify-evenly lg:pt-0 lg:text-[22px] 2xl:text-3xl">
+                <div className="flex w-full items-center justify-evenly font-ssp text-xl text-textColor md:w-1/2 md:justify-between md:pb-8 md:pl-10 lg:justify-evenly lg:pb-0 lg:text-[22px] 2xl:text-3xl">
                     <div className="flex flex-col gap-y-1 text-center">
                         <i className="fa-solid fa-user text-3xl md:text-[32px] 2xl:text-4xl"></i>
                         <p>{userCount} Users</p>
