@@ -10,7 +10,15 @@ const gameSectionTitleStyles = `text-textColor font-ssp font-normal tracking-wid
                                 text-3xl md:text-4xl 2xl:text-[42px] uppercase mt-16 text-center
                                 [&:not(:first-of-type)]:mt-24 [&:not(:first-of-type)]:2xl:mt-28`;
 
-const HomePage = () => {
+interface HomePageProps {
+    openSignupForm: () => void;
+    openLoginForm: () => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({
+    openSignupForm,
+    openLoginForm,
+}) => {
     // fetching user data from react context
     const user: UserAccount | null = useUser();
     const [userCount, setUserCount] = useState<number>(0);
@@ -55,20 +63,20 @@ const HomePage = () => {
 
                     {!user ? (
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-4 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
-                            <Link
-                                to="/signup"
-                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 hover:bg-highlightHover active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                            <p
+                                onClick={openSignupForm}
+                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 hover:cursor-pointer hover:bg-highlightHover active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
                             >
                                 Sign up
-                            </Link>
+                            </p>
                             <p className="text-xl font-light text-textColor 2xl:text-2xl">
                                 or{" "}
-                                <Link
-                                    to="/login"
-                                    className="underline hover:text-highlightPurple"
+                                <span
+                                    onClick={openLoginForm}
+                                    className="underline hover:cursor-pointer hover:text-highlightPurple"
                                 >
                                     log in
-                                </Link>{" "}
+                                </span>{" "}
                                 if you have an account
                             </p>
                         </div>
