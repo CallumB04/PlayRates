@@ -1,8 +1,7 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { fetchUserByUsername, fetchUserByEmail } from "../api";
 
 interface FormProps {
-    visible: Boolean;
     formType: "signup" | "login";
     closeAccountForm: () => void;
     openSignupForm: () => void;
@@ -10,7 +9,6 @@ interface FormProps {
 }
 
 const AccountForm: React.FC<FormProps> = ({
-    visible,
     formType,
     closeAccountForm,
     openSignupForm,
@@ -21,8 +19,27 @@ const AccountForm: React.FC<FormProps> = ({
     const emailTakenText = useRef<HTMLParagraphElement>(null);
     const passwordLengthText = useRef<HTMLParagraphElement>(null);
 
+    // form and backdrop elements
+    const formElement = useRef<HTMLFormElement>(null);
+    const formBackdrop = useRef<HTMLDialogElement>(null);
+
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);
+
+    // checking for ESC key press to close form
+    useEffect(() => {
+        const keyCheck = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                closeAccountForm();
+            }
+        };
+
+        document.addEventListener("keydown", keyCheck);
+
+        return () => {
+            document.removeEventListener("keydown", keyCheck);
+        };
+    }, []);
 
     // function to handle user signup on form submission
     const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
@@ -77,11 +94,13 @@ const AccountForm: React.FC<FormProps> = ({
 
     return (
         <dialog
-            className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-3 ${visible ? "" : "hidden"}`}
+            className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-3`}
+            ref={formBackdrop}
         >
             <form
                 onSubmit={handleSignup}
                 className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                ref={formElement}
             >
                 <div className="text-center">
                     <h2 className="text-4xl">
