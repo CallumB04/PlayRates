@@ -4,24 +4,21 @@ import { fetchUserByUsername, fetchUserByEmail } from "../api";
 
 interface FormProps {
     visible: Boolean;
-    initialType: "signup" | "login" | null;
+    formType: "signup" | "login" | null;
     closeAccountForm: () => void;
+    openSignupForm: () => void;
+    openLoginForm: () => void;
 }
 
 const AccountForm: React.FC<FormProps> = ({
     visible,
-    initialType,
+    formType,
     closeAccountForm,
 }) => {
     // username and email taken text elements
     const usernameTakenText = useRef<HTMLParagraphElement>(null);
     const emailTakenText = useRef<HTMLParagraphElement>(null);
     const passwordLengthText = useRef<HTMLParagraphElement>(null);
-
-    // active form type in state
-    const [activeForm, setActiveForm] = useState<"signup" | "login" | null>(
-        initialType
-    );
 
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);

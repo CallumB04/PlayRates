@@ -79,8 +79,10 @@ function App() {
                 <Footer />
                 <AccountForm
                     visible={accountFormVisible}
-                    initialType={currentForm}
+                    formType={currentForm}
                     closeAccountForm={closeAccountForm}
+                    openSignupForm={openSignupForm}
+                    openLoginForm={openLoginForm}
                 />
             </Router>
         </UserContext.Provider>
