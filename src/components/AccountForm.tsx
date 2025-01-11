@@ -174,7 +174,7 @@ const AccountForm: React.FC<FormProps> = ({
                 </div>
                 {/* Close form button (X) */}
                 <i
-                    className="fas fa-xmark absolute right-5 top-4 px-1 text-3xl transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple"
+                    className="fas fa-xmark absolute right-[14px] top-3 px-1 text-2xl transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple sm:right-5 sm:top-4 sm:text-3xl"
                     onClick={closeAccountForm}
                 ></i>
             </form>
