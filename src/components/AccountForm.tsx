@@ -36,6 +36,7 @@ const AccountForm: React.FC<FormProps> = ({
 
         document.addEventListener("keydown", keyCheck);
 
+        // removing key event listener when form is closed
         return () => {
             document.removeEventListener("keydown", keyCheck);
         };
@@ -96,9 +97,11 @@ const AccountForm: React.FC<FormProps> = ({
         <dialog
             className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-3`}
             ref={formBackdrop}
+            onClick={closeAccountForm}
         >
             <form
                 onSubmit={handleSignup}
+                onClick={(event) => event.stopPropagation()}
                 className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
                 ref={formElement}
             >
