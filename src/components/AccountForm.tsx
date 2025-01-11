@@ -14,6 +14,8 @@ const AccountForm: React.FC<FormProps> = ({
     visible,
     formType,
     closeAccountForm,
+    openSignupForm,
+    openLoginForm,
 }) => {
     // username and email taken text elements
     const usernameTakenText = useRef<HTMLParagraphElement>(null);
@@ -83,14 +85,25 @@ const AccountForm: React.FC<FormProps> = ({
                 className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-10 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
             >
                 <div className="text-center">
-                    <h2 className="text-4xl">Sign up for PlayRates</h2>
+                    <h2 className="text-4xl">
+                        {formType === "signup"
+                            ? "Sign up for PlayRates"
+                            : "Log in to PlayRates"}
+                    </h2>
                     <p className="mt-1 text-lg">
-                        Create a free account or{" "}
-                        <Link to="/login">
-                            <span className="text-highlightPurple hover:text-highlightHover">
-                                log in
-                            </span>
-                        </Link>
+                        {formType === "signup"
+                            ? "Create a free account or"
+                            : "Not a member?"}{" "}
+                        <span
+                            onClick={
+                                formType === "signup"
+                                    ? openLoginForm
+                                    : openSignupForm
+                            }
+                            className="text-highlightPurple hover:cursor-pointer hover:text-highlightHover"
+                        >
+                            {formType === "signup" ? "log in" : "Sign up"}
+                        </span>
                     </p>
                 </div>
                 <div className="mx-auto w-11/12 space-y-6 pt-12 sm:mx-0 sm:w-full sm:space-y-8">
