@@ -179,6 +179,7 @@ const AccountForm: React.FC<FormProps> = ({
                         <i
                             className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute ${passwordHide ? "right-3" : "right-[11px]"} top-2 hover:cursor-pointer hover:text-highlightPurple`}
                             onClick={() => setPasswordHide(!passwordHide)}
+                            title={passwordHide ? "Show" : "Hide"}
                         ></i>
                     </div>
                 </div>
