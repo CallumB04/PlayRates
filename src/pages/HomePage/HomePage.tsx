@@ -65,7 +65,7 @@ const HomePage: React.FC<HomePageProps> = ({
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-4 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
                             <p
                                 onClick={openSignupForm}
-                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-transform duration-200 hover:cursor-pointer hover:bg-highlightHover active:-translate-y-[2px] active:transform md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-colors duration-200 hover:cursor-pointer hover:bg-highlightHover md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
                             >
                                 Sign up
                             </p>
@@ -73,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({
                                 or{" "}
                                 <span
                                     onClick={openLoginForm}
-                                    className="underline hover:cursor-pointer hover:text-highlightPurple"
+                                    className="underline transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple"
                                 >
                                     log in
                                 </span>{" "}
