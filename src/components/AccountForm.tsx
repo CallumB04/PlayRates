@@ -177,7 +177,7 @@ const AccountForm: React.FC<FormProps> = ({
                             Password needs to be atleast 6 characters long.
                         </p>
                         <i
-                            className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute right-3 top-2 hover:cursor-pointer hover:text-highlightPurple`}
+                            className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute ${passwordHide ? "right-3" : "right-[11px]"} top-2 hover:cursor-pointer hover:text-highlightPurple`}
                             onClick={() => setPasswordHide(!passwordHide)}
                         ></i>
                     </div>
