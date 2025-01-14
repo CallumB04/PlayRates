@@ -19,6 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({
     // fetching user data from react context
     const user: UserAccount | null = useUser();
 
+    // closing login / singup form when page changes
     const urlPath = useLocation();
 
     useEffect(() => {
