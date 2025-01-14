@@ -190,9 +190,18 @@ const AccountForm: React.FC<FormProps> = ({
                     >
                         {formType === "signup" ? "Sign up" : "Log in"}
                     </button>
-                    <div className="flex flex-row items-center gap-x-[6px]">
-                        <input name="remember" type="checkbox" />
-                        <p>Remember me</p>
+                    <div className="flex w-full items-center justify-between">
+                        <div className="flex flex-row items-center gap-x-[6px]">
+                            <input name="remember" type="checkbox" />
+                            <p>Remember me</p>
+                        </div>
+                        {formType === "login" ? (
+                            <p className="text-highlightPurple transition-colors duration-200 hover:cursor-pointer hover:text-highlightHover">
+                                Forgot password?
+                            </p>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 {/* Close form button (X) */}
