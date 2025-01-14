@@ -15,9 +15,9 @@ const AccountForm: React.FC<FormProps> = ({
     openLoginForm,
 }) => {
     // username and email taken text elements
-    const usernameTakenText = useRef<HTMLParagraphElement>(null);
-    const emailTakenText = useRef<HTMLParagraphElement>(null);
-    const passwordLengthText = useRef<HTMLParagraphElement>(null);
+    const usernameErrorText = useRef<HTMLParagraphElement>(null);
+    const emailErrorText = useRef<HTMLParagraphElement>(null);
+    const passwordErrorText = useRef<HTMLParagraphElement>(null);
 
     // form and backdrop elements
     const formElement = useRef<HTMLFormElement>(null);
@@ -54,36 +54,69 @@ const AccountForm: React.FC<FormProps> = ({
         const password = data.get("password");
         const remember = data.get("remember");
 
-        // checking if username is already used
+        // checking if username is already used in signup
+        // or if username exists in login
         const fetchedUsername = await fetchUserByUsername(username!.toString());
         if (fetchedUsername) {
-            usernameTakenText.current!.classList.remove("hidden");
-            errored = true;
+            // user already exists - signup
+            if (formType === "signup") {
+                usernameErrorText.current!.classList.remove("hidden");
+                errored = true;
+            } else {
+                if (!usernameErrorText.current!.classList.contains("hidden")) {
+                    usernameErrorText.current!.classList.add("hidden");
+                }
+            }
         } else {
-            if (!usernameTakenText.current!.classList.contains("hidden")) {
-                usernameTakenText.current!.classList.add("hidden");
+            // username doesnt exist - login
+            if (formType === "login") {
+                usernameErrorText.current!.classList.remove("hidden");
+                errored = true;
+            } else {
+                if (!usernameErrorText.current!.classList.contains("hidden")) {
+                    usernameErrorText.current!.classList.add("hidden");
+                }
             }
         }
 
-        // checking if email is already used
-        const fetchedEmail = await fetchUserByEmail(email!.toString());
-        if (fetchedEmail) {
-            emailTakenText.current!.classList.remove("hidden");
-            errored = true;
-        } else {
-            if (!emailTakenText.current!.classList.contains("hidden")) {
-                emailTakenText.current!.classList.add("hidden");
+        // checking if email is already used in signup
+        if (email) {
+            const fetchedEmail = await fetchUserByEmail(email.toString());
+            if (fetchedEmail) {
+                emailErrorText.current!.classList.remove("hidden");
+                errored = true;
+            } else {
+                if (!emailErrorText.current!.classList.contains("hidden")) {
+                    emailErrorText.current!.classList.add("hidden");
+                }
             }
         }
 
-        // checking if password is long enough
-        if (password!.toString().length < 6) {
-            console.log(password);
-            passwordLengthText.current!.classList.remove("hidden");
-            errored = true;
+        // checking if password is long enough for signup
+        // or if password is correct for login
+        if (formType === "signup") {
+            // password length less that 8 characters - signup
+            if (password!.toString().length < 8) {
+                console.log(password);
+                passwordErrorText.current!.classList.remove("hidden");
+                errored = true;
+            } else {
+                if (!passwordErrorText.current!.classList.contains("hidden")) {
+                    passwordErrorText.current!.classList.add("hidden");
+                }
+            }
         } else {
-            if (!passwordLengthText.current!.classList.contains("hidden")) {
-                passwordLengthText.current!.classList.add("hidden");
+            if (fetchedUsername) {
+                // incorrect pasword - login
+                if (password!.toString() !== fetchedUsername.password) {
+                    passwordErrorText.current!.classList.remove("hidden");
+                } else {
+                    if (
+                        !passwordErrorText.current!.classList.contains("hidden")
+                    ) {
+                        passwordErrorText.current!.classList.add("hidden");
+                    }
+                }
             }
         }
 
@@ -138,9 +171,11 @@ const AccountForm: React.FC<FormProps> = ({
                         />
                         <p
                             className="hidden pt-3 text-red-500"
-                            ref={usernameTakenText}
+                            ref={usernameErrorText}
                         >
-                            Sorry that username is taken.
+                            {formType === "signup"
+                                ? "Sorry that username is taken."
+                                : "Username does not exist."}
                         </p>
                     </div>
                     {formType === "signup" ? (
@@ -154,7 +189,7 @@ const AccountForm: React.FC<FormProps> = ({
                             />
                             <p
                                 className="hidden pt-3 text-red-500"
-                                ref={emailTakenText}
+                                ref={emailErrorText}
                             >
                                 Sorry that email is already being used.
                             </p>
@@ -172,9 +207,11 @@ const AccountForm: React.FC<FormProps> = ({
                         />
                         <p
                             className="hidden pt-3 text-red-500"
-                            ref={passwordLengthText}
+                            ref={passwordErrorText}
                         >
-                            Password needs to be atleast 6 characters long.
+                            {formType === "signup"
+                                ? "Password needs to be atleast 8 characters long."
+                                : "Password is incorrect."}
                         </p>
                         <i
                             className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute ${passwordHide ? "right-3" : "right-[11px]"} top-2 hover:cursor-pointer hover:text-highlightPurple`}
