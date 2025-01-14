@@ -117,6 +117,10 @@ const AccountForm: React.FC<FormProps> = ({
                         passwordErrorText.current!.classList.add("hidden");
                     }
                 }
+            } else {
+                if (!passwordErrorText.current!.classList.contains("hidden")) {
+                    passwordErrorText.current!.classList.add("hidden");
+                }
             }
         }
 
