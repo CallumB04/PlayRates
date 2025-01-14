@@ -121,7 +121,7 @@ const AccountForm: React.FC<FormProps> = ({
                                     ? openLoginForm
                                     : openSignupForm
                             }
-                            className="text-highlightPurple hover:cursor-pointer hover:text-highlightHover"
+                            className="text-highlightPurple transition-colors duration-200 hover:cursor-pointer hover:text-highlightHover"
                         >
                             {formType === "signup" ? "log in" : "Sign up"}
                         </span>
