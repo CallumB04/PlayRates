@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserAccount } from "../api";
 import { useUser } from "../App";
 
@@ -7,15 +7,23 @@ interface NavbarProps {
     signOutUser: () => void;
     openSignupForm: () => void;
     openLoginForm: () => void;
+    closeAccountForm: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
     signOutUser,
     openSignupForm,
     openLoginForm,
+    closeAccountForm,
 }) => {
     // fetching user data from react context
     const user: UserAccount | null = useUser();
+
+    const urlPath = useLocation();
+
+    useEffect(() => {
+        closeAccountForm();
+    }, [urlPath]);
 
     // common styles used on all items in the My Account dropdown menu
     const dropdownItemStyles: string = `opacity-0 group-hover:opacity-100 transition duration-200 
