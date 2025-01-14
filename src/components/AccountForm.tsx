@@ -97,7 +97,6 @@ const AccountForm: React.FC<FormProps> = ({
         if (formType === "signup") {
             // password length less that 8 characters - signup
             if (password!.toString().length < 8) {
-                console.log(password);
                 passwordErrorText.current!.classList.remove("hidden");
                 errored = true;
             } else {
@@ -110,6 +109,7 @@ const AccountForm: React.FC<FormProps> = ({
                 // incorrect pasword - login
                 if (password!.toString() !== fetchedUsername.password) {
                     passwordErrorText.current!.classList.remove("hidden");
+                    errored = true;
                 } else {
                     if (
                         !passwordErrorText.current!.classList.contains("hidden")
