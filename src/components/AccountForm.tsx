@@ -1,5 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { fetchUserByUsername, fetchUserByEmail } from "../api";
+import {
+    fetchUserByUsername,
+    fetchUserByEmail,
+    addNewUser,
+    UserCreation,
+} from "../api";
 
 interface FormProps {
     formType: "signup" | "login";
@@ -70,7 +75,7 @@ const AccountForm: React.FC<FormProps> = ({
     }, []);
 
     // function to handle user signup on form submission
-    const handleSignup = async (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // preventing page from refreshing
         let errored = false; // set to true if any of inputs causes error, to return after all checks
 
@@ -142,6 +147,19 @@ const AccountForm: React.FC<FormProps> = ({
         if (errored) {
             return;
         }
+
+        // creating new account if signup
+        if (formType === "signup") {
+            // defining user structure
+            const newUser: UserCreation = {
+                username: usernameInput.current!.value,
+                email: emailInput.current!.value,
+                password: passwordInput.current!.value,
+            };
+
+            // calling api function to add new user
+            addNewUser(newUser);
+        }
     };
 
     return (
@@ -151,7 +169,7 @@ const AccountForm: React.FC<FormProps> = ({
             onMouseDown={closeAccountForm}
         >
             <form
-                onSubmit={handleSignup}
+                onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
                 className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-5 py-12 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
                 ref={formElement}

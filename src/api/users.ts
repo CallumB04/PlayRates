@@ -30,6 +30,13 @@ export interface UserAccount {
     games: GameList;
 }
 
+// for accounts that have been created in signup form, to add to UserAccount interface with unique ID
+export interface UserCreation {
+    username: string;
+    email: string;
+    password: string;
+}
+
 // fetches whole users array
 export const fetchUsers = async (): Promise<UserAccount[]> => {
     return new Promise((resolve) => {
@@ -68,4 +75,36 @@ export const fetchUserByUsername = async (
             500
         );
     });
+};
+
+// adds new user to user database
+// currently non-functional until a database is used instead of local json files
+export const addNewUser = async (newUser: UserCreation): Promise<void> => {
+    try {
+        // loading existing users
+        const users = await fetchUsers();
+
+        // creating new user account
+        // using username, email and password from form input
+        // setting user ID as new incremented value and empty games object
+        const newUserAccount: UserAccount = {
+            ...newUser,
+            id: users.length,
+            games: {
+                played: [],
+                playing: [],
+                backlog: [],
+                wishlist: [],
+            },
+        };
+
+        // add new user to users
+        users.push(newUserAccount);
+
+        // here the new user will be added to the database
+        // due to current use of local json files this isnt currently possible
+        // ...
+    } catch (error: any) {
+        throw new Error(`Error adding user: ${error.message}`);
+    }
 };
