@@ -174,9 +174,14 @@ const AccountForm: React.FC<FormProps> = ({
             );
 
             if (user) {
-                loadUserByID(user.id);
-                navigate("/");
-                closeAccountForm();
+                // add to local storage if user selects remember me
+                if (remember) {
+                    localStorage.setItem("user_id", String(user.id));
+                }
+
+                loadUserByID(user.id); // load new user into context
+                navigate("/"); // return user to home page
+                closeAccountForm(); // close the login form
             }
         }
     };
