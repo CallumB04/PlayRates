@@ -5,12 +5,14 @@ import {
     addNewUser,
     UserCreation,
 } from "../api";
+import { useNavigate } from "react-router-dom";
 
 interface FormProps {
     formType: "signup" | "login";
     closeAccountForm: () => void;
     openSignupForm: () => void;
     openLoginForm: () => void;
+    loadUserByID: (id: number) => Promise<void>;
 }
 
 const AccountForm: React.FC<FormProps> = ({
@@ -18,6 +20,7 @@ const AccountForm: React.FC<FormProps> = ({
     closeAccountForm,
     openSignupForm,
     openLoginForm,
+    loadUserByID,
 }) => {
     // form input elements
     const usernameInput = useRef<HTMLInputElement>(null);
@@ -35,6 +38,8 @@ const AccountForm: React.FC<FormProps> = ({
 
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);
+
+    const navigate = useNavigate();
 
     // function for hiding error message if not already hidden
     const hideErrorMessage = (msg: React.RefObject<HTMLParagraphElement>) => {
@@ -158,7 +163,21 @@ const AccountForm: React.FC<FormProps> = ({
             };
 
             // calling api function to add new user
-            addNewUser(newUser);
+            addNewUser(newUser).then(() => {
+                openLoginForm();
+            });
+        }
+        // logging into account
+        else {
+            const user = await fetchUserByUsername(
+                usernameInput.current!.value
+            );
+
+            if (user) {
+                loadUserByID(user.id);
+                navigate("/");
+                closeAccountForm();
+            }
         }
     };
 

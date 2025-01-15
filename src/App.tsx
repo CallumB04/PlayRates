@@ -93,6 +93,7 @@ function App() {
                         closeAccountForm={closeAccountForm}
                         openSignupForm={openSignupForm}
                         openLoginForm={openLoginForm}
+                        loadUserByID={loadUserByID}
                     />
                 ) : (
                     ""
