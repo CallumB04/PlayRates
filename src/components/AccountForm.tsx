@@ -54,6 +54,15 @@ const AccountForm: React.FC<FormProps> = ({
         const password = data.get("password");
         const remember = data.get("remember");
 
+        // function for hiding error message if not already hidden
+        const hideErrorMessage = (
+            msg: React.RefObject<HTMLParagraphElement>
+        ) => {
+            if (!msg.current!.classList.contains("hidden")) {
+                msg.current!.classList.add("hidden");
+            }
+        };
+
         // checking if username is already used in signup
         // or if username exists in login
         const fetchedUsername = await fetchUserByUsername(username!.toString());
@@ -63,9 +72,7 @@ const AccountForm: React.FC<FormProps> = ({
                 usernameErrorText.current!.classList.remove("hidden");
                 errored = true;
             } else {
-                if (!usernameErrorText.current!.classList.contains("hidden")) {
-                    usernameErrorText.current!.classList.add("hidden");
-                }
+                hideErrorMessage(usernameErrorText);
             }
         } else {
             // username doesnt exist - login
@@ -73,9 +80,7 @@ const AccountForm: React.FC<FormProps> = ({
                 usernameErrorText.current!.classList.remove("hidden");
                 errored = true;
             } else {
-                if (!usernameErrorText.current!.classList.contains("hidden")) {
-                    usernameErrorText.current!.classList.add("hidden");
-                }
+                hideErrorMessage(usernameErrorText);
             }
         }
 
@@ -86,9 +91,7 @@ const AccountForm: React.FC<FormProps> = ({
                 emailErrorText.current!.classList.remove("hidden");
                 errored = true;
             } else {
-                if (!emailErrorText.current!.classList.contains("hidden")) {
-                    emailErrorText.current!.classList.add("hidden");
-                }
+                hideErrorMessage(emailErrorText);
             }
         }
 
@@ -100,9 +103,7 @@ const AccountForm: React.FC<FormProps> = ({
                 passwordErrorText.current!.classList.remove("hidden");
                 errored = true;
             } else {
-                if (!passwordErrorText.current!.classList.contains("hidden")) {
-                    passwordErrorText.current!.classList.add("hidden");
-                }
+                hideErrorMessage(passwordErrorText);
             }
         } else {
             if (fetchedUsername) {
@@ -111,16 +112,10 @@ const AccountForm: React.FC<FormProps> = ({
                     passwordErrorText.current!.classList.remove("hidden");
                     errored = true;
                 } else {
-                    if (
-                        !passwordErrorText.current!.classList.contains("hidden")
-                    ) {
-                        passwordErrorText.current!.classList.add("hidden");
-                    }
+                    hideErrorMessage(passwordErrorText);
                 }
             } else {
-                if (!passwordErrorText.current!.classList.contains("hidden")) {
-                    passwordErrorText.current!.classList.add("hidden");
-                }
+                hideErrorMessage(passwordErrorText);
             }
         }
 
