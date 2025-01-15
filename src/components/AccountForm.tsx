@@ -128,6 +128,7 @@ const AccountForm: React.FC<FormProps> = ({
                 // incorrect pasword - login
                 if (password!.toString() !== fetchedUsername.password) {
                     passwordErrorText.current!.classList.remove("hidden");
+                    passwordInput.current!.value = "";
                     errored = true;
                 } else {
                     hideErrorMessage(passwordErrorText);
