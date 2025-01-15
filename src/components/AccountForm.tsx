@@ -14,7 +14,12 @@ const AccountForm: React.FC<FormProps> = ({
     openSignupForm,
     openLoginForm,
 }) => {
-    // username and email taken text elements
+    // form input elements
+    const usernameInput = useRef<HTMLInputElement>(null);
+    const emailInput = useRef<HTMLInputElement>(null);
+    const passwordInput = useRef<HTMLInputElement>(null);
+
+    // form input error message elements
     const usernameErrorText = useRef<HTMLParagraphElement>(null);
     const emailErrorText = useRef<HTMLParagraphElement>(null);
     const passwordErrorText = useRef<HTMLParagraphElement>(null);
@@ -25,6 +30,28 @@ const AccountForm: React.FC<FormProps> = ({
 
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);
+
+    // function for hiding error message if not already hidden
+    const hideErrorMessage = (msg: React.RefObject<HTMLParagraphElement>) => {
+        if (!msg.current?.classList.contains("hidden")) {
+            msg.current?.classList.add("hidden");
+        }
+    };
+
+    // clearing inputs and error messages on form change
+    useEffect(() => {
+        // hiding error messages
+        hideErrorMessage(usernameErrorText);
+        hideErrorMessage(emailErrorText);
+        hideErrorMessage(passwordErrorText);
+
+        // removing input values
+        usernameInput.current!.value = "";
+        if (emailInput.current) {
+            emailInput.current.value = "";
+        }
+        passwordInput.current!.value = "";
+    }, [formType]);
 
     // checking for ESC key press to close form
     useEffect(() => {
@@ -53,15 +80,6 @@ const AccountForm: React.FC<FormProps> = ({
         const email = data.get("email");
         const password = data.get("password");
         const remember = data.get("remember");
-
-        // function for hiding error message if not already hidden
-        const hideErrorMessage = (
-            msg: React.RefObject<HTMLParagraphElement>
-        ) => {
-            if (!msg.current!.classList.contains("hidden")) {
-                msg.current!.classList.add("hidden");
-            }
-        };
 
         // checking if username is already used in signup
         // or if username exists in login
@@ -167,6 +185,7 @@ const AccountForm: React.FC<FormProps> = ({
                             placeholder="Username"
                             className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
                             required
+                            ref={usernameInput}
                         />
                         <p
                             className="hidden pt-3 text-red-500"
@@ -185,6 +204,7 @@ const AccountForm: React.FC<FormProps> = ({
                                 placeholder="Email"
                                 className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
                                 required
+                                ref={emailInput}
                             />
                             <p
                                 className="hidden pt-3 text-red-500"
@@ -203,6 +223,7 @@ const AccountForm: React.FC<FormProps> = ({
                             placeholder="Password"
                             className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
                             required
+                            ref={passwordInput}
                         />
                         <p
                             className="hidden pt-3 text-red-500"
