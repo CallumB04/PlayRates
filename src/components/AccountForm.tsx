@@ -43,6 +43,9 @@ const AccountForm: React.FC<FormProps> = ({
     // whether api is loading - display loading spinner
     const [isLoading, setIsLoading] = useState<Boolean>(false);
 
+    // values to pass from signup to login
+    const [usernameAfterSignup, setUsernameAfterSignup] = useState<string>("");
+
     const navigate = useNavigate();
 
     // function for hiding error message if not already hidden
@@ -65,6 +68,13 @@ const AccountForm: React.FC<FormProps> = ({
             emailInput.current.value = "";
         }
         passwordInput.current!.value = "";
+
+        // if valid signup
+        if (usernameAfterSignup) {
+            // setting username and displaying success message
+            usernameInput.current!.value = usernameAfterSignup;
+            setUsernameAfterSignup("");
+        }
     }, [formType]);
 
     // checking for ESC key press to close form
@@ -172,6 +182,7 @@ const AccountForm: React.FC<FormProps> = ({
 
             // calling api function to add new user
             addNewUser(newUser).then(() => {
+                setUsernameAfterSignup(newUser.username);
                 openLoginForm();
             });
         }
