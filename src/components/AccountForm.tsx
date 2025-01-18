@@ -272,7 +272,7 @@ const AccountForm: React.FC<FormProps> = ({
                             name="password"
                             type={passwordHide ? "password" : "text"}
                             placeholder="Password"
-                            className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] focus:border-highlightPurple focus:outline-none"
+                            className="w-full rounded-none border-b-[1px] border-textColor bg-transparent py-[6px] pl-[2px] pr-10 focus:border-highlightPurple focus:outline-none"
                             required
                             ref={passwordInput}
                         />
