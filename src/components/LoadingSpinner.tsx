@@ -4,7 +4,7 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size }) => {
     // ensure possible spinner sizes arent purged on deployment
-    // size options: size-3 size-4 size-5 size-6 size-7 size-8
+    // size options: size-3 size-4 size-5 size-6 size-7 size-8 size-9 size-10
 
     return (
         <div
