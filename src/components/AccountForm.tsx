@@ -71,11 +71,15 @@ const AccountForm: React.FC<FormProps> = ({
 
         // if valid signup
         if (usernameAfterSignup) {
+            // if user returns to signup again, remove username from input
+            if (formType === "signup") {
+                setUsernameAfterSignup("");
+            }
+
             // setting username and displaying success message
             usernameInput.current!.value = usernameAfterSignup;
-            setUsernameAfterSignup("");
         }
-    }, [formType]);
+    }, [formType, usernameAfterSignup]);
 
     // checking for ESC key press to close form
     useEffect(() => {
@@ -303,6 +307,13 @@ const AccountForm: React.FC<FormProps> = ({
                     </div>
                 </div>
                 <div className="mx-auto w-11/12 space-y-3 pt-10 sm:mx-0 sm:w-full md:pt-12">
+                    {usernameAfterSignup ? (
+                        <p className="pb-1 text-green-500">
+                            Your account has been successfully created!
+                        </p>
+                    ) : (
+                        <></>
+                    )}
                     <button
                         type="submit"
                         className="w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover"
