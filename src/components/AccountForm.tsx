@@ -6,6 +6,7 @@ import {
     UserCreation,
 } from "../api";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface FormProps {
     formType: "signup" | "login";
@@ -38,6 +39,9 @@ const AccountForm: React.FC<FormProps> = ({
 
     // password hidden or show setting
     const [passwordHide, setPasswordHide] = useState<Boolean>(true);
+
+    // whether api is loading - display loading spinner
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     const navigate = useNavigate();
 
@@ -83,6 +87,7 @@ const AccountForm: React.FC<FormProps> = ({
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // preventing page from refreshing
         let errored = false; // set to true if any of inputs causes error, to return after all checks
+        setIsLoading(true); // display loading spinner and prevent interaction with backdrop
 
         // getting data from form inputs
         const data = new FormData(event.currentTarget);
@@ -147,6 +152,9 @@ const AccountForm: React.FC<FormProps> = ({
                 hideErrorMessage(passwordErrorText);
             }
         }
+
+        // remove loading spinner once complete
+        setIsLoading(false);
 
         // exit function if any of inputs caused error
         if (errored) {
@@ -310,6 +318,13 @@ const AccountForm: React.FC<FormProps> = ({
                     className="fas fa-xmark absolute right-[14px] top-3 px-1 text-2xl transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple sm:right-5 sm:top-4 sm:text-3xl"
                     onClick={closeAccountForm}
                 ></i>
+                {isLoading ? (
+                    <dialog className="flex size-full items-center justify-center rounded-lg bg-[#00000077]">
+                        <LoadingSpinner size={10} />
+                    </dialog>
+                ) : (
+                    <></>
+                )}
             </form>
         </dialog>
     );
