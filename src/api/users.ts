@@ -59,7 +59,13 @@ export const fetchUserByEmail = async (
 ): Promise<UserAccount | undefined> => {
     return new Promise((resolve) => {
         setTimeout(
-            () => resolve(users.find((user) => user.email === email)),
+            () =>
+                resolve(
+                    users.find(
+                        (user) =>
+                            user.email.toLowerCase() === email.toLowerCase()
+                    )
+                ),
             500
         );
     });
@@ -71,7 +77,14 @@ export const fetchUserByUsername = async (
 ): Promise<UserAccount | undefined> => {
     return new Promise((resolve) => {
         setTimeout(
-            () => resolve(users.find((user) => user.username === username)),
+            () =>
+                resolve(
+                    users.find(
+                        (user) =>
+                            user.username.toLowerCase() ===
+                            username.toLowerCase()
+                    )
+                ),
             500
         );
     });
