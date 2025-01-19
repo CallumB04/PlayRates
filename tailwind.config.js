@@ -4,7 +4,6 @@ export default {
         extend: {
             fontFamily: {
                 ssp: ["Source Sans Pro", "sans-serif"],
-                roboto: ["Roboto", "sans-serif"],
             },
             transitionProperty: {
                 height: "height",
