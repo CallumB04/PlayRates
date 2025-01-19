@@ -272,7 +272,7 @@ const AccountForm: React.FC<FormProps> = ({
                             name="username"
                             type="text"
                             placeholder="Username"
-                            className="w-full rounded-lg border-[1px] border-textColor bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px]"
+                            className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px]"
                             required
                             ref={usernameInput}
                         />
@@ -291,7 +291,7 @@ const AccountForm: React.FC<FormProps> = ({
                                 name="email"
                                 type="email"
                                 placeholder="Email"
-                                className="w-full rounded-lg border-[1px] border-textColor bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px]"
+                                className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px]"
                                 required
                                 ref={emailInput}
                             />
@@ -310,7 +310,7 @@ const AccountForm: React.FC<FormProps> = ({
                             name="password"
                             type={passwordHide ? "password" : "text"}
                             placeholder="Password"
-                            className="w-full rounded-lg border-[1px] border-textColor bg-transparent py-[14px] pl-3 pr-11 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px] sm:pr-10"
+                            className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 pr-11 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px] sm:pr-10"
                             required
                             ref={passwordInput}
                         />
