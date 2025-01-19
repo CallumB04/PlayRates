@@ -230,7 +230,7 @@ const AccountForm: React.FC<FormProps> = ({
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-2 py-12 font-ssp text-textColor shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                className="text-text-primary relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-2 py-12 font-ssp shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">
@@ -249,7 +249,7 @@ const AccountForm: React.FC<FormProps> = ({
                                     ? openLoginForm
                                     : openSignupForm
                             }
-                            className="text-highlightPurple transition-colors duration-200 hover:cursor-pointer hover:text-highlightHover"
+                            className="text-highlight-primary hover:text-highlight-hover transition-colors duration-200 hover:cursor-pointer"
                         >
                             {formType === "signup" ? "log in" : "Sign up"}
                         </span>
@@ -272,7 +272,7 @@ const AccountForm: React.FC<FormProps> = ({
                             name="username"
                             type="text"
                             placeholder="Username"
-                            className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px]"
+                            className="focus:border-highlight-primary sm:border-text-primary w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px]"
                             required
                             ref={usernameInput}
                         />
@@ -291,7 +291,7 @@ const AccountForm: React.FC<FormProps> = ({
                                 name="email"
                                 type="email"
                                 placeholder="Email"
-                                className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px]"
+                                className="focus:border-highlight-primary sm:border-text-primary w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px]"
                                 required
                                 ref={emailInput}
                             />
@@ -310,7 +310,7 @@ const AccountForm: React.FC<FormProps> = ({
                             name="password"
                             type={passwordHide ? "password" : "text"}
                             placeholder="Password"
-                            className="w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 pr-11 focus:border-highlightPurple focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:border-textColor sm:py-[6px] sm:pl-[2px] sm:pr-10"
+                            className="focus:border-highlight-primary sm:border-text-primary w-full rounded-lg border-[1px] border-[#f3f3f377] bg-transparent py-[14px] pl-3 pr-11 focus:outline-none sm:rounded-none sm:border-0 sm:border-b-[1px] sm:py-[6px] sm:pl-[2px] sm:pr-10"
                             required
                             ref={passwordInput}
                         />
@@ -323,7 +323,7 @@ const AccountForm: React.FC<FormProps> = ({
                                 : "Password is incorrect."}
                         </p>
                         <i
-                            className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute ${passwordHide ? "right-3" : "right-[11px]"} top-[14px] mr-1 text-xl transition-colors duration-100 hover:cursor-pointer hover:text-highlightPurple sm:top-2 sm:mr-0 sm:text-base`}
+                            className={`fa-regular ${passwordHide ? "fa-eye" : "fa-eye-slash"} absolute ${passwordHide ? "right-3" : "right-[11px]"} hover:text-highlight-primary top-[14px] mr-1 text-xl transition-colors duration-100 hover:cursor-pointer sm:top-2 sm:mr-0 sm:text-base`}
                             onClick={() => setPasswordHide(!passwordHide)}
                             title={passwordHide ? "Show" : "Hide"}
                         ></i>
@@ -332,7 +332,7 @@ const AccountForm: React.FC<FormProps> = ({
                 <div className="mx-auto w-11/12 space-y-3 pt-6 sm:mx-0 sm:w-full sm:pt-10 md:pt-12">
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover sm:rounded"
+                        className="bg-highlight-primary hover:bg-highlight-hover w-full rounded-lg py-3 font-semibold transition-colors duration-300 sm:rounded"
                     >
                         {formType === "signup" ? "Sign up" : "Log in"}
                     </button>
@@ -343,7 +343,7 @@ const AccountForm: React.FC<FormProps> = ({
                                 <p>Remember me</p>
                             </div>
 
-                            <p className="text-highlightPurple transition-colors duration-200 hover:cursor-pointer hover:text-highlightHover">
+                            <p className="text-highlight-primary hover:text-highlight-hover transition-colors duration-200 hover:cursor-pointer">
                                 Forgot password?
                             </p>
                         </div>
@@ -353,7 +353,7 @@ const AccountForm: React.FC<FormProps> = ({
                 </div>
                 {/* Close form button (X) */}
                 <i
-                    className="fas fa-xmark absolute right-[14px] top-3 px-1 text-2xl transition-colors duration-200 hover:cursor-pointer hover:text-highlightPurple sm:right-5 sm:top-4 sm:text-3xl"
+                    className="fas fa-xmark hover:text-highlight-primary absolute right-[14px] top-3 px-1 text-2xl transition-colors duration-200 hover:cursor-pointer sm:right-5 sm:top-4 sm:text-3xl"
                     onClick={closeAccountForm}
                 ></i>
                 {isLoading ? (

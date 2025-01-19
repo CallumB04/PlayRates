@@ -10,13 +10,20 @@ export default {
                 width: "width",
             },
             colors: {
-                navbarColor: "#232323",
-                dropdownColor: "#333333",
-                textColor: "#f3f4f6",
-                highlightPurple: "#9333ea",
-                highlightHover: "#a855f7",
-                searchInputColor: "#404040",
-                searchInputIconColor: "#a3a3a3",
+                navbar: "#232323",
+                dropdown: "#333333",
+                text: {
+                    primary: "#f3f4f6",
+                    secondary: "#cacaca",
+                },
+                highlight: {
+                    primary: "#9333ea",
+                    hover: "#a855f7",
+                },
+                searchInput: {
+                    primary: "#404040",
+                    icon: "#a3a3a3",
+                },
             },
             height: {
                 navbar: "4rem",

@@ -54,11 +54,11 @@ const Navbar: React.FC<NavbarProps> = ({
 
     return (
         <nav
-            className={`fixed left-0 top-0 z-50 h-navbar w-screen bg-navbarColor px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbarColor"} flex items-center justify-center transition-colors duration-300 md:justify-between`}
+            className={`bg-navbar fixed left-0 top-0 z-50 h-navbar w-screen px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbar"} flex items-center justify-center transition-colors duration-300 md:justify-between`}
         >
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
-                <h2 className="font-ssp text-3xl font-semibold tracking-wide text-textColor md:text-4xl">
+                <h2 className="text-text-primary font-ssp text-3xl font-semibold tracking-wide md:text-4xl">
                     PlayRates
                 </h2>
             </Link>
@@ -68,14 +68,14 @@ const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)}
                 className="group absolute right-5 flex flex-col gap-1 p-[6px] hover:cursor-pointer md:hidden"
             >
-                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
-                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
-                <div className="h-[2px] w-[22px] bg-textColor transition-colors group-hover:bg-highlightPurple"></div>
+                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
+                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
+                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
             </div>
 
             {/* Phone dropdown menu */}
             <div
-                className={`absolute right-0 top-navbar rounded-l-md bg-dropdownColor ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-textColor transition-width duration-300 ease-in-out md:hidden`}
+                className={`bg-dropdown absolute right-0 top-navbar rounded-l-md ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 text-text-primary flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 transition-width duration-300 ease-in-out md:hidden`}
             >
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
@@ -85,9 +85,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="h-12 w-[70vw] max-w-[300px] rounded bg-searchInputColor px-2 pr-9 focus:outline-none"
+                        className="bg-searchInput-primary h-12 w-[70vw] max-w-[300px] rounded px-2 pr-9 focus:outline-none"
                     />
-                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInputIconColor transition-colors hover:cursor-pointer hover:text-highlightPurple"></i>
+                    <i className="fas fa-magnifying-glass text-searchInput-icon hover:text-highlight-primary absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer"></i>
                 </span>
 
                 <Link
@@ -95,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     to="/"
                     onClick={closePhoneDropdown}
                 >
-                    <i className="fas fa-house text-highlightPurple"></i>
+                    <i className="fas fa-house text-highlight-primary"></i>
                     <p>Home</p>
                 </Link>
                 {user ? (
@@ -104,7 +104,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         to={`/user/${user?.username}`}
                         onClick={closePhoneDropdown}
                     >
-                        <i className="fa-solid fa-user text-highlightPurple"></i>
+                        <i className="fa-solid fa-user text-highlight-primary"></i>
                         <p>My Profile</p>
                     </Link>
                 ) : null}
@@ -113,20 +113,20 @@ const Navbar: React.FC<NavbarProps> = ({
                     to="/library"
                     onClick={closePhoneDropdown}
                 >
-                    <i className="fas fa-magnifying-glass text-highlightPurple"></i>
+                    <i className="fas fa-magnifying-glass text-highlight-primary"></i>
                     <p>Browse Games</p>
                 </Link>
 
                 {user ? (
                     <>
-                        <span className="my-1 w-11/12 bg-textColor pt-[1px]"></span>
+                        <span className="bg-text-primary my-1 w-11/12 pt-[1px]"></span>
 
                         <Link
                             className={`${phoneDropdownItemStyles}`}
                             to={`/user/${user?.username}/played`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-check-circle text-highlightPurple"></i>
+                            <i className="fa-regular fa-check-circle text-highlight-primary"></i>
                             <p>Played</p>
                         </Link>
                         <Link
@@ -134,7 +134,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}/playing`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-play-circle text-highlightPurple"></i>
+                            <i className="fa-regular fa-play-circle text-highlight-primary"></i>
                             <p>Playing</p>
                         </Link>
                         <Link
@@ -142,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}/backlog`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
+                            <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
                             <p>Backlog</p>
                         </Link>
                         <Link
@@ -150,18 +150,18 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}/wishlist`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-solid fa-heart text-highlightPurple"></i>
+                            <i className="fa-solid fa-heart text-highlight-primary"></i>
                             <p>Wishlist</p>
                         </Link>
 
-                        <span className="my-1 w-11/12 bg-textColor pt-[1px]"></span>
+                        <span className="bg-text-primary my-1 w-11/12 pt-[1px]"></span>
 
                         <Link
                             className={`${phoneDropdownItemStyles}`}
                             to="/settings"
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-solid fa-cog text-highlightPurple"></i>
+                            <i className="fa-solid fa-cog text-highlight-primary"></i>
                             <p>Settings</p>
                         </Link>
                         <Link
@@ -172,7 +172,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 signOutUser();
                             }}
                         >
-                            <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
+                            <i className="fa-solid fa-right-from-bracket text-highlight-primary"></i>
                             <p>Sign Out</p>
                         </Link>
                     </>
@@ -185,7 +185,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 openLoginForm();
                             }}
                         >
-                            <i className="fas fa-sign-in-alt text-highlightPurple"></i>
+                            <i className="fas fa-sign-in-alt text-highlight-primary"></i>
                             <span>Log In</span>
                         </p>
                         <p
@@ -195,7 +195,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 openSignupForm();
                             }}
                         >
-                            <i className="fas fa-user-plus text-highlightPurple"></i>
+                            <i className="fas fa-user-plus text-highlight-primary"></i>
                             <span>Sign Up</span>
                         </p>
                     </>
@@ -203,22 +203,22 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Navbar items wrapper */}
-            <div className="hidden h-full items-center gap-4 font-ssp font-normal text-textColor md:flex">
+            <div className="text-text-primary hidden h-full items-center gap-4 font-ssp font-normal md:flex">
                 {/* My Account and Dropdown wrapper */}
                 {user ? (
                     <span className="group relative">
                         {/* My Account text */}
                         <span className="flex items-center gap-1 p-2 hover:cursor-pointer group-hover:mt-3 group-hover:pb-5">
-                            <p className="transition duration-75 group-hover:text-highlightPurple">
+                            <p className="group-hover:text-highlight-primary transition duration-75">
                                 My Account
                             </p>
-                            <i className="fa fa-chevron-down text-sm transition duration-75 group-hover:text-highlightPurple"></i>
+                            <i className="fa fa-chevron-down group-hover:text-highlight-primary text-sm transition duration-75"></i>
                         </span>
 
                         {/* Dropdown menu wrapper */}
                         <div className="delay-50 absolute top-[52px] mx-auto h-0 w-60 transition-height duration-[400ms] ease-in-out hover:block hover:cursor-default group-hover:top-navbar group-hover:block group-hover:h-[315px]">
                             {/* Dropdown menu content */}
-                            <div className="flex h-full w-full flex-col items-center gap-[2px] overflow-hidden rounded-b-md bg-dropdownColor font-normal">
+                            <div className="bg-dropdown flex h-full w-full flex-col items-center gap-[2px] overflow-hidden rounded-b-md font-normal">
                                 {/* All dropdown links currently link to a template account for testing
                                 purposes (callum). In the future the links will navigate to the logged in
                                 account's pages. E.G: /user/<username>/played */}
@@ -227,51 +227,51 @@ const Navbar: React.FC<NavbarProps> = ({
                                     className={`${dropdownItemStyles} mt-3 pl-[6px]`}
                                     to="/"
                                 >
-                                    <i className="fas fa-house text-highlightPurple"></i>
+                                    <i className="fas fa-house text-highlight-primary"></i>
                                     <p>Home</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles} gap-[10px] pl-2`}
                                     to={`/user/${user?.username}`}
                                 >
-                                    <i className="fa-solid fa-user text-highlightPurple"></i>
+                                    <i className="fa-solid fa-user text-highlight-primary"></i>
                                     <p>My Profile</p>
                                 </Link>
-                                <span className="my-1 w-11/12 bg-textColor pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <span className="bg-text-primary my-1 w-11/12 pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}/played`}
                                 >
-                                    <i className="fa-regular fa-check-circle text-highlightPurple"></i>
+                                    <i className="fa-regular fa-check-circle text-highlight-primary"></i>
                                     <p>Played</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}/playing`}
                                 >
-                                    <i className="fa-regular fa-play-circle text-highlightPurple"></i>
+                                    <i className="fa-regular fa-play-circle text-highlight-primary"></i>
                                     <p>Playing</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}/backlog`}
                                 >
-                                    <i className="fa-regular fa-calendar-plus text-highlightPurple"></i>
+                                    <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
                                     <p>Backlog</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}/wishlist`}
                                 >
-                                    <i className="fa-solid fa-heart text-highlightPurple"></i>
+                                    <i className="fa-solid fa-heart text-highlight-primary"></i>
                                     <p>Wishlist</p>
                                 </Link>
-                                <span className="my-1 w-11/12 bg-textColor pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <span className="bg-text-primary my-1 w-11/12 pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to="/settings"
                                 >
-                                    <i className="fa-solid fa-cog text-highlightPurple"></i>
+                                    <i className="fa-solid fa-cog text-highlight-primary"></i>
                                     <p>Settings</p>
                                 </Link>
                                 <Link
@@ -279,7 +279,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                     to="/"
                                     onClick={signOutUser}
                                 >
-                                    <i className="fa-solid fa-right-from-bracket text-highlightPurple"></i>
+                                    <i className="fa-solid fa-right-from-bracket text-highlight-primary"></i>
                                     <p>Sign Out</p>
                                 </Link>
                             </div>
@@ -290,13 +290,13 @@ const Navbar: React.FC<NavbarProps> = ({
                         {/* Sign up and login buttons if no user account */}
                         <p
                             onClick={openLoginForm}
-                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple"
+                            className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer"
                         >
                             Log in
                         </p>
                         <p
                             onClick={openSignupForm}
-                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple"
+                            className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer"
                         >
                             Sign up
                         </p>
@@ -304,7 +304,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 )}
                 {/* Games library link text */}
                 <Link to="/library">
-                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlightPurple">
+                    <p className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer">
                         Browse Games
                     </p>
                 </Link>
@@ -313,9 +313,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="block w-60 rounded bg-searchInputColor px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
+                        className="bg-searchInput-primary block w-60 rounded px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
                     />
-                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInputIconColor transition-colors hover:cursor-pointer hover:text-highlightPurple"></i>
+                    <i className="fas fa-magnifying-glass text-searchInput-icon hover:text-highlight-primary absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer"></i>
                 </span>
             </div>
         </nav>
