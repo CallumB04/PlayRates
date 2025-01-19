@@ -242,6 +242,13 @@ const AccountForm: React.FC<FormProps> = ({
                             {formType === "signup" ? "log in" : "Sign up"}
                         </span>
                     </p>
+                    {usernameAfterSignup ? (
+                        <p className="mx-auto mt-5 w-max rounded bg-green-200 px-5 py-2 text-green-600 opacity-80">
+                            Your account has been successfully created!
+                        </p>
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className="mx-auto w-11/12 space-y-6 pt-12 sm:mx-0 sm:w-full sm:space-y-8">
                     <div>
@@ -307,13 +314,6 @@ const AccountForm: React.FC<FormProps> = ({
                     </div>
                 </div>
                 <div className="mx-auto w-11/12 space-y-3 pt-10 sm:mx-0 sm:w-full md:pt-12">
-                    {usernameAfterSignup ? (
-                        <p className="pb-1 text-green-500">
-                            Your account has been successfully created!
-                        </p>
-                    ) : (
-                        <></>
-                    )}
                     <button
                         type="submit"
                         className="w-full rounded bg-highlightPurple py-3 font-semibold transition-colors duration-300 hover:bg-highlightHover"
