@@ -62,14 +62,20 @@ const HomePage: React.FC<HomePageProps> = ({
                     {/* Signup / login wrapper */}
 
                     {!user ? (
-                        <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-4 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
+                        <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-5 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
                             <p
                                 onClick={openSignupForm}
-                                className="rounded-lg bg-highlightPurple px-6 py-4 text-3xl font-semibold text-textColor transition-colors duration-200 hover:cursor-pointer hover:bg-highlightHover md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                                className="w-11/12 rounded-lg bg-highlightPurple px-6 py-[14px] text-center text-[27px] font-semibold text-textColor transition-colors duration-200 hover:cursor-pointer hover:bg-highlightHover sm:w-max md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
                             >
                                 Sign up
                             </p>
-                            <p className="text-xl font-light text-textColor 2xl:text-2xl">
+                            <p
+                                onClick={openLoginForm}
+                                className="w-11/12 rounded-lg bg-textColor px-6 py-[14px] text-center text-[27px] font-semibold text-highlightPurple transition-colors duration-200 hover:cursor-pointer hover:bg-[#dadada] sm:hidden"
+                            >
+                                Login
+                            </p>
+                            <p className="hidden text-xl font-light text-textColor sm:block 2xl:text-2xl">
                                 or{" "}
                                 <span
                                     onClick={openLoginForm}
