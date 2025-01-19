@@ -43,8 +43,11 @@ const AccountForm: React.FC<FormProps> = ({
     // whether api is loading - display loading spinner
     const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-    // values to pass from signup to login
+    // username to pass from signup to login
     const [usernameAfterSignup, setUsernameAfterSignup] = useState<string>("");
+
+    // whether form response should show (successful account or failed)
+    const [showResponse, setShowResponse] = useState<Boolean>(false);
 
     const navigate = useNavigate();
 
@@ -78,6 +81,9 @@ const AccountForm: React.FC<FormProps> = ({
 
             // setting username and displaying success message
             usernameInput.current!.value = usernameAfterSignup;
+            setShowResponse(true);
+        } else {
+            setShowResponse(false);
         }
     }, [formType, usernameAfterSignup]);
 
@@ -167,11 +173,9 @@ const AccountForm: React.FC<FormProps> = ({
             }
         }
 
-        // remove loading spinner once complete
-        setIsLoading(false);
-
         // exit function if any of inputs caused error
         if (errored) {
+            setIsLoading(false);
             return;
         }
 
@@ -185,10 +189,18 @@ const AccountForm: React.FC<FormProps> = ({
             };
 
             // calling api function to add new user
-            addNewUser(newUser).then(() => {
-                setUsernameAfterSignup(newUser.username);
-                openLoginForm();
-            });
+            addNewUser(newUser)
+                .then(() => {
+                    setUsernameAfterSignup(newUser.username);
+                    openLoginForm();
+                })
+                .catch(() => {
+                    setShowResponse(true);
+                })
+                .finally(() => {
+                    // remove loading spinner once complete
+                    setIsLoading(false);
+                });
         }
         // logging into account
         else {
@@ -242,9 +254,13 @@ const AccountForm: React.FC<FormProps> = ({
                             {formType === "signup" ? "log in" : "Sign up"}
                         </span>
                     </p>
-                    {usernameAfterSignup ? (
-                        <p className="mx-auto mt-5 w-max rounded bg-green-200 px-5 py-2 text-green-600 opacity-80">
-                            Your account has been successfully created!
+                    {showResponse ? (
+                        <p
+                            className={`mx-auto mt-5 w-max rounded ${formType === "login" ? "bg-green-200" : "bg-red-200"} px-5 py-2 ${formType === "login" ? "bg-green-600" : "bg-red-600"} opacity-80`}
+                        >
+                            {formType === "login"
+                                ? "Your account has been successfully created!"
+                                : "Something went wrong. Please try again."}
                         </p>
                     ) : (
                         <></>
