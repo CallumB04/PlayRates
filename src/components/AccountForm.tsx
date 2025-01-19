@@ -230,7 +230,7 @@ const AccountForm: React.FC<FormProps> = ({
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="text-text-primary relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdownColor to-[#383838] px-2 py-12 font-ssp shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                className="text-text-primary from-dropdown relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl to-[#383838] px-2 py-12 font-ssp shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">
