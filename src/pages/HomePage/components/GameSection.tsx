@@ -10,7 +10,7 @@ interface GameSectionProps {
 
 // common styles for loading and error message
 const loadingTextStyles = `text-center text-text-primary text-2xl flex justify-center
-                           items-center gap-3 pt-4 pb-20`;
+                           items-center gap-3 pt-4 pb-20 font-lexend`;
 
 const GameSection: React.FC<GameSectionProps> = ({ games, loading, error }) => {
     // displaying error / loading message when games aren't fetched

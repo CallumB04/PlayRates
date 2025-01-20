@@ -4,6 +4,7 @@ export default {
         extend: {
             fontFamily: {
                 ssp: ["Source Sans Pro", "sans-serif"],
+                lexend: ["Lexend", "sans-serif"],
             },
             transitionProperty: {
                 height: "height",

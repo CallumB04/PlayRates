@@ -54,11 +54,11 @@ const Navbar: React.FC<NavbarProps> = ({
 
     return (
         <nav
-            className={`bg-navbar fixed left-0 top-0 z-50 h-navbar w-screen px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbar"} flex items-center justify-center transition-colors duration-300 md:justify-between`}
+            className={`fixed left-0 top-0 z-50 h-navbar w-screen bg-navbar px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbar"} font-lexend flex items-center justify-center transition-colors duration-300 md:justify-between`}
         >
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
-                <h2 className="text-text-primary font-ssp text-3xl font-semibold tracking-wide md:text-4xl">
+                <h2 className="font-lexend text-3xl font-semibold tracking-wide text-text-primary md:text-4xl">
                     PlayRates
                 </h2>
             </Link>
@@ -68,14 +68,14 @@ const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)}
                 className="group absolute right-5 flex flex-col gap-1 p-[6px] hover:cursor-pointer md:hidden"
             >
-                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
-                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
-                <div className="bg-text-primary group-hover:bg-highlight-primary h-[2px] w-[22px] transition-colors"></div>
+                <div className="h-[2px] w-[22px] bg-text-primary transition-colors group-hover:bg-highlight-primary"></div>
+                <div className="h-[2px] w-[22px] bg-text-primary transition-colors group-hover:bg-highlight-primary"></div>
+                <div className="h-[2px] w-[22px] bg-text-primary transition-colors group-hover:bg-highlight-primary"></div>
             </div>
 
             {/* Phone dropdown menu */}
             <div
-                className={`bg-dropdown absolute right-0 top-navbar rounded-l-md ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 text-text-primary flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 transition-width duration-300 ease-in-out md:hidden`}
+                className={`absolute right-0 top-navbar rounded-l-md bg-dropdown ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-text-primary transition-width duration-300 ease-in-out md:hidden`}
             >
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
@@ -85,9 +85,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="bg-searchInput-primary h-12 w-[70vw] max-w-[300px] rounded px-2 pr-9 focus:outline-none"
+                        className="h-12 w-[70vw] max-w-[300px] rounded bg-searchInput-primary px-2 pr-9 focus:outline-none"
                     />
-                    <i className="fas fa-magnifying-glass text-searchInput-icon hover:text-highlight-primary absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInput-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
 
                 <Link
@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
                 {user ? (
                     <>
-                        <span className="bg-text-primary my-1 w-11/12 pt-[1px]"></span>
+                        <span className="my-1 w-11/12 bg-text-primary pt-[1px]"></span>
 
                         <Link
                             className={`${phoneDropdownItemStyles}`}
@@ -154,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             <p>Wishlist</p>
                         </Link>
 
-                        <span className="bg-text-primary my-1 w-11/12 pt-[1px]"></span>
+                        <span className="my-1 w-11/12 bg-text-primary pt-[1px]"></span>
 
                         <Link
                             className={`${phoneDropdownItemStyles}`}
@@ -203,22 +203,22 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Navbar items wrapper */}
-            <div className="text-text-primary hidden h-full items-center gap-4 font-ssp font-normal md:flex">
+            <div className="font-lexend hidden h-full items-center gap-4 font-normal text-text-primary md:flex">
                 {/* My Account and Dropdown wrapper */}
                 {user ? (
                     <span className="group relative">
                         {/* My Account text */}
                         <span className="flex items-center gap-1 p-2 hover:cursor-pointer group-hover:mt-3 group-hover:pb-5">
-                            <p className="group-hover:text-highlight-primary transition duration-75">
+                            <p className="transition duration-75 group-hover:text-highlight-primary">
                                 My Account
                             </p>
-                            <i className="fa fa-chevron-down group-hover:text-highlight-primary text-sm transition duration-75"></i>
+                            <i className="fa fa-chevron-down text-sm transition duration-75 group-hover:text-highlight-primary"></i>
                         </span>
 
                         {/* Dropdown menu wrapper */}
                         <div className="delay-50 absolute top-[52px] mx-auto h-0 w-60 transition-height duration-[400ms] ease-in-out hover:block hover:cursor-default group-hover:top-navbar group-hover:block group-hover:h-[315px]">
                             {/* Dropdown menu content */}
-                            <div className="bg-dropdown flex h-full w-full flex-col items-center gap-[2px] overflow-hidden rounded-b-md font-normal">
+                            <div className="flex h-full w-full flex-col items-center gap-[2px] overflow-hidden rounded-b-md bg-dropdown font-normal">
                                 {/* All dropdown links currently link to a template account for testing
                                 purposes (callum). In the future the links will navigate to the logged in
                                 account's pages. E.G: /user/<username>/played */}
@@ -237,7 +237,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                     <i className="fa-solid fa-user text-highlight-primary"></i>
                                     <p>My Profile</p>
                                 </Link>
-                                <span className="bg-text-primary my-1 w-11/12 pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <span className="my-1 w-11/12 bg-text-primary pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}/played`}
@@ -266,7 +266,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                     <i className="fa-solid fa-heart text-highlight-primary"></i>
                                     <p>Wishlist</p>
                                 </Link>
-                                <span className="bg-text-primary my-1 w-11/12 pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
+                                <span className="my-1 w-11/12 bg-text-primary pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to="/settings"
@@ -290,13 +290,13 @@ const Navbar: React.FC<NavbarProps> = ({
                         {/* Sign up and login buttons if no user account */}
                         <p
                             onClick={openLoginForm}
-                            className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer"
+                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary"
                         >
                             Log in
                         </p>
                         <p
                             onClick={openSignupForm}
-                            className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer"
+                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary"
                         >
                             Sign up
                         </p>
@@ -304,7 +304,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 )}
                 {/* Games library link text */}
                 <Link to="/library">
-                    <p className="hover:text-highlight-primary block p-2 transition duration-75 hover:cursor-pointer">
+                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary">
                         Browse Games
                     </p>
                 </Link>
@@ -313,9 +313,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="bg-searchInput-primary block w-60 rounded px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
+                        className="block w-60 rounded bg-searchInput-primary px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
                     />
-                    <i className="fas fa-magnifying-glass text-searchInput-icon hover:text-highlight-primary absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInput-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
             </div>
         </nav>
