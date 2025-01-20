@@ -52,10 +52,10 @@ const HomePage: React.FC<HomePageProps> = ({
         <>
             <div className="flex flex-wrap gap-y-10 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20 2xl:pt-8">
                 <div className="w-full md:w-1/2">
-                    <h1 className="font-lexend text-center text-7xl font-bold text-text-primary md:text-left md:text-8xl lg:text-[7rem] 2xl:text-[9rem]">
+                    <h1 className="font-lexend text-center text-7xl font-bold text-text-primary md:text-left md:text-8xl lg:text-[7rem] 2xl:text-[8rem]">
                         PlayRates
                     </h1>
-                    <h2 className="font-lexend ml-1 mt-3 text-center text-2xl font-semibold text-text-secondary md:mt-5 md:text-left lg:text-3xl 2xl:mt-7 2xl:text-[38px]">
+                    <h2 className="font-lexend ml-1 mt-3 text-center text-2xl font-semibold text-text-secondary md:mt-5 md:text-left lg:text-3xl 2xl:mt-7 2xl:text-[34px]">
                         All of your games in one place...
                     </h2>
 
