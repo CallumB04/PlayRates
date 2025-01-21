@@ -87,7 +87,7 @@ const HomePage: React.FC<HomePageProps> = ({
                             </p>
                         </div>
                     ) : (
-                        <p className="mt-12 text-center font-lexend text-[22px] font-thin italic text-text-primary md:text-2xl lg:text-left 2xl:mt-20 2xl:text-3xl">
+                        <p className="mt-12 text-center font-lexend text-[22px] font-extralight italic text-text-primary md:text-2xl lg:text-left 2xl:mt-20 2xl:text-3xl">
                             Welcome back{" "}
                             <Link
                                 to={`/user/${user.username}`}
