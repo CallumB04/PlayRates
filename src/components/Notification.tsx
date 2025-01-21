@@ -18,7 +18,7 @@ const typeToColor = (type: string) => {
 const Notification: React.FC<NotificationProps> = ({ text, type }) => {
     return (
         <p
-            className={`text-text-primary ${typeToColor(type)} notification-fadeout fixed left-1/2 top-20 z-50 mx-auto h-max -translate-x-1/2 rounded-md px-4 py-2 font-lexend text-lg`}
+            className={`text-text-primary ${typeToColor(type)} notification-fadeout fixed left-1/2 top-20 z-50 mx-auto h-max w-max -translate-x-1/2 rounded-md px-4 py-2 font-lexend text-lg`}
         >
             <span className="font-semibold uppercase">{type}: </span>
             {text}
