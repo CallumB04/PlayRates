@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Game } from "../../../api";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../App";
 
 interface GameElementProps {
     game: Game;
@@ -8,12 +9,13 @@ interface GameElementProps {
 
 const GameElement: React.FC<GameElementProps> = ({ game }) => {
     const [imgLoaded, setImgLoaded] = useState(true);
+    const user = useUser();
 
     return (
         <Link
             to={`/game/${game.id}`}
             key={game.id}
-            className="font-lexend group relative flex aspect-[3/4] w-[31%] items-center justify-center rounded-md bg-[#0e0e0e] md:w-[15%]"
+            className="group relative flex aspect-[3/4] w-[31%] items-center justify-center rounded-md bg-[#0e0e0e] font-lexend md:w-[15%]"
         >
             {/* Text displayed if image can't be loaded */}
             <p
@@ -32,7 +34,11 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
             {/* Quick add button - Plus sign 
                 Currently no functionality, will allow users to add games
                 to their account from the home page. */}
-            <i className="fa-solid fa-plus absolute bottom-[4%] mx-auto hidden h-[13%] w-1/3 items-center justify-center rounded-md bg-[#ffffff22] text-lg text-text-primary opacity-0 transition-all duration-300 hover:bg-[#ffffff33] group-hover:opacity-100 sm:flex md:text-sm lg:text-lg xl:text-xl 2xl:h-[11%] 2xl:w-[30%] 2xl:text-2xl"></i>
+            {user ? (
+                <i className="fa-solid fa-plus absolute bottom-[4%] mx-auto hidden h-[13%] w-1/3 items-center justify-center rounded-md bg-[#ffffff22] text-lg text-text-primary opacity-0 transition-all duration-300 hover:bg-[#ffffff33] group-hover:opacity-100 sm:flex md:text-sm lg:text-lg xl:text-xl 2xl:h-[11%] 2xl:w-[30%] 2xl:text-2xl"></i>
+            ) : (
+                <></>
+            )}
         </Link>
     );
 };
