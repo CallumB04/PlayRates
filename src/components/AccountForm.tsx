@@ -241,12 +241,12 @@ const AccountForm: React.FC<FormProps> = ({
                 ref={formElement}
             >
                 <div className="text-center">
-                    <h2 className="text-4xl">
+                    <h2 className="text-3xl sm:text-4xl">
                         {formType === "signup"
                             ? "Sign up for PlayRates"
                             : "Log in to PlayRates"}
                     </h2>
-                    <p className="mt-1 text-lg">
+                    <p className="mt-2 sm:text-lg">
                         {formType === "signup"
                             ? "Create a free account or"
                             : "Not a member?"}{" "}
