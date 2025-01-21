@@ -36,9 +36,12 @@ function App() {
         text: string,
         type: "success" | "error" | "loading"
     ) => {
-        setNotificationText(text);
-        setNotificationType(type);
-        setNotificationActive(true);
+        setNotificationActive(false); // clearing old notification if two in quick succession
+        setTimeout(() => {
+            setNotificationText(text);
+            setNotificationType(type);
+            setNotificationActive(true);
+        }, 0);
     };
 
     // removes notification from DOM when faded out
