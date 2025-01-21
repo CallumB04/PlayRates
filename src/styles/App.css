@@ -8,3 +8,18 @@ main {
     padding-top: 4rem;
     background: url("../../public/assets/background-texture.svg");
 }
+
+@keyframes notification-fade-animation {
+    8%,
+    80% {
+        opacity: 1;
+    }
+    0%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.notification-fadeout {
+    animation: 6.1s notification-fade-animation forwards;
+}

@@ -14,6 +14,10 @@ interface FormProps {
     openSignupForm: () => void;
     openLoginForm: () => void;
     loadUserByID: (id: number) => Promise<void>;
+    runNotification: (
+        text: string,
+        type: "success" | "error" | "loading"
+    ) => void;
 }
 
 const AccountForm: React.FC<FormProps> = ({
@@ -22,6 +26,7 @@ const AccountForm: React.FC<FormProps> = ({
     openSignupForm,
     openLoginForm,
     loadUserByID,
+    runNotification,
 }) => {
     // form input elements
     const usernameInput = useRef<HTMLInputElement>(null);
@@ -46,9 +51,6 @@ const AccountForm: React.FC<FormProps> = ({
     // username to pass from signup to login
     const [usernameAfterSignup, setUsernameAfterSignup] = useState<string>("");
 
-    // whether form response should show (successful account or failed)
-    const [showResponse, setShowResponse] = useState<Boolean>(false);
-
     const navigate = useNavigate();
 
     // function for hiding error message if not already hidden
@@ -58,8 +60,7 @@ const AccountForm: React.FC<FormProps> = ({
         }
     };
 
-    // clearing inputs and error messages on form change
-    useEffect(() => {
+    const clearErrorsAndInputs = () => {
         // hiding error messages
         hideErrorMessage(usernameErrorText);
         hideErrorMessage(emailErrorText);
@@ -71,21 +72,23 @@ const AccountForm: React.FC<FormProps> = ({
             emailInput.current.value = "";
         }
         passwordInput.current!.value = "";
+    };
+
+    // clearing inputs and error messages on form change
+    useEffect(() => {
+        clearErrorsAndInputs();
 
         // if valid signup
         if (usernameAfterSignup) {
             // if user returns to signup again, remove username from input
-            if (formType === "signup") {
+            if (formType === "login") {
                 setUsernameAfterSignup("");
             }
 
             // setting username and displaying success message
             usernameInput.current!.value = usernameAfterSignup;
-            setShowResponse(true);
-        } else {
-            setShowResponse(false);
         }
-    }, [formType, usernameAfterSignup]);
+    }, [formType]);
 
     // checking for ESC key press to close form
     useEffect(() => {
@@ -192,10 +195,14 @@ const AccountForm: React.FC<FormProps> = ({
             addNewUser(newUser)
                 .then(() => {
                     setUsernameAfterSignup(newUser.username);
+                    runNotification("Account successfully created", "success");
                     openLoginForm();
                 })
                 .catch(() => {
-                    setShowResponse(true);
+                    runNotification(
+                        "Account creation failed, please try again",
+                        "error"
+                    );
                 })
                 .finally(() => {
                     // remove loading spinner once complete
@@ -230,7 +237,7 @@ const AccountForm: React.FC<FormProps> = ({
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="font-lexend relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdown to-[#383838] px-2 py-12 text-text-primary shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdown to-[#383838] px-2 py-12 font-lexend text-text-primary shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">
@@ -254,17 +261,6 @@ const AccountForm: React.FC<FormProps> = ({
                             {formType === "signup" ? "log in" : "Sign up"}
                         </span>
                     </p>
-                    {showResponse ? (
-                        <p
-                            className={`mx-auto mt-5 w-max rounded ${formType === "login" ? "bg-green-200" : "bg-red-200"} px-5 py-2 ${formType === "login" ? "bg-green-600" : "bg-red-600"} opacity-80`}
-                        >
-                            {formType === "login"
-                                ? "Your account has been successfully created!"
-                                : "Something went wrong. Please try again."}
-                        </p>
-                    ) : (
-                        <></>
-                    )}
                 </div>
                 <div className="mx-auto w-11/12 space-y-6 pt-12 sm:mx-0 sm:w-full sm:space-y-8">
                     <div>

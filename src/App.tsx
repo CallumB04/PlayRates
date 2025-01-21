@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from "react";
 import AccountForm from "./components/AccountForm";
+import Notification from "./components/Notification";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -22,6 +23,32 @@ function App() {
     const [currentForm, setCurrentForm] = useState<"signup" | "login">(
         "signup"
     );
+
+    // handling notifications
+    const [notificationActive, setNotificationActive] =
+        useState<boolean>(false);
+    const [notificationText, setNotificationText] = useState<string>("");
+    const [notificationType, setNotificationType] = useState<
+        "success" | "error" | "loading"
+    >("success");
+
+    const runNotification = (
+        text: string,
+        type: "success" | "error" | "loading"
+    ) => {
+        setNotificationText(text);
+        setNotificationType(type);
+        setNotificationActive(true);
+    };
+
+    useEffect(() => {
+        if (notificationActive) {
+            const timer = setTimeout(() => {
+                setNotificationActive(false);
+            }, 6000);
+            return () => clearTimeout(timer);
+        }
+    }, [notificationActive]);
 
     // functions to open signup / login forms
     const openSignupForm = () => {
@@ -94,9 +121,18 @@ function App() {
                         openSignupForm={openSignupForm}
                         openLoginForm={openLoginForm}
                         loadUserByID={loadUserByID}
+                        runNotification={runNotification}
                     />
                 ) : (
                     ""
+                )}
+                {notificationActive ? (
+                    <Notification
+                        text={notificationText}
+                        type={notificationType}
+                    />
+                ) : (
+                    <></>
                 )}
             </Router>
         </UserContext.Provider>
