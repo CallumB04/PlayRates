@@ -82,6 +82,7 @@ function App() {
         // sets user account in state when fetched
         if (fetchedUser) {
             setUser(fetchedUser);
+            runNotification("You are now logged in", "success");
         }
     };
 
