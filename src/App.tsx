@@ -41,6 +41,7 @@ function App() {
         setNotificationActive(true);
     };
 
+    // removes notification from DOM when faded out
     useEffect(() => {
         if (notificationActive) {
             const timer = setTimeout(() => {
