@@ -54,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
     return (
         <nav
-            className={`fixed left-0 top-0 z-50 h-navbar w-screen bg-navbar px-6 xl:px-8 ${scrollHeight < 50 ? "md:bg-transparent" : "md:bg-navbar"} font-lexend flex items-center justify-center transition-colors duration-300 md:justify-between`}
+            className={`fixed left-0 top-0 z-50 h-navbar w-screen bg-navbar px-6 xl:px-8 ${scrollHeight < 50 ? "lg:bg-transparent" : "lg:bg-navbar"} flex items-center justify-center font-lexend transition-colors duration-300 md:justify-between`}
         >
             {/* Site logo, links to home page */}
             <Link to="/" onClick={closePhoneDropdown}>
@@ -66,7 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({
             {/* Dropdown menu button for phone screens */}
             <div
                 onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)}
-                className="group absolute right-5 flex flex-col gap-1 p-[6px] hover:cursor-pointer md:hidden"
+                className="group absolute right-5 flex flex-col gap-1 p-[6px] hover:cursor-pointer lg:hidden"
             >
                 <div className="h-[2px] w-[22px] bg-text-primary transition-colors group-hover:bg-highlight-primary"></div>
                 <div className="h-[2px] w-[22px] bg-text-primary transition-colors group-hover:bg-highlight-primary"></div>
@@ -75,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
             {/* Phone dropdown menu */}
             <div
-                className={`absolute right-0 top-navbar rounded-l-md bg-dropdown ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-text-primary transition-width duration-300 ease-in-out md:hidden`}
+                className={`absolute right-0 top-navbar rounded-l-md bg-dropdown ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-text-primary transition-width duration-300 ease-in-out lg:hidden`}
             >
                 {/* All dropdown links currently link to a template account for testing
                     purposes (callum). In the future the links will navigate to the logged in
@@ -203,7 +203,7 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Navbar items wrapper */}
-            <div className="font-lexend hidden h-full items-center gap-4 font-normal text-text-primary md:flex">
+            <div className="hidden h-full items-center gap-4 font-lexend font-normal text-text-primary lg:flex">
                 {/* My Account and Dropdown wrapper */}
                 {user ? (
                     <span className="group relative">

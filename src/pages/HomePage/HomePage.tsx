@@ -51,31 +51,31 @@ const HomePage: React.FC<HomePageProps> = ({
     return (
         <>
             <div className="flex flex-wrap gap-y-10 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20 2xl:pt-8">
-                <div className="w-full md:w-1/2">
-                    <h1 className="font-lexend text-center text-7xl font-bold text-text-primary md:text-left md:text-8xl lg:text-[7rem] 2xl:text-[8rem]">
+                <div className="w-full lg:w-1/2">
+                    <h1 className="text-center font-lexend text-[64px] font-bold text-text-primary md:text-7xl lg:text-left lg:text-8xl 2xl:text-9xl">
                         PlayRates
                     </h1>
-                    <h2 className="font-lexend ml-1 mt-3 text-center text-2xl font-semibold text-text-secondary md:mt-5 md:text-left lg:text-3xl 2xl:mt-7 2xl:text-[34px]">
+                    <h2 className="ml-1 mt-1 text-center font-lexend text-xl font-semibold text-text-secondary md:mt-5 lg:text-left lg:text-2xl 2xl:mt-7 2xl:text-3xl">
                         All of your games in one place...
                     </h2>
 
                     {/* Signup / login wrapper */}
 
                     {!user ? (
-                        <div className="font-lexend mx-auto mt-12 flex w-full flex-col items-center justify-center gap-5 overflow-x-visible md:mt-16 md:w-[140%] md:flex-row md:justify-start md:gap-3 lg:w-full 2xl:mt-20">
+                        <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-5 overflow-x-visible font-lexend md:mt-16 md:gap-3 lg:w-full lg:flex-row lg:justify-start 2xl:mt-20">
                             <p
                                 onClick={openSignupForm}
-                                className="w-11/12 rounded-lg bg-highlight-primary px-6 py-[14px] text-center text-[27px] font-semibold text-text-primary transition-colors duration-200 hover:cursor-pointer hover:bg-highlight-hover sm:w-max md:px-5 md:py-3 2xl:px-6 2xl:py-4 2xl:text-4xl"
+                                className="w-11/12 max-w-[500px] rounded-lg bg-highlight-primary px-6 py-[14px] text-center text-xl font-semibold text-text-primary transition-colors duration-200 hover:cursor-pointer hover:bg-highlight-hover md:px-5 lg:w-max xl:py-4 xl:text-[27px] 2xl:px-6 2xl:text-4xl"
                             >
                                 Sign up
                             </p>
                             <p
                                 onClick={openLoginForm}
-                                className="w-11/12 rounded-lg bg-text-primary px-6 py-[14px] text-center text-[27px] font-semibold text-highlight-primary transition-colors duration-200 hover:cursor-pointer hover:bg-text-secondary sm:hidden"
+                                className="w-11/12 max-w-[500px] rounded-lg bg-text-primary px-6 py-[14px] text-center text-xl font-semibold text-highlight-primary transition-colors duration-200 hover:cursor-pointer hover:bg-text-secondary lg:hidden xl:text-[27px]"
                             >
                                 Login
                             </p>
-                            <p className="hidden text-xl font-light text-text-primary sm:block 2xl:text-2xl">
+                            <p className="hidden text-xl font-light text-text-primary lg:block 2xl:text-2xl">
                                 or{" "}
                                 <span
                                     onClick={openLoginForm}
@@ -87,7 +87,7 @@ const HomePage: React.FC<HomePageProps> = ({
                             </p>
                         </div>
                     ) : (
-                        <p className="font-lexend mt-12 text-center text-[22px] font-thin italic text-text-primary md:text-left md:text-2xl 2xl:mt-20 2xl:text-3xl">
+                        <p className="mt-12 text-center font-lexend text-[22px] font-thin italic text-text-primary md:text-2xl lg:text-left 2xl:mt-20 2xl:text-3xl">
                             Welcome back{" "}
                             <Link
                                 to={`/user/${user.username}`}
@@ -99,7 +99,7 @@ const HomePage: React.FC<HomePageProps> = ({
                         </p>
                     )}
                 </div>
-                <div className="font-lexend flex w-full items-center justify-evenly text-xl text-text-primary md:w-1/2 md:justify-between md:pb-8 md:pl-10 lg:justify-evenly lg:pb-0 lg:text-[22px] 2xl:text-3xl">
+                <div className="flex w-full items-center justify-evenly font-lexend text-xl text-text-primary lg:w-1/2 lg:justify-evenly lg:pl-10 lg:text-[22px] 2xl:text-3xl">
                     <div className="flex flex-col gap-y-1 text-center">
                         <i className="fa-solid fa-user-group text-3xl md:text-[32px] 2xl:text-4xl"></i>
                         <p>{userCount} Users</p>
