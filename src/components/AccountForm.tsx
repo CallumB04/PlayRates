@@ -237,7 +237,7 @@ const AccountForm: React.FC<FormProps> = ({
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="relative mx-auto flex w-full max-w-[650px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdown to-[#383838] px-2 py-12 font-lexend text-text-primary shadow-md sm:px-12 sm:py-16 md:w-[630px] md:px-16"
+                className="relative mx-auto flex w-full max-w-[630px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdown to-[#383838] px-2 py-12 font-lexend text-text-primary shadow-md sm:px-12 sm:py-16 md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">
@@ -325,7 +325,7 @@ const AccountForm: React.FC<FormProps> = ({
                         ></i>
                     </div>
                 </div>
-                <div className="mx-auto w-11/12 space-y-3 pt-6 sm:mx-0 sm:w-full sm:pt-10 md:pt-12">
+                <div className="mx-auto w-11/12 space-y-3 pt-6 sm:mx-0 sm:w-full sm:pt-8 md:pt-10">
                     <button
                         type="submit"
                         className="w-full rounded-lg bg-highlight-primary py-3 font-semibold transition-colors duration-300 hover:bg-highlight-hover sm:rounded"
