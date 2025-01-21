@@ -90,6 +90,7 @@ function App() {
     const signOutUser = () => {
         setUser(null);
         localStorage.clear();
+        runNotification("You have been logged out", "success");
     };
 
     return (
