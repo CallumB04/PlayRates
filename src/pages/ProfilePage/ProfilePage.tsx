@@ -32,7 +32,7 @@ const ProfilePage = () => {
     // show user that profile is being loaded
     if (targetUserLoading) {
         return (
-            <div className="mx-auto mt-24 flex w-max flex-row items-center justify-center gap-6">
+            <div className="mx-auto mt-6 flex w-max flex-row items-center justify-center gap-6">
                 <LoadingSpinner size={8} />
                 <p className="font-lexend text-xl tracking-wide text-text-primary">
                     Loading User Profile...
