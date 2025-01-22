@@ -8,6 +8,7 @@ import { fetchUserByID, UserAccount } from "./api";
 import { createContext, useContext } from "react";
 import AccountForm from "./components/AccountForm";
 import Notification from "./components/Notification";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -116,6 +117,10 @@ function App() {
                                     openLoginForm={openLoginForm}
                                 />
                             }
+                        />
+                        <Route
+                            path="/user/:targetUsername"
+                            element={<ProfilePage />}
                         />
                     </Routes>
                 </main>
