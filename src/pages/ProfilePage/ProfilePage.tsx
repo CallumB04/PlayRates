@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useUser } from "../../App";
-import { fetchUserByUsername, Game, UserAccount } from "../../api";
+import { fetchUserByUsername, UserAccount } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 import ProfileError from "./components/ProfileError";
-import { error } from "console";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
 const ProfilePage = () => {
