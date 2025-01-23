@@ -18,7 +18,7 @@ const typeToValues = (
             return {
                 textColor: "text-red-500",
                 bgColor: "bg-red-100",
-                iconName: "circle-exclamation",
+                iconName: "circle-xmark",
             };
     }
 };
@@ -30,7 +30,7 @@ const Notification: React.FC<NotificationProps> = ({ text, type }) => {
         <p
             className={`${textColor} ${bgColor} notification-fadeout fixed left-1/2 top-20 z-50 mx-auto flex h-max w-max -translate-x-1/2 flex-row items-center gap-x-2 rounded-md px-4 py-2 font-lexend text-lg`}
         >
-            <i className={`fa-solid fa-${iconName}`}></i>
+            <i className={`fa-regular fa-${iconName}`}></i>
             <p>{text}</p>
         </p>
     );
