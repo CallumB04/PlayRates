@@ -28,7 +28,7 @@ const Notification: React.FC<NotificationProps> = ({ text, type }) => {
 
     return (
         <p
-            className={`${textColor} ${bgColor} notification-fadeout fixed left-1/2 top-20 z-50 mx-auto flex h-max w-max -translate-x-1/2 flex-row items-center gap-x-2 rounded-md px-4 py-2 font-lexend text-lg`}
+            className={`${textColor} ${bgColor} notification-fadeout fixed bottom-8 right-1/2 z-50 mx-auto flex h-max w-max translate-x-1/2 flex-row items-center gap-x-2 rounded-md px-4 py-2 font-lexend text-lg sm:right-8 sm:translate-x-0`}
         >
             <i className={`fa-regular fa-${iconName}`}></i>
             <p>{text}</p>
