@@ -30,13 +30,10 @@ function App() {
         useState<boolean>(false);
     const [notificationText, setNotificationText] = useState<string>("");
     const [notificationType, setNotificationType] = useState<
-        "success" | "error" | "loading"
+        "success" | "error"
     >("success");
 
-    const runNotification = (
-        text: string,
-        type: "success" | "error" | "loading"
-    ) => {
+    const runNotification = (text: string, type: "success" | "error") => {
         setNotificationActive(false); // clearing old notification if two in quick succession
         setTimeout(() => {
             setNotificationText(text);

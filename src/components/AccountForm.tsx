@@ -14,10 +14,7 @@ interface FormProps {
     openSignupForm: () => void;
     openLoginForm: () => void;
     loadUserByID: (id: number) => Promise<void>;
-    runNotification: (
-        text: string,
-        type: "success" | "error" | "loading"
-    ) => void;
+    runNotification: (text: string, type: "success" | "error") => void;
 }
 
 const AccountForm: React.FC<FormProps> = ({
