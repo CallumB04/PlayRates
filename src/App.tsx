@@ -47,7 +47,7 @@ function App() {
         if (notificationActive) {
             const timer = setTimeout(() => {
                 setNotificationActive(false);
-            }, 5000);
+            }, 7000);
             return () => clearTimeout(timer);
         }
     }, [notificationActive]);
