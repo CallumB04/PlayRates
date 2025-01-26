@@ -23,3 +23,7 @@ main {
 .notification-fadeout {
     animation: 7.1s notification-fade-animation forwards;
 }
+
+.button-primary {
+    @apply rounded-lg bg-highlight-primary px-6 py-3 font-lexend font-semibold text-text-primary transition-colors duration-300 hover:bg-highlight-hover;
+}

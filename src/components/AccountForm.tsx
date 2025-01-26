@@ -325,7 +325,7 @@ const AccountForm: React.FC<FormProps> = ({
                 <div className="mx-auto w-11/12 space-y-3 pt-6 sm:mx-0 sm:w-full sm:pt-8 md:pt-10">
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-highlight-primary py-3 font-semibold transition-colors duration-300 hover:bg-highlight-hover sm:rounded"
+                        className="button-primary w-full sm:rounded"
                     >
                         {formType === "signup" ? "Sign up" : "Log in"}
                     </button>
