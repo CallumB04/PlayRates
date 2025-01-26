@@ -32,7 +32,7 @@ main {
 }
 /* Secondary white button */
 .button-secondary {
-    @apply text-text-dark bg-text-primary hover:bg-text-secondary;
+    @apply bg-text-primary text-text-dark hover:bg-text-secondary;
 }
 
 .button-primary,
@@ -52,4 +52,9 @@ main {
 .hover-text-white,
 .hover-text-purple {
     @apply transition-colors duration-200 hover:cursor-pointer;
+}
+
+/* card for container displaying content */
+.card {
+    @apply bg-card rounded-md p-2 shadow-md sm:p-4;
 }
