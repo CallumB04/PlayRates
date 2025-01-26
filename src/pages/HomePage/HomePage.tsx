@@ -65,15 +65,15 @@ const HomePage: React.FC<HomePageProps> = ({
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-5 overflow-x-visible font-lexend md:mt-16 md:gap-3 lg:w-full lg:flex-row lg:justify-start 2xl:mt-20">
                             <p
                                 onClick={openSignupForm}
-                                className="w-11/12 max-w-[500px] rounded-lg bg-highlight-primary px-6 py-[14px] text-center text-xl font-semibold text-text-primary transition-colors duration-200 hover:cursor-pointer hover:bg-highlight-hover md:px-5 lg:w-max xl:py-4 xl:text-[27px] 2xl:px-6 2xl:text-4xl"
+                                className="button-primary w-11/12 max-w-[500px] text-lg lg:w-max xl:text-3xl"
                             >
                                 Sign up
                             </p>
                             <p
                                 onClick={openLoginForm}
-                                className="w-11/12 max-w-[500px] rounded-lg bg-text-primary px-6 py-[14px] text-center text-xl font-semibold text-highlight-primary transition-colors duration-200 hover:cursor-pointer hover:bg-text-secondary lg:hidden xl:text-[27px]"
+                                className="button-secondary w-11/12 max-w-[500px] text-lg lg:hidden"
                             >
-                                Login
+                                Log in
                             </p>
                             <p className="hidden text-xl font-light text-text-primary lg:block 2xl:text-2xl">
                                 or{" "}
