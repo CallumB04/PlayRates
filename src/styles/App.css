@@ -56,5 +56,5 @@ main {
 
 /* card for container displaying content */
 .card {
-    @apply bg-card rounded-md p-2 shadow-md sm:p-4;
+    @apply bg-card rounded-md px-4 py-4 shadow-md sm:px-6;
 }
