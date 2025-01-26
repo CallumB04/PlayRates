@@ -16,6 +16,7 @@ export default {
                 text: {
                     primary: "#f3f4f6",
                     secondary: "#cacaca",
+                    dark: "#0e0e0e",
                 },
                 highlight: {
                     primary: "#9333ea",

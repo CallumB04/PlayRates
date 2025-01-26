@@ -91,7 +91,7 @@ const HomePage: React.FC<HomePageProps> = ({
                             Welcome back{" "}
                             <Link
                                 to={`/user/${user.username}`}
-                                className="font-normal transition-colors duration-100 hover:text-highlight-primary"
+                                className="hover-text-white font-normal"
                             >
                                 {user.username}
                             </Link>

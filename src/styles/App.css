@@ -28,14 +28,28 @@ main {
 
 /* Primary purple button */
 .button-primary {
-    @apply rounded-lg bg-highlight-primary px-6 py-3 font-lexend font-semibold text-text-primary transition-colors duration-300 hover:bg-highlight-hover;
+    @apply bg-highlight-primary text-text-primary hover:bg-highlight-hover;
+}
+/* Secondary white button */
+.button-secondary {
+    @apply text-text-dark bg-text-primary hover:bg-text-secondary;
+}
+
+.button-primary,
+.button-secondary {
+    @apply rounded-lg px-6 py-3 text-center font-lexend font-medium transition-colors duration-300;
 }
 
 /* white text that can be hovered, turns purple (links, etc) */
 .hover-text-white {
-    @apply text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary;
+    @apply text-text-primary hover:text-highlight-primary;
 }
 /* purple text that can be hovered, turns lighter purple (important actions - forgot password, etc) */
 .hover-text-purple {
-    @apply text-highlight-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-hover;
+    @apply text-highlight-primary hover:text-highlight-hover;
+}
+
+.hover-text-white,
+.hover-text-purple {
+    @apply transition-colors duration-200 hover:cursor-pointer;
 }
