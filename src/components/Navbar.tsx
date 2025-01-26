@@ -290,13 +290,13 @@ const Navbar: React.FC<NavbarProps> = ({
                         {/* Sign up and login buttons if no user account */}
                         <p
                             onClick={openLoginForm}
-                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary"
+                            className="hover-text-white block p-2"
                         >
                             Log in
                         </p>
                         <p
                             onClick={openSignupForm}
-                            className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary"
+                            className="hover-text-white block p-2"
                         >
                             Sign up
                         </p>
@@ -304,9 +304,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 )}
                 {/* Games library link text */}
                 <Link to="/library">
-                    <p className="block p-2 transition duration-75 hover:cursor-pointer hover:text-highlight-primary">
-                        Browse Games
-                    </p>
+                    <p className="hover-text-white block p-2">Browse Games</p>
                 </Link>
                 {/* Text input to search for game */}
                 <span className="relative">

@@ -79,7 +79,7 @@ const HomePage: React.FC<HomePageProps> = ({
                                 or{" "}
                                 <span
                                     onClick={openLoginForm}
-                                    className="underline transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary"
+                                    className="hover-text-white underline"
                                 >
                                     log in
                                 </span>{" "}
