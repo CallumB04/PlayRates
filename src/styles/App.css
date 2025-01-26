@@ -35,7 +35,7 @@ main {
 .hover-text-white {
     @apply text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary;
 }
-/* pruple text that can be hovered, turns lighter purple (links, etc) */
+/* purple text that can be hovered, turns lighter purple (important actions - forgot password, etc) */
 .hover-text-purple {
     @apply text-highlight-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-hover;
 }
