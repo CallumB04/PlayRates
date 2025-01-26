@@ -65,9 +65,9 @@ const HomePage: React.FC<HomePageProps> = ({
                         <div className="mx-auto mt-12 flex w-full flex-col items-center justify-center gap-5 overflow-x-visible font-lexend md:mt-16 md:gap-3 lg:w-full lg:flex-row lg:justify-start 2xl:mt-20">
                             <p
                                 onClick={openSignupForm}
-                                className="button-primary w-11/12 max-w-[500px] text-lg lg:w-max xl:text-3xl"
+                                className="button-primary w-11/12 max-w-[500px] text-lg lg:w-max xl:text-2xl"
                             >
-                                Sign up
+                                Get Started
                             </p>
                             <p
                                 onClick={openLoginForm}
