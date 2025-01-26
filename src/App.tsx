@@ -116,8 +116,12 @@ function App() {
                             }
                         />
                         <Route
-                            path="/user/:targetUsername"
-                            element={<ProfilePage />}
+                            path="/user/:targetUsername?"
+                            element={
+                                <ProfilePage
+                                    runNotification={runNotification}
+                                />
+                            }
                         />
                     </Routes>
                 </main>

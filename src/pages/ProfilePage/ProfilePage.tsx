@@ -5,12 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import ProfileError from "./components/ProfileError";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-const ProfilePage = () => {
+interface ProfilePageProps {
+    runNotification: (text: string, type: "success" | "error") => void;
+}
+
+const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
     const currentUser = useUser(); // getting the currently logged in user
     const { targetUsername } = useParams(); // getting user from URL as their username
 
     // if no user in the URL, returns error
     if (!targetUsername) {
+        runNotification("No user found in URL", "error");
         return <ProfileError />;
     }
 
@@ -26,6 +31,7 @@ const ProfilePage = () => {
 
     // user doesnt exist / failed to fetch
     if (targetUserError) {
+        runNotification("Failed to fetch user data", "error");
         return <ProfileError />;
     }
 
