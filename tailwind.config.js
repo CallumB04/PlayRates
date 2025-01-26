@@ -13,6 +13,7 @@ export default {
             colors: {
                 navbar: "#232323",
                 dropdown: "#333333",
+                card: "#2e2e2e",
                 text: {
                     primary: "#f3f4f6",
                     secondary: "#cacaca",
