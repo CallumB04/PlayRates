@@ -13,7 +13,7 @@ const ProfileError = () => {
                 </h1>
                 <div className="flex w-full flex-col items-center gap-3 sm:w-max sm:flex-row">
                     <Link to="/" className="button-primary w-full sm:w-max">
-                        Return to home page
+                        Return to home
                     </Link>
                     {user ? (
                         <Link
