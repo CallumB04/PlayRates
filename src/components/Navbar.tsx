@@ -19,11 +19,12 @@ const Navbar: React.FC<NavbarProps> = ({
     // fetching user data from react context
     const user: UserAccount | null = useUser();
 
-    // closing login / singup form when page changes
+    // closing login / singup form and scrolling to top when page changes
     const urlPath = useLocation();
 
     useEffect(() => {
         closeAccountForm();
+        window.scrollTo(0, 0);
     }, [urlPath]);
 
     // common styles used on all items in the My Account dropdown menu
@@ -43,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({
         setPhoneDropdownOpen(false);
     };
 
-    // checking for window scorll to changed navbar opacity
+    // checking for window scroll to change navbar opacity
     const [scrollHeight, setScrollHeight] = useState<number>(0);
 
     useEffect(() => {
