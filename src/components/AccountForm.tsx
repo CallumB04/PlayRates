@@ -227,14 +227,14 @@ const AccountForm: React.FC<FormProps> = ({
 
     return (
         <dialog
-            className={`fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-3`}
+            className="popup-backdrop"
             ref={formBackdrop}
             onMouseDown={closeAccountForm}
         >
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="relative mx-auto flex w-full max-w-[630px] flex-col justify-center rounded-lg bg-gradient-to-tl from-dropdown to-[#383838] px-2 py-12 font-lexend text-text-primary shadow-md sm:px-12 sm:py-16 md:px-16"
+                className="popup relative mx-auto flex w-full max-w-[630px] flex-col justify-center px-2 py-12 font-lexend text-text-primary sm:px-12 sm:py-16 md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">

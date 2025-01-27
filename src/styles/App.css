@@ -58,3 +58,11 @@ main {
 .card {
     @apply bg-card rounded-md px-4 py-4 shadow-md sm:px-6;
 }
+
+/* popup containers - such as account form */
+.popup {
+    @apply from-popup-start to-popup-end rounded-lg bg-gradient-to-tl shadow-md;
+}
+.popup-backdrop {
+    @apply fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-4;
+}

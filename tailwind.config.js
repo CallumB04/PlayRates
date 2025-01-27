@@ -27,6 +27,10 @@ export default {
                     primary: "#404040",
                     icon: "#a3a3a3",
                 },
+                popup: {
+                    start: "#333333",
+                    end: "#383838",
+                },
             },
             height: {
                 navbar: "4rem",
