@@ -50,7 +50,7 @@ const HomePage: React.FC<HomePageProps> = ({
 
     return (
         <>
-            <div className="flex flex-wrap gap-y-10 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20 2xl:pt-8">
+            <div className="my-12 flex flex-wrap gap-y-10 sm:px-2 md:min-h-[50vh] md:px-8 xl:px-20 2xl:mt-20">
                 <div className="w-full lg:w-1/2">
                     <h1 className="text-center font-lexend text-[64px] font-bold text-text-primary md:text-7xl lg:text-left lg:text-8xl 2xl:text-9xl">
                         PlayRates

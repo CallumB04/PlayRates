@@ -104,7 +104,7 @@ function App() {
                     openLoginForm={openLoginForm}
                     closeAccountForm={closeAccountForm}
                 />
-                <main className="px-4 py-24 sm:px-8 md:py-32">
+                <main className="px-4 py-12 sm:px-8 md:py-20">
                     <Routes>
                         <Route
                             path="/"
