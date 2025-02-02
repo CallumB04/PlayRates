@@ -66,3 +66,21 @@ main {
 .popup-backdrop {
     @apply fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-4;
 }
+
+/* user profile picture - default background image for users without one */
+.profile-picture-wrapper {
+    border-radius: 100%;
+    background-image: url("../../public/assets/profile-picture/default.png");
+    background-size: contain;
+}
+
+.profile-picture-wrapper:hover {
+    background-image: url("../../public/assets/profile-picture/hover.png");
+    cursor: pointer;
+}
+
+.profile-picture {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
