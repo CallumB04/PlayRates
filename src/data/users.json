@@ -4,25 +4,27 @@
         "username": "callum",
         "email": "thisisanemail@gmail.com",
         "password": "Password123",
+        "picture": "",
+        "bio": "This is a test bio, for the purposes of testing. This test bio is a test. I like games, and games, and playrates, ooh I love playrates",
         "games": {
             "played": [],
             "playing": [],
             "backlog": [],
             "wishlist": []
-        },
-        "picture": ""
+        }
     },
     {
         "id": 1,
         "username": "testaccount",
         "email": "otheremail@gmail.com",
         "password": "Password321",
+        "picture": "",
+        "bio": "",
         "games": {
             "played": [],
             "playing": [],
             "backlog": [],
             "wishlist": []
-        },
-        "picture": ""
+        }
     }
 ]

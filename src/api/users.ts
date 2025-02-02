@@ -27,7 +27,8 @@ export interface UserAccount {
     username: string; // account name, no spaces allowed, used in url too
     email: string;
     password: string; // temporary non-encrypted password for testing
-    picture: string; // user profile picture. empty string if none.
+    picture: string; // user profile picture. empty string if none
+    bio: string; // user biography
     games: GameList;
 }
 
@@ -104,13 +105,14 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
         const newUserAccount: UserAccount = {
             ...newUser,
             id: users.length,
+            picture: "",
+            bio: "",
             games: {
                 played: [],
                 playing: [],
                 backlog: [],
                 wishlist: [],
             },
-            picture: "",
         };
 
         // add new user to users
