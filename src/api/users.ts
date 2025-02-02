@@ -27,6 +27,7 @@ export interface UserAccount {
     username: string; // account name, no spaces allowed, used in url too
     email: string;
     password: string; // temporary non-encrypted password for testing
+    picture: string; // user profile picture. empty string if none.
     games: GameList;
 }
 
@@ -109,6 +110,7 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
                 backlog: [],
                 wishlist: [],
             },
+            picture: "",
         };
 
         // add new user to users
