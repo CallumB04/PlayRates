@@ -72,6 +72,7 @@ main {
     border-radius: 100%;
     background-image: url("../../public/assets/profile-picture/default.png");
     background-size: contain;
+    aspect-ratio: 1;
 }
 
 .profile-picture-wrapper:hover {
