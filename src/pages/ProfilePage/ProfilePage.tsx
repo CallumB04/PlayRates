@@ -49,14 +49,20 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
         );
     }
 
+    // successful user profile load
     if (targetUser) {
         return (
-            <h1>
-                {currentUser?.id === targetUser.id
-                    ? "This is my account: "
-                    : ""}
-                {targetUser.username}
-            </h1>
+            <div className="flex w-full flex-col gap-5 overflow-hidden lg:flex-row">
+                {/* Profile card */}
+                <div className="card w-full lg:w-1/3 xl:w-1/4 2xl:w-1/5"></div>
+                {/* Games card */}
+                <div className="card w-full lg:w-2/3 xl:w-3/4 2xl:w-3/5"></div>
+                {/* Friends / Socials */}
+                <div className="hidden w-1/5 flex-col gap-5 2xl:flex">
+                    <div className="card w-full"></div>
+                    <div className="card w-full"></div>
+                </div>
+            </div>
         );
     }
 };
