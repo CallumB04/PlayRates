@@ -57,7 +57,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
             <div className="flex h-[85vh] w-full flex-col gap-5 overflow-hidden lg:flex-row">
                 {/* Profile card */}
                 <div className="card flex w-full min-w-[300px] flex-row items-center justify-between font-lexend lg:max-w-[300px] lg:flex-col">
-                    <div className="flex flex-row items-center gap-5 lg:flex-col lg:gap-7">
+                    <div className="flex w-full flex-row items-center gap-5 sm:gap-6 lg:flex-col lg:gap-7">
                         <div className="flex flex-col items-center gap-2">
                             <ProfilePicture
                                 sizes={[
@@ -74,6 +74,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                         ? "online"
                                         : "offline"
                                 }
+                                sizes={[
+                                    { value: "sm" },
+                                    { value: "lg", breakpoint: "sm" },
+                                ]}
                             />
                         </div>
                         <div className="flex w-3/5 flex-col gap-3 sm:max-w-full lg:w-full">
@@ -81,21 +85,24 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                 {targetUser.username}
                             </h2>
 
-                            {targetUser.bio ? (
-                                <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
-                                    {targetUser.bio}
-                                </p>
-                            ) : (
-                                <></>
-                            )}
+                            <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
+                                {targetUser.bio
+                                    ? targetUser.bio
+                                    : "User hasn't added a bio."}
+                            </p>
                         </div>
                     </div>
-                    <div className="flex h-full flex-col-reverse items-center justify-end gap-4 sm:flex-row sm:items-start sm:gap-3 lg:h-max">
-                        <i className="fas fa-users text-[22px] text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary sm:text-2xl lg:hidden lg:text-[22px]"></i>
+                    <div className="flex h-full flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
+                        <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
+                            <i className="fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary lg:text-[22px]"></i>
+                            <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
+                                Friends
+                            </p>
+                        </div>
                         {/* Profile Settings button */}
                         {currentUser === targetUser ? (
                             <div className="group flex gap-3 hover:cursor-pointer lg:items-center">
-                                <i className="fas fa-cog text-[22px] text-text-primary transition-colors duration-200 group-hover:text-highlight-primary sm:text-2xl lg:text-[22px]"></i>
+                                <i className="fas fa-cog text-2xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:text-[22px]"></i>
                                 <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
                                     Settings
                                 </p>
