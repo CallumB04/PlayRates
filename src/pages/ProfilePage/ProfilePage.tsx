@@ -4,6 +4,8 @@ import { fetchUserByUsername, UserAccount } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 import ProfileError from "./components/ProfileError";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import ProfilePicture from "../../components/ProfilePicture";
+import UserStatus from "../../components/UserStatus";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -52,15 +54,63 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
     // successful user profile load
     if (targetUser) {
         return (
-            <div className="flex w-full flex-col gap-5 overflow-hidden lg:flex-row">
+            <div className="flex h-[85vh] w-full flex-col gap-5 overflow-hidden lg:flex-row">
                 {/* Profile card */}
-                <div className="card w-full lg:w-1/3 xl:w-1/4 2xl:w-1/5"></div>
+                <div className="card flex w-full min-w-[300px] flex-row items-center justify-between font-lexend lg:max-w-[300px] lg:flex-col">
+                    <div className="flex flex-row items-center gap-5 lg:flex-col lg:gap-7">
+                        <div className="flex flex-col items-center gap-2">
+                            <ProfilePicture
+                                sizes={[
+                                    { value: 20 },
+                                    { value: 28, breakpoint: "sm" },
+                                    { value: 40, breakpoint: "lg" },
+                                ]}
+                                user={targetUser}
+                            />
+                            {/* User status (online, offline, etc). Currently only set to online if current user is on their page */}
+                            <UserStatus
+                                status={
+                                    currentUser === targetUser
+                                        ? "online"
+                                        : "offline"
+                                }
+                            />
+                        </div>
+                        <div className="flex w-3/5 flex-col gap-3 sm:max-w-full lg:w-full">
+                            <h2 className="overflow-hidden break-all text-left text-xl font-semibold text-text-primary sm:text-2xl">
+                                {targetUser.username}
+                            </h2>
+
+                            {targetUser.bio ? (
+                                <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
+                                    {targetUser.bio}
+                                </p>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex h-full flex-col-reverse items-center justify-end gap-4 sm:flex-row sm:items-start sm:gap-3 lg:h-max">
+                        <i className="fas fa-users text-[22px] text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary sm:text-2xl lg:hidden lg:text-[22px]"></i>
+                        {/* Profile Settings button */}
+                        {currentUser === targetUser ? (
+                            <div className="group flex gap-3 hover:cursor-pointer lg:items-center">
+                                <i className="fas fa-cog text-[22px] text-text-primary transition-colors duration-200 group-hover:text-highlight-primary sm:text-2xl lg:text-[22px]"></i>
+                                <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
+                                    Settings
+                                </p>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
                 {/* Games card */}
-                <div className="card w-full lg:w-2/3 xl:w-3/4 2xl:w-3/5"></div>
+                <div className="card w-full lg:flex-grow"></div>
                 {/* Friends / Socials */}
-                <div className="hidden w-1/5 flex-col gap-5 2xl:flex">
-                    <div className="card w-full"></div>
-                    <div className="card w-full"></div>
+                <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
+                    <div className="card h-3/5 w-full"></div>
+                    <div className="card h-2/5 w-full"></div>
                 </div>
             </div>
         );
