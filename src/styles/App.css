@@ -70,14 +70,14 @@ main {
 /* user profile picture - default background image for users without one */
 .profile-picture-wrapper {
     border-radius: 100%;
-    background-image: url("../../public/assets/profile-picture/default.png");
+    background-image: url("/assets/profile-picture/default.png");
     background-size: contain;
     aspect-ratio: 1;
     border: 3px solid #0e0e0e;
 }
 
 .profile-picture-wrapper:hover {
-    background-image: url("../../public/assets/profile-picture/hover.png");
+    background-image: url("/assets/profile-picture/hover.png");
     cursor: pointer;
 }
 
