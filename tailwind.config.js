@@ -1,5 +1,15 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+    safelist: [
+        ...["8", "12", "16", "20", "24", "28", "32", "40"].map(
+            (size) => `size-${size}`
+        ),
+        ...["sm", "md", "lg", "xl"].flatMap((bp) =>
+            ["8", "12", "16", "20", "24", "28", "32", "40"].map(
+                (size) => `${bp}:size-${size}`
+            )
+        ),
+    ],
     theme: {
         extend: {
             fontFamily: {
