@@ -6,6 +6,7 @@ import ProfileError from "./components/ProfileError";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
+import { useEffect, useState } from "react";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -30,6 +31,72 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
         queryKey: ["targetUser", targetUsername],
         queryFn: () => fetchUserByUsername(targetUsername),
     });
+
+    // boolean whether edit profile / add friend button is being hovered
+    const [isHoveringProfileButton, setIsHoveringProfileButton] =
+        useState<boolean>(false);
+
+    // checking user relation (friends, request-sent, etc)... Empty "" if user on own account
+    const [userRelation, setUserRelation] = useState<string>("");
+
+    useEffect(() => {
+        // search if target user in current users friend list
+        const friend = currentUser?.friends.find(
+            (user) => user.id === targetUser?.id
+        );
+
+        if (friend) {
+            // setting user relation as status
+            setUserRelation(friend.status);
+        } else {
+            // emptying user relation if not found in friends list
+            setUserRelation("");
+        }
+    }, [currentUser, targetUser]);
+
+    // function to get icon for button from current and target user relation
+    const getUserRelationIcon = () => {
+        switch (userRelation) {
+            case "friend":
+                return isHoveringProfileButton ? "user-xmark" : "user-group";
+            case "request-sent":
+                return isHoveringProfileButton ? "user-xmark" : "user-clock";
+            case "request-received":
+                return "user-check";
+            case "":
+                return "user-plus";
+        }
+    };
+
+    // function to get text for button from current and target user relation
+    const getUserRelationText = () => {
+        switch (userRelation) {
+            case "friend":
+                return isHoveringProfileButton ? "Remove Friend" : "Friends";
+            case "request-sent":
+                return isHoveringProfileButton
+                    ? "Cancel Request"
+                    : "Request Sent";
+            case "request-received":
+                return "Accept Request";
+            case "":
+                return "Add Friend";
+        }
+    };
+
+    // function to get text for button from current and target user relation
+    const getUserRelationColors = () => {
+        switch (userRelation) {
+            case "friend":
+                return "text-green-400 hover:text-red-400 border-green-500 hover:border-red-500";
+            case "request-sent":
+                return "text-orange-300 hover:text-red-400 border-orange-400 hover:border-red-500";
+            case "request-received":
+                return "text-green-300 hover:text-green-500 border-green-400 hover:border-green-600";
+            case "":
+                return "text-text-primary hover:text-green-500 border-text-primary hover:border-green-600";
+        }
+    };
 
     // user doesnt exist / failed to fetch
     if (targetUserError) {
@@ -80,16 +147,44 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                 ]}
                             />
                         </div>
-                        <div className="flex w-3/5 flex-col gap-3 sm:max-w-full lg:w-full">
-                            <h2 className="overflow-hidden break-all text-left text-xl font-semibold text-text-primary sm:text-2xl">
-                                {targetUser.username}
-                            </h2>
+                        <div className="flex w-3/5 flex-col gap-6 sm:max-w-full lg:w-full">
+                            <div className="flex w-full flex-col gap-3">
+                                <h2 className="overflow-hidden break-all text-left text-xl font-semibold text-text-primary sm:text-2xl">
+                                    {targetUser.username}
+                                </h2>
 
-                            <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
-                                {targetUser.bio
-                                    ? targetUser.bio
-                                    : "User hasn't added a bio."}
-                            </p>
+                                <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
+                                    {targetUser.bio
+                                        ? targetUser.bio
+                                        : "User hasn't added a bio."}
+                                </p>
+                            </div>
+                            {currentUser ? (
+                                <button
+                                    className={`button-outline hidden w-full items-center justify-center gap-4 lg:flex ${currentUser === targetUser ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-hover" : getUserRelationColors()}`}
+                                    onMouseOver={() =>
+                                        setIsHoveringProfileButton(true)
+                                    }
+                                    onMouseOut={() =>
+                                        setIsHoveringProfileButton(false)
+                                    }
+                                >
+                                    <p className="text-lg">
+                                        {currentUser === targetUser
+                                            ? "Edit Profile"
+                                            : getUserRelationText()}
+                                    </p>
+                                    <i
+                                        className={`fas text-lg fa-${
+                                            currentUser === targetUser
+                                                ? "pen"
+                                                : getUserRelationIcon()
+                                        }`}
+                                    />
+                                </button>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     </div>
                     <div className="flex h-full flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
