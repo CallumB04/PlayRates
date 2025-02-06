@@ -22,6 +22,11 @@ export interface GameList {
     wishlist: GameLog[];
 }
 
+export interface Friend {
+    id: number;
+    status: string; // "friend" | "request-sent" | "request-received"
+}
+
 export interface UserAccount {
     id: number;
     username: string; // account name, no spaces allowed, used in url too
@@ -30,6 +35,7 @@ export interface UserAccount {
     picture: string; // user profile picture. empty string if none
     bio: string; // user biography
     games: GameList;
+    friends: Friend[];
 }
 
 // for accounts that have been created in signup form, to add to UserAccount interface with unique ID
@@ -113,6 +119,7 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
                 backlog: [],
                 wishlist: [],
             },
+            friends: [],
         };
 
         // add new user to users
