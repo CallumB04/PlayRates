@@ -34,9 +34,14 @@ main {
 .button-secondary {
     @apply bg-text-primary text-text-dark hover:bg-text-secondary;
 }
+/* Button with only outline (Edit profile button, etc) Allowing for custom bg color */
+.button-outline {
+    @apply border-2;
+}
 
 .button-primary,
-.button-secondary {
+.button-secondary,
+.button-outline {
     @apply rounded-lg px-6 py-[14px] text-center font-lexend font-medium transition-colors duration-300 hover:cursor-pointer sm:py-3;
 }
 
