@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useUser } from "../../App";
 import { fetchUserByUsername, UserAccount } from "../../api";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +15,11 @@ interface ProfilePageProps {
 const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
     const currentUser = useUser(); // getting the currently logged in user
     const { targetUsername } = useParams(); // getting user from URL as their username
+
+    // getting game type from url search params
+    const location = useLocation();
+    const urlParams = new URLSearchParams(location.search);
+    const profileGamesType = urlParams.get("type") || "played"; // getting game type (played, playing, etc) - default to played if no url data
 
     // if no user in the URL, returns error
     if (!targetUsername) {
