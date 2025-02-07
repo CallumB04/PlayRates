@@ -188,12 +188,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                         </div>
                     </div>
                     <div className="flex h-full flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
+                        {/* Friends list button */}
                         <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
                             <i className="fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary lg:text-[22px]"></i>
                             <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
                                 Friends
                             </p>
                         </div>
+                        {/* Edit profile icon button (mobile) */}
+                        <i className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"></i>
                         {/* Profile Settings button */}
                         {currentUser === targetUser ? (
                             <div className="group flex gap-3 hover:cursor-pointer lg:items-center">
