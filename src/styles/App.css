@@ -92,6 +92,7 @@ main {
     height: 100%;
 }
 
+/* heading text at top of card elements */
 .card-header-text {
     @apply font-lexend text-xl font-semibold uppercase tracking-wide text-text-secondary;
 }
