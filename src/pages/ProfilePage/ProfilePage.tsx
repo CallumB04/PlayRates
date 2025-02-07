@@ -216,11 +216,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                     </div>
                 </div>
                 {/* Games card */}
-                <div className="card w-full lg:flex-grow"></div>
+                <div className="card w-full lg:flex-grow">
+                    <h2 className="card-header-text">Game Library</h2>
+                </div>
                 {/* Friends / Socials */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
-                    <div className="card h-3/5 w-full"></div>
-                    <div className="card h-2/5 w-full"></div>
+                    <div className="card h-3/5 w-full">
+                        <h2 className="card-header-text">Friends</h2>
+                    </div>
+                    <div className="card h-2/5 w-full">
+                        <h2 className="card-header-text">Reviews</h2>
+                    </div>
                 </div>
             </div>
         );
