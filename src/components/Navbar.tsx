@@ -78,10 +78,6 @@ const Navbar: React.FC<NavbarProps> = ({
             <div
                 className={`absolute right-0 top-navbar rounded-l-md bg-dropdown ${phoneDropdownOpen ? "w-9/12" : "w-0"} delay-50 flex max-w-80 flex-col items-center gap-2 overflow-x-hidden overflow-y-scroll py-3 text-text-primary transition-width duration-300 ease-in-out lg:hidden`}
             >
-                {/* All dropdown links currently link to a template account for testing
-                    purposes (callum). In the future the links will navigate to the logged in
-                    account's pages. E.G: /user/<username>/played */}
-
                 <span className="relative">
                     <input
                         type="text"
@@ -124,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
                         <Link
                             className={`${phoneDropdownItemStyles}`}
-                            to={`/user/${user?.username}/played`}
+                            to={`/user/${user?.username}?type=played`}
                             onClick={closePhoneDropdown}
                         >
                             <i className="fa-regular fa-check-circle text-highlight-primary"></i>
@@ -132,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         </Link>
                         <Link
                             className={`${phoneDropdownItemStyles}`}
-                            to={`/user/${user?.username}/playing`}
+                            to={`/user/${user?.username}?type=playing`}
                             onClick={closePhoneDropdown}
                         >
                             <i className="fa-regular fa-play-circle text-highlight-primary"></i>
@@ -140,7 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         </Link>
                         <Link
                             className={`${phoneDropdownItemStyles}`}
-                            to={`/user/${user?.username}/backlog`}
+                            to={`/user/${user?.username}?type=backlog`}
                             onClick={closePhoneDropdown}
                         >
                             <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
@@ -148,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         </Link>
                         <Link
                             className={`${phoneDropdownItemStyles}`}
-                            to={`/user/${user?.username}/wishlist`}
+                            to={`/user/${user?.username}?type=wishlist`}
                             onClick={closePhoneDropdown}
                         >
                             <i className="fa-solid fa-heart text-highlight-primary"></i>
@@ -241,28 +237,28 @@ const Navbar: React.FC<NavbarProps> = ({
                                 <span className="my-1 w-11/12 bg-text-primary pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
                                 <Link
                                     className={`${dropdownItemStyles}`}
-                                    to={`/user/${user?.username}/played`}
+                                    to={`/user/${user?.username}?type=played`}
                                 >
                                     <i className="fa-regular fa-check-circle text-highlight-primary"></i>
                                     <p>Played</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
-                                    to={`/user/${user?.username}/playing`}
+                                    to={`/user/${user?.username}?type=playing`}
                                 >
                                     <i className="fa-regular fa-play-circle text-highlight-primary"></i>
                                     <p>Playing</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
-                                    to={`/user/${user?.username}/backlog`}
+                                    to={`/user/${user?.username}?type=backlog`}
                                 >
                                     <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
                                     <p>Backlog</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
-                                    to={`/user/${user?.username}/wishlist`}
+                                    to={`/user/${user?.username}?type=wishlist`}
                                 >
                                     <i className="fa-solid fa-heart text-highlight-primary"></i>
                                     <p>Wishlist</p>
