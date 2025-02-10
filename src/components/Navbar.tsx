@@ -308,7 +308,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="block w-60 rounded bg-searchInput-primary px-2 py-1.5 pr-9 focus:outline-none lg:w-72"
+                        className="search-bar block w-60 lg:w-72"
                     />
                     <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInput-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
