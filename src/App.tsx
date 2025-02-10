@@ -9,6 +9,7 @@ import { createContext, useContext } from "react";
 import AccountForm from "./components/AccountForm";
 import Notification from "./components/Notification";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import UserStatus from "./components/UserStatus";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -67,10 +68,15 @@ function App() {
     // temporary feature for testing to simulate using cookies to remember user
     // will replace in future for security reasons
     useEffect(() => {
-        const userToken: string | null = localStorage.getItem("user_id");
+        const userTokenLocal: string | null = localStorage.getItem("user_id");
+        const userTokenSession: string | null =
+            sessionStorage.getItem("user_id");
 
-        if (userToken) {
-            loadUserByID(Number(userToken));
+        // load user from local or session storage if exists
+        if (userTokenLocal) {
+            loadUserByID(Number(userTokenLocal));
+        } else if (userTokenSession) {
+            loadUserByID(Number(userTokenSession));
         }
     }, []);
 
@@ -92,6 +98,7 @@ function App() {
     const signOutUser = () => {
         setUser(null);
         localStorage.clear();
+        sessionStorage.clear();
         runNotification("You have been logged out", "success");
     };
 

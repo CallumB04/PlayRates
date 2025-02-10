@@ -48,8 +48,6 @@ const AccountForm: React.FC<FormProps> = ({
     // username to pass from signup to login
     const [usernameAfterSignup, setUsernameAfterSignup] = useState<string>("");
 
-    const navigate = useNavigate();
-
     // function for hiding error message if not already hidden
     const hideErrorMessage = (msg: React.RefObject<HTMLParagraphElement>) => {
         if (!msg.current?.classList.contains("hidden")) {
@@ -213,13 +211,16 @@ const AccountForm: React.FC<FormProps> = ({
             );
 
             if (user) {
-                // add to local storage if user selects remember me
                 if (remember) {
+                    // add to local storage if user selects remember me
                     localStorage.setItem("user_id", String(user.id));
+                } else {
+                    // add to session storage if not remember me
+                    sessionStorage.setItem("user_id", String(user.id));
                 }
 
                 loadUserByID(user.id); // load new user into context
-                navigate("/"); // return user to home page
+                location.reload(); // refresh page
                 closeAccountForm(); // close the login form
             }
         }
