@@ -241,7 +241,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                 <input
                                     type="text"
                                     placeholder="Search for game..."
-                                    className="search-bar hidden h-11 w-60 md:block lg:w-72"
+                                    className="search-bar hidden h-11 w-60 md:block xl:w-72"
                                 />
                                 <i
                                     className="fas fa-magnifying-glass relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base md:text-searchInput-icon"
