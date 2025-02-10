@@ -201,7 +201,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                             </p>
                         </div>
                         {/* Edit profile icon button (mobile) */}
-                        <i className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"></i>
+                        {currentUser === targetUser ? (
+                            <i className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"></i>
+                        ) : (
+                            <></>
+                        )}
                         {/* Profile Settings button */}
                         {currentUser === targetUser ? (
                             <div className="group flex gap-3 hover:cursor-pointer lg:items-center">
@@ -217,7 +221,31 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                 </div>
                 {/* Games card */}
                 <div className="card w-full lg:flex-grow">
-                    <h2 className="card-header-text">Game Library</h2>
+                    {/* Header and search bar */}
+                    <div className="flex w-full justify-between">
+                        <h2 className="card-header-text">Game Library</h2>
+
+                        <div className="flex items-center gap-4 md:gap-5">
+                            <i
+                                className="fas fa-filter hover-text-white text-xl md:hidden md:text-base"
+                                title="Filters"
+                            ></i>
+                            <p className="hover-text-white hidden font-lexend md:block">
+                                Filters
+                            </p>
+                            <span className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Search for game..."
+                                    className="search-bar hidden w-60 md:block lg:w-72"
+                                />
+                                <i
+                                    className="fas fa-magnifying-glass relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base md:text-searchInput-icon"
+                                    title="Search"
+                                ></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 {/* Friends / Socials */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
