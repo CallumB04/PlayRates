@@ -230,14 +230,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                 className="fas fa-filter hover-text-white text-xl md:hidden md:text-base"
                                 title="Filters"
                             ></i>
-                            <p className="hover-text-white hidden font-lexend md:block">
-                                Filters
-                            </p>
+                            <button className="hover-text-white button-outline hidden h-11 items-center gap-3 hover:border-highlight-primary md:flex">
+                                <p className="font-lexend">Filters</p>
+                                <i
+                                    className="fas fa-filter"
+                                    title="Filters"
+                                ></i>
+                            </button>
                             <span className="relative">
                                 <input
                                     type="text"
                                     placeholder="Search for game..."
-                                    className="search-bar hidden w-60 md:block lg:w-72"
+                                    className="search-bar hidden h-11 w-60 md:block lg:w-72"
                                 />
                                 <i
                                     className="fas fa-magnifying-glass relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base md:text-searchInput-icon"
