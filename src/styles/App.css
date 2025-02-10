@@ -96,3 +96,8 @@ main {
 .card-header-text {
     @apply font-lexend text-xl font-semibold uppercase tracking-wide text-text-secondary;
 }
+
+/* Search bars */
+.search-bar {
+    @apply rounded bg-searchInput-primary px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
+}
