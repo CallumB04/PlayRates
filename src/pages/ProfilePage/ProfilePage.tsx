@@ -10,9 +10,13 @@ import { useEffect, useState } from "react";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
+    openLoginForm: () => void;
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
+const ProfilePage: React.FC<ProfilePageProps> = ({
+    runNotification,
+    openLoginForm,
+}) => {
     const currentUser = useUser(); // getting the currently logged in user
     const { targetUsername } = useParams(); // getting user from URL as their username
 
@@ -188,7 +192,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                     />
                                 </button>
                             ) : (
-                                <></>
+                                <button
+                                    className="button-outline hidden items-center justify-center gap-4 text-lg text-text-primary hover:cursor-pointer hover:border-highlight-primary hover:text-highlight-primary lg:flex"
+                                    onClick={openLoginForm}
+                                >
+                                    <p>Login to add</p>
+                                    <i className="fas fa-right-to-bracket"></i>
+                                </button>
                             )}
                         </div>
                     </div>
@@ -221,15 +231,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                 </div>
                 {/* Games card */}
                 <div className="card w-full lg:flex-grow">
-                    {/* Header and search bar */}
+                    {/* Header */}
                     <div className="flex w-full justify-between">
                         <h2 className="card-header-text">Game Library</h2>
 
+                        {/* Search bar and filter button */}
                         <div className="flex items-center gap-4 md:gap-5">
+                            {/* Filters icon (mobile) */}
                             <i
                                 className="fas fa-filter hover-text-white text-xl md:hidden md:text-base"
                                 title="Filters"
                             ></i>
+                            {/* Filters button */}
                             <button className="hover-text-white button-outline hidden h-11 items-center gap-3 hover:border-highlight-primary md:flex">
                                 <p className="font-lexend">Filters</p>
                                 <i
@@ -237,6 +250,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ runNotification }) => {
                                     title="Filters"
                                 ></i>
                             </button>
+                            {/* Search bar */}
                             <span className="relative">
                                 <input
                                     type="text"

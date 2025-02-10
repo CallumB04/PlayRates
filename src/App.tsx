@@ -120,6 +120,7 @@ function App() {
                             element={
                                 <ProfilePage
                                     runNotification={runNotification}
+                                    openLoginForm={openLoginForm}
                                 />
                             }
                         />
