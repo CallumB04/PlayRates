@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
+import { send } from "process";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -23,7 +24,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // getting game type from url search params
     const location = useLocation();
     const urlParams = new URLSearchParams(location.search);
-    const profileGamesType = urlParams.get("type") || "played"; // getting game type (played, playing, etc) - default to played if no url data
+    const URLGamesSection = urlParams.get("type") || "played"; // getting game section (played, playing, etc) - default to played if no url data
+
+    // currently displayed section (played, playing, backlog, etc)
+    const [activeGamesSection, setActiveGamesSection] =
+        useState<string>(URLGamesSection);
 
     // if no user in the URL, returns error
     if (!targetUsername) {
@@ -237,9 +242,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
                         {/* Search bar and filter button */}
                         <div className="flex items-center gap-4 md:gap-5">
+                            {/* Game Section (played, playing, etc) icon (mobile) */}
+                            <i
+                                className="fas fa-list hover-text-white text-xl md:hidden"
+                                title="Game Section"
+                            ></i>
                             {/* Filters icon (mobile) */}
                             <i
-                                className="fas fa-filter hover-text-white text-xl md:hidden md:text-base"
+                                className="fas fa-filter hover-text-white text-xl md:hidden"
                                 title="Filters"
                             ></i>
                             {/* Filters button */}
@@ -263,6 +273,24 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 ></i>
                             </span>
                         </div>
+                    </div>
+                    {/* Game section navigation (played, playing, etc) */}
+                    <div className="mx-auto mt-12 hidden w-max font-lexend text-lg text-text-primary md:flex">
+                        {["played", "playing", "backlog", "wishlist"].map(
+                            (sectionName) => {
+                                return (
+                                    <p
+                                        className={`w-36 border-b-4 pb-2 text-center 2xl:w-40 ${activeGamesSection === sectionName ? "border-b-highlight-hover" : "border-b-[#cacaca55] hover:border-b-highlight-primary"} transition-colors hover:cursor-pointer hover:text-highlight-hover`}
+                                        onClick={() =>
+                                            setActiveGamesSection(sectionName)
+                                        }
+                                    >
+                                        {sectionName[0].toUpperCase() +
+                                            sectionName.slice(1)}
+                                    </p>
+                                );
+                            }
+                        )}
                     </div>
                 </div>
                 {/* Friends / Socials */}
