@@ -11,15 +11,8 @@ import users from "../data/users.json";
 export interface GameLog {
     id: number; // log id, unique for all users
     gameId: number; // corresponding game id
-    status: "played" | "playing" | "backlog" | "wishlist";
+    status: string;
     rating?: number; // optional rating, in range of 1-10
-}
-
-export interface GameList {
-    played: GameLog[];
-    playing: GameLog[];
-    backlog: GameLog[];
-    wishlist: GameLog[];
 }
 
 export interface Friend {
@@ -34,7 +27,7 @@ export interface UserAccount {
     password: string; // temporary non-encrypted password for testing
     picture: string; // user profile picture. empty string if none
     bio: string; // user biography
-    games: GameList;
+    games: GameLog[];
     friends: Friend[];
 }
 
@@ -113,12 +106,7 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
             id: users.length,
             picture: "",
             bio: "",
-            games: {
-                played: [],
-                playing: [],
-                backlog: [],
-                wishlist: [],
-            },
+            games: [],
             friends: [],
         };
 
