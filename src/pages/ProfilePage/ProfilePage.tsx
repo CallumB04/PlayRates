@@ -7,7 +7,6 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
-import { send } from "process";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -27,8 +26,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const URLGamesSection = urlParams.get("type") || "played"; // getting game section (played, playing, etc) - default to played if no url data
 
     // currently displayed section (played, playing, backlog, etc)
-    const [activeGamesSection, setActiveGamesSection] =
-        useState<string>(URLGamesSection);
+    const [activeGamesSection, setActiveGamesSection] = useState<string>("");
+
+    useEffect(() => {
+        setActiveGamesSection(URLGamesSection);
+    }, [location]);
 
     // if no user in the URL, returns error
     if (!targetUsername) {
