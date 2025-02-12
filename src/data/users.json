@@ -6,12 +6,83 @@
         "password": "Password123",
         "picture": "",
         "bio": "This is a test bio, for the purposes of testing. This test bio is a test. I like games, and games, and playrates, ooh I love playrates",
-        "games": {
-            "played": [],
-            "playing": [],
-            "backlog": [],
-            "wishlist": []
-        },
+        "games": [
+            {
+                "id": 0,
+                "gameId": 0,
+                "status": "played"
+            },
+            {
+                "id": 1,
+                "gameId": 1,
+                "status": "playing"
+            },
+            {
+                "id": 2,
+                "gameId": 2,
+                "status": "played"
+            },
+            {
+                "id": 3,
+                "gameId": 3,
+                "status": "backlog"
+            },
+            {
+                "id": 4,
+                "gameId": 4,
+                "status": "played"
+            },
+            {
+                "id": 5,
+                "gameId": 5,
+                "status": "played"
+            },
+            {
+                "id": 6,
+                "gameId": 6,
+                "status": "played"
+            },
+            {
+                "id": 7,
+                "gameId": 7,
+                "status": "played"
+            },
+            {
+                "id": 8,
+                "gameId": 8,
+                "status": "played"
+            },
+            {
+                "id": 9,
+                "gameId": 9,
+                "status": "played"
+            },
+            {
+                "id": 10,
+                "gameId": 10,
+                "status": "played"
+            },
+            {
+                "id": 11,
+                "gameId": 11,
+                "status": "played"
+            },
+            {
+                "id": 12,
+                "gameId": 12,
+                "status": "played"
+            },
+            {
+                "id": 13,
+                "gameId": 13,
+                "status": "played"
+            },
+            {
+                "id": 14,
+                "gameId": 14,
+                "status": "played"
+            }
+        ],
         "friends": [
             {
                 "id": 1,
@@ -26,12 +97,7 @@
         "password": "Password321",
         "picture": "",
         "bio": "",
-        "games": {
-            "played": [],
-            "playing": [],
-            "backlog": [],
-            "wishlist": []
-        },
+        "games": [],
         "friends": [
             {
                 "id": 0,
