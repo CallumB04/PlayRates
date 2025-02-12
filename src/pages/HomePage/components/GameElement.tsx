@@ -15,7 +15,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
         <Link
             to={`/game/${game.id}`}
             key={game.id}
-            className="group relative flex aspect-[3/4] w-[31%] items-center justify-center rounded-md bg-[#0e0e0e] font-lexend md:w-[15%]"
+            className="game-cover group relative flex w-[31%] items-center justify-center bg-[#0e0e0e] font-lexend md:w-[15%]"
         >
             {/* Text displayed if image can't be loaded */}
             <p
