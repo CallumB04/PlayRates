@@ -25,7 +25,7 @@ const GameElement: React.FC<GameElementProps> = ({ game }) => {
             </p>
             <img
                 className="absolute left-0 top-0 h-full w-full rounded-md object-cover transition-opacity duration-300 group-hover:opacity-10"
-                src={`./PlayRates/assets/game-covers/${game.id}.png`}
+                src={`/PlayRates/assets/game-covers/${game.id}.png`}
                 onError={(e) => {
                     e.currentTarget.style.display = "none";
                     setImgLoaded(false);
