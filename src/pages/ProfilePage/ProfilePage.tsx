@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
+import GameElement from "./components/GameElement";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -27,6 +28,34 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // currently displayed section (played, playing, backlog, etc)
     const [activeGamesSection, setActiveGamesSection] = useState<string>("");
+
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [gamesPerPage, setGamesPerPage] = useState<number>(50); // updated when screen width updates
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+    // handling window resizing
+    useEffect(() => {
+        // updates state with window width
+        const handleResize = () => setWindowWidth(window.innerWidth);
+
+        // listening for window resizing and matching it in state
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    // updating games per page when window resizes
+    useEffect(() => {
+        if (windowWidth >= 1280) {
+            setGamesPerPage(27);
+        } else if (windowWidth >= 1024) {
+            setGamesPerPage(21);
+        } else if (windowWidth >= 768) {
+            setGamesPerPage(28);
+        } else {
+            setGamesPerPage(24);
+        }
+    }, [windowWidth]);
 
     useEffect(() => {
         setActiveGamesSection(URLGamesSection);
@@ -137,7 +166,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // successful user profile load
     if (targetUser) {
         return (
-            <div className="flex h-[85vh] w-full flex-col gap-5 overflow-hidden lg:flex-row">
+            <div className="flex w-full flex-col gap-5 overflow-hidden lg:h-[85vh] lg:flex-row">
                 {/* Profile card */}
                 <div className="card flex w-full min-w-[300px] flex-row items-center justify-between font-lexend lg:max-w-[300px] lg:flex-col">
                     <div className="flex w-full flex-row items-center gap-5 sm:gap-6 lg:flex-col lg:gap-7">
@@ -209,7 +238,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             )}
                         </div>
                     </div>
-                    <div className="flex h-full flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
+                    <div className="flex flex-col-reverse items-center justify-end gap-3 sm:h-[148px] sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
                         {/* Friends list button */}
                         <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
                             <i className="fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary lg:text-[22px]"></i>
@@ -286,6 +315,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         onClick={() =>
                                             setActiveGamesSection(sectionName)
                                         }
+                                        key={sectionName}
                                     >
                                         {sectionName[0].toUpperCase() +
                                             sectionName.slice(1)}
@@ -293,6 +323,26 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 );
                             }
                         )}
+                    </div>
+                    {/* Game logs */}
+                    <div className="mt-6 flex w-full flex-wrap justify-center">
+                        {targetUser.games
+                            .filter(
+                                (gameLog) =>
+                                    gameLog.status === activeGamesSection
+                            )
+                            .slice(
+                                (pageNumber - 1) * gamesPerPage,
+                                gamesPerPage * pageNumber
+                            )
+                            .map((gameLog) => {
+                                return (
+                                    <GameElement
+                                        key={gameLog.id}
+                                        gameLog={gameLog}
+                                    />
+                                );
+                            })}
                     </div>
                 </div>
                 {/* Friends / Socials */}
