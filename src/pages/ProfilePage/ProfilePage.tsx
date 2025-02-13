@@ -30,7 +30,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [activeGamesSection, setActiveGamesSection] = useState<string>("");
 
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [gamesPerPage, setGamesPerPage] = useState<number>(50); // updated when screen width updates
+    const [maxPageNumber, setMaxPageNumber] = useState<number>(1); // re-calculates when window width updates, final page number based on games
+    const [gamesPerPage, setGamesPerPage] = useState<number>(50); // updated when window width updates
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
     // handling window resizing
@@ -44,8 +45,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // updating games per page when window resizes
+    // updating state when window resizes
     useEffect(() => {
+        // updating games per page when window resizes
         if (windowWidth >= 1280) {
             setGamesPerPage(27);
         } else if (windowWidth >= 1024) {
@@ -57,6 +59,20 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     }, [windowWidth]);
 
+    // updating maximum page number when games per page or section changes
+    useEffect(() => {
+        if (targetUser) {
+            // calculate total amount of games in current open section
+            const overallCount = targetUser?.games.filter(
+                (gameLog) => gameLog.status === activeGamesSection
+            ).length;
+
+            const maxPages = Math.floor(overallCount / gamesPerPage) + 1;
+            setMaxPageNumber(maxPages);
+        }
+    }, [gamesPerPage, activeGamesSection]);
+
+    // update game section if navbar option is clicked within the profile page
     useEffect(() => {
         setActiveGamesSection(URLGamesSection);
     }, [location]);
@@ -344,6 +360,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 );
                             })}
                     </div>
+                    <p>
+                        {pageNumber}
+                        {maxPageNumber}
+                    </p>
                 </div>
                 {/* Friends / Socials */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
