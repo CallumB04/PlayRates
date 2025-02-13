@@ -210,6 +210,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                 {/* Profile card */}
                 <div className="card flex w-full min-w-[300px] flex-row items-center justify-between font-lexend lg:max-w-[300px] lg:flex-col">
                     <div className="flex w-full flex-row items-center gap-5 sm:gap-6 lg:flex-col lg:gap-7">
+                        <h2 className="card-header-text hidden w-full lg:block">
+                            Profile
+                        </h2>
                         <div className="flex flex-col items-center gap-2">
                             <ProfilePicture
                                 sizes={[
