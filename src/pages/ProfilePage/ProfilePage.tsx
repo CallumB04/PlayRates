@@ -61,19 +61,6 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     }, [windowWidth]);
 
-    // updating maximum page number when games per page or section changes
-    useEffect(() => {
-        if (targetUser) {
-            // calculate total amount of games in current open section
-            const overallCount = targetUser?.games.filter(
-                (gameLog) => gameLog.status === activeGamesSection
-            ).length;
-
-            const maxPages = Math.floor(overallCount / gamesPerPage) + 1;
-            setMaxPageNumber(maxPages);
-        }
-    }, [gamesPerPage, activeGamesSection]);
-
     // update game section if navbar option is clicked within the profile page
     useEffect(() => {
         setActiveGamesSection(URLGamesSection);
@@ -123,6 +110,19 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // checking user relation (friends, request-sent, etc)... Empty "" if user on own account
     const [userRelation, setUserRelation] = useState<string>("");
+
+    // updating maximum page number when games per page or section changes
+    useEffect(() => {
+        if (targetUser) {
+            // calculate total amount of games in current open section
+            const overallCount = targetUser?.games.filter(
+                (gameLog) => gameLog.status === activeGamesSection
+            ).length;
+
+            const maxPages = Math.floor(overallCount / gamesPerPage) + 1;
+            setMaxPageNumber(maxPages);
+        }
+    }, [gamesPerPage, activeGamesSection, targetUser]);
 
     useEffect(() => {
         // search if target user in current users friend list
