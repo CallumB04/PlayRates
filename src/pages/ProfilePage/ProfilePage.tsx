@@ -32,6 +32,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [maxPageNumber, setMaxPageNumber] = useState<number>(1); // re-calculates when window width updates, final page number based on games
     const [gamesPerPage, setGamesPerPage] = useState<number>(50); // updated when window width updates
+    const [previousEnabled, setPreviousEnabled] = useState<boolean>(true); // whether previous button can be pressed (page number > 1)
+    const [nextEnabled, setNextEnabled] = useState<boolean>(true); // whether next button can be pressed (not at final page)
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
     // handling window resizing
@@ -76,6 +78,28 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     useEffect(() => {
         setActiveGamesSection(URLGamesSection);
     }, [location]);
+
+    // resetting to page 1 when changing sections
+    useEffect(() => {
+        setPageNumber(1);
+    }, [activeGamesSection]);
+
+    // updating next and previous buttons when current or max page number changes
+    useEffect(() => {
+        // disable previous if on first page
+        if (pageNumber === 1) {
+            setPreviousEnabled(false);
+        } else {
+            setPreviousEnabled(true);
+        }
+
+        // disable next if on final page
+        if (pageNumber === maxPageNumber) {
+            setNextEnabled(false);
+        } else {
+            setNextEnabled(true);
+        }
+    }, [pageNumber, maxPageNumber]);
 
     // if no user in the URL, returns error
     if (!targetUsername) {
@@ -361,17 +385,32 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             })}
                     </div>
                     {/* Page numbers and page change buttons */}
-                    <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-6 sm:bottom-6">
+                    <div className="mt-12 flex items-center justify-center gap-6 sm:bottom-6 lg:absolute lg:bottom-4 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">
                         {/* Previous Button */}
-                        <button className="button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary">
+                        <button
+                            className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary`}
+                            onClick={() =>
+                                previousEnabled
+                                    ? setPageNumber(pageNumber - 1)
+                                    : null
+                            }
+                        >
                             Previous
                         </button>
                         {/* Page number text */}
                         <p className="font-lexend text-lg text-text-primary">
                             {pageNumber} of {maxPageNumber}
                         </p>
+
                         {/* Next Button */}
-                        <button className="button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary">
+                        <button
+                            className={`button-outline flex h-10 w-28 items-center justify-center ${nextEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} `}
+                            onClick={() =>
+                                nextEnabled
+                                    ? setPageNumber(pageNumber + 1)
+                                    : null
+                            }
+                        >
                             Next
                         </button>
                     </div>
