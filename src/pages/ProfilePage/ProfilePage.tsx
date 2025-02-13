@@ -282,7 +282,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     </div>
                 </div>
                 {/* Games card */}
-                <div className="card w-full lg:flex-grow">
+                <div className="card relative w-full lg:flex-grow">
                     {/* Header */}
                     <div className="flex w-full justify-between">
                         <h2 className="card-header-text">Game Library</h2>
@@ -360,10 +360,21 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 );
                             })}
                     </div>
-                    <p>
-                        {pageNumber}
-                        {maxPageNumber}
-                    </p>
+                    {/* Page numbers and page change buttons */}
+                    <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform items-center justify-center gap-6 sm:bottom-6">
+                        {/* Previous Button */}
+                        <button className="button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary">
+                            Previous
+                        </button>
+                        {/* Page number text */}
+                        <p className="font-lexend text-lg text-text-primary">
+                            {pageNumber} of {maxPageNumber}
+                        </p>
+                        {/* Next Button */}
+                        <button className="button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary">
+                            Next
+                        </button>
+                    </div>
                 </div>
                 {/* Friends / Socials */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
