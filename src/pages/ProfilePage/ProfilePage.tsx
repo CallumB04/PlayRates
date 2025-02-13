@@ -385,10 +385,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             })}
                     </div>
                     {/* Page numbers and page change buttons */}
-                    <div className="mt-12 flex items-center justify-center gap-6 sm:bottom-6 lg:absolute lg:bottom-4 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">
+                    <div className="mt-12 flex items-center justify-center gap-6 lg:absolute lg:bottom-6 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">
                         {/* Previous Button */}
                         <button
-                            className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-28 items-center justify-center border-text-primary text-text-primary`}
+                            className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-28 items-center justify-center`}
                             onClick={() =>
                                 previousEnabled
                                     ? setPageNumber(pageNumber - 1)
@@ -399,7 +399,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         </button>
                         {/* Page number text */}
                         <p className="font-lexend text-lg text-text-primary">
-                            {pageNumber} of {maxPageNumber}
+                            Page {pageNumber} of {maxPageNumber}
                         </p>
 
                         {/* Next Button */}
