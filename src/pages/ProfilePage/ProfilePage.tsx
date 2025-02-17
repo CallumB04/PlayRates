@@ -256,38 +256,49 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         : "User hasn't added a bio."}
                                 </p>
                             </div>
-                            {currentUser ? (
-                                <button
-                                    className={`button-outline hidden w-full items-center justify-center gap-4 lg:flex ${currentUser === targetUser ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-hover" : getUserRelationColors()}`}
-                                    onMouseOver={() =>
-                                        setIsHoveringProfileButton(true)
-                                    }
-                                    onMouseOut={() =>
-                                        setIsHoveringProfileButton(false)
-                                    }
-                                >
-                                    <p className="text-lg">
-                                        {currentUser === targetUser
-                                            ? "Edit Profile"
-                                            : getUserRelationText()}
-                                    </p>
-                                    <i
-                                        className={`fas text-lg fa-${
-                                            currentUser === targetUser
-                                                ? "pen"
-                                                : getUserRelationIcon()
-                                        }`}
-                                    />
-                                </button>
-                            ) : (
-                                <button
-                                    className="button-outline hidden items-center justify-center gap-4 text-lg text-text-primary hover:cursor-pointer hover:border-highlight-primary hover:text-highlight-primary lg:flex"
-                                    onClick={openLoginForm}
-                                >
-                                    <p>Login to add</p>
-                                    <i className="fas fa-right-to-bracket"></i>
-                                </button>
-                            )}
+                            <div className="hidden w-full flex-col gap-4 lg:flex">
+                                {currentUser ? (
+                                    <button
+                                        className={`button-outline flex w-full items-center justify-center gap-4 ${currentUser === targetUser ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-hover" : getUserRelationColors()}`}
+                                        onMouseOver={() =>
+                                            setIsHoveringProfileButton(true)
+                                        }
+                                        onMouseOut={() =>
+                                            setIsHoveringProfileButton(false)
+                                        }
+                                    >
+                                        <p className="text-lg">
+                                            {currentUser === targetUser
+                                                ? "Edit Profile"
+                                                : getUserRelationText()}
+                                        </p>
+                                        <i
+                                            className={`fas text-lg fa-${
+                                                currentUser === targetUser
+                                                    ? "pen"
+                                                    : getUserRelationIcon()
+                                            }`}
+                                        />
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="button-outline flex items-center justify-center gap-4 text-lg text-text-primary hover:cursor-pointer hover:border-highlight-primary hover:text-highlight-primary"
+                                        onClick={openLoginForm}
+                                    >
+                                        <p>Login to add</p>
+                                        <i className="fas fa-right-to-bracket"></i>
+                                    </button>
+                                )}
+
+                                {userRelation === "request-received" ? (
+                                    <button className="button-outline flex w-full items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500">
+                                        Decline Request
+                                        <i className="fas fa-user-xmark"></i>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
                         </div>
                     </div>
                     <div className="flex flex-col-reverse items-center justify-end gap-3 sm:h-[148px] sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
