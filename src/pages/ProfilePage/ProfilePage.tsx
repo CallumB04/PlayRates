@@ -28,6 +28,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // currently displayed section (played, playing, backlog, etc)
     const [activeGamesSection, setActiveGamesSection] = useState<string>("");
+    const [isSectionEmpty, setIsSectionEmpty] = useState<boolean>(false);
 
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [maxPageNumber, setMaxPageNumber] = useState<number>(1); // re-calculates when window width updates, final page number based on games
@@ -112,12 +113,20 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [userRelation, setUserRelation] = useState<string>("");
 
     // updating maximum page number when games per page or section changes
+    // also checking if page is empty for displaying message
     useEffect(() => {
         if (targetUser) {
             // calculate total amount of games in current open section
             const overallCount = targetUser?.games.filter(
                 (gameLog) => gameLog.status === activeGamesSection
             ).length;
+
+            // checking if section is empty
+            if (overallCount === 0) {
+                setIsSectionEmpty(true);
+            } else {
+                setIsSectionEmpty(false);
+            }
 
             const maxPages = Math.floor(overallCount / gamesPerPage) + 1;
             setMaxPageNumber(maxPages);
@@ -368,53 +377,67 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         )}
                     </div>
                     {/* Game logs */}
-                    <div className="mt-6 flex w-full flex-wrap justify-center">
-                        {targetUser.games
-                            .filter(
-                                (gameLog) =>
-                                    gameLog.status === activeGamesSection
-                            )
-                            .slice(
-                                (pageNumber - 1) * gamesPerPage,
-                                gamesPerPage * pageNumber
-                            )
-                            .map((gameLog) => {
-                                return (
-                                    <GameElement
-                                        key={gameLog.id}
-                                        gameLog={gameLog}
-                                    />
-                                );
-                            })}
-                    </div>
+                    {isSectionEmpty ? (
+                        <h2 className="mt-16 text-center font-lexend text-2xl text-text-secondary">
+                            No games found in {activeGamesSection}...
+                        </h2>
+                    ) : (
+                        <div className="mt-6 flex w-full flex-wrap justify-center">
+                            {targetUser.games
+                                .filter(
+                                    (gameLog) =>
+                                        gameLog.status === activeGamesSection
+                                )
+                                .slice(
+                                    (pageNumber - 1) * gamesPerPage,
+                                    gamesPerPage * pageNumber
+                                )
+                                .map((gameLog) => {
+                                    return (
+                                        <GameElement
+                                            key={gameLog.id}
+                                            gameLog={gameLog}
+                                        />
+                                    );
+                                })}
+                        </div>
+                    )}
                     {/* Page numbers and page change buttons */}
-                    <div className="mx-auto mt-12 flex w-max items-center justify-center gap-6 lg:absolute lg:bottom-6 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">
+                    <div className="mx-auto mb-4 mt-12 flex w-max items-center justify-center gap-6 sm:mb-0 lg:absolute lg:bottom-6 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">
                         {/* Previous Button */}
                         <button
-                            className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-28 items-center justify-center`}
+                            className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-16 items-center justify-center sm:w-28`}
                             onClick={() =>
                                 previousEnabled
                                     ? setPageNumber(pageNumber - 1)
                                     : null
                             }
                         >
-                            Previous
+                            {windowWidth >= 640 ? (
+                                "Previous"
+                            ) : (
+                                <i className="fas fa-arrow-left text-lg"></i>
+                            )}
                         </button>
                         {/* Page number text */}
-                        <p className="font-lexend text-lg text-text-primary">
+                        <p className="font-lexend text-text-primary sm:text-lg">
                             Page {pageNumber} of {maxPageNumber}
                         </p>
 
                         {/* Next Button */}
                         <button
-                            className={`button-outline flex h-10 w-28 items-center justify-center ${nextEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} `}
+                            className={`button-outline flex h-10 w-16 items-center justify-center sm:w-28 ${nextEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} `}
                             onClick={() =>
                                 nextEnabled
                                     ? setPageNumber(pageNumber + 1)
                                     : null
                             }
                         >
-                            Next
+                            {windowWidth >= 640 ? (
+                                "Next"
+                            ) : (
+                                <i className="fas fa-arrow-right text-lg"></i>
+                            )}
                         </button>
                     </div>
                 </div>
