@@ -1,6 +1,6 @@
 [
     {
-        "id": 0,
+        "id": 1740047800381,
         "username": "callum",
         "email": "thisisanemail@gmail.com",
         "password": "Password123",
@@ -145,13 +145,13 @@
         ],
         "friends": [
             {
-                "id": 1,
+                "id": 1740047800382,
                 "status": "request-received"
             }
         ]
     },
     {
-        "id": 1,
+        "id": 1740047800382,
         "username": "testaccount",
         "email": "otheremail@gmail.com",
         "password": "Password321",
@@ -160,9 +160,29 @@
         "games": [],
         "friends": [
             {
-                "id": 0,
+                "id": 1740047800381,
                 "status": "request-sent"
             }
         ]
+    },
+    {
+        "username": "test",
+        "email": "test@email.com",
+        "password": "123123123",
+        "id": 1740047800383,
+        "picture": "",
+        "bio": "",
+        "games": [],
+        "friends": []
+    },
+    {
+        "username": "anotheraccount",
+        "email": "testtest@email.com",
+        "password": "123123123",
+        "id": 1740047925525,
+        "picture": "",
+        "bio": "",
+        "games": [],
+        "friends": []
     }
 ]
