@@ -115,8 +115,9 @@ const AccountForm: React.FC<FormProps> = ({
 
         // checking if username is already used in signup
         // or if username exists in login
-        const fetchedUsername = await fetchUserByUsername(username!.toString());
-        if (fetchedUsername) {
+        try {
+            await fetchUserByUsername(username!.toString());
+
             // user already exists - signup
             if (formType === "signup") {
                 usernameErrorText.current!.classList.remove("hidden");
@@ -124,7 +125,7 @@ const AccountForm: React.FC<FormProps> = ({
             } else {
                 hideErrorMessage(usernameErrorText);
             }
-        } else {
+        } catch {
             // username doesnt exist - login
             if (formType === "login") {
                 usernameErrorText.current!.classList.remove("hidden");
@@ -136,11 +137,12 @@ const AccountForm: React.FC<FormProps> = ({
 
         // checking if email is already used in signup
         if (email) {
-            const fetchedEmail = await fetchUserByEmail(email.toString());
-            if (fetchedEmail) {
+            try {
+                await fetchUserByEmail(email.toString());
+
                 emailErrorText.current!.classList.remove("hidden");
                 errored = true;
-            } else {
+            } catch {
                 hideErrorMessage(emailErrorText);
             }
         }
@@ -156,16 +158,19 @@ const AccountForm: React.FC<FormProps> = ({
                 hideErrorMessage(passwordErrorText);
             }
         } else {
-            if (fetchedUsername) {
-                // incorrect pasword - login
-                if (password!.toString() !== fetchedUsername.password) {
+            try {
+                const fetchedUser = await fetchUserByUsername(
+                    username!.toString()
+                );
+                // incorrect password - login
+                if (password!.toString() !== fetchedUser.password) {
                     passwordErrorText.current!.classList.remove("hidden");
                     passwordInput.current!.value = "";
                     errored = true;
                 } else {
                     hideErrorMessage(passwordErrorText);
                 }
-            } else {
+            } catch {
                 hideErrorMessage(passwordErrorText);
             }
         }
@@ -219,7 +224,6 @@ const AccountForm: React.FC<FormProps> = ({
                 }
 
                 loadUserByID(user.id); // load new user into context
-                location.reload(); // refresh page
                 closeAccountForm(); // close the login form
             }
         }

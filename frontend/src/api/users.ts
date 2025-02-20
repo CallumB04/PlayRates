@@ -40,8 +40,7 @@ export const fetchUsers = async (): Promise<UserAccount[]> => {
         const response = await axios.get<UserAccount[]>("/users");
         return response.data;
     } catch (error) {
-        console.error("Error fetching users");
-        throw error;
+        throw new Error("Error fetching users");
     }
 };
 
@@ -51,8 +50,7 @@ export const fetchUserByID = async (id: number): Promise<UserAccount> => {
         const response = await axios.get<UserAccount>(`/users/id/${id}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching user");
-        throw error;
+        throw new Error("Error fetching user");
     }
 };
 
@@ -62,8 +60,7 @@ export const fetchUserByEmail = async (email: string): Promise<UserAccount> => {
         const response = await axios.get<UserAccount>(`/users/email/${email}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching user");
-        throw error;
+        throw new Error("Error fetching user");
     }
 };
 
@@ -78,29 +75,27 @@ export const fetchUserByUsername = async (
 
         return response.data;
     } catch (error) {
-        console.error("Error fetching user");
-        throw error;
+        throw new Error("Error fetching user");
     }
 };
 
 // adds new user to user database
 export const addNewUser = async (newUser: UserCreation): Promise<void> => {
     try {
-        // loading existing users
-        const users = await fetchUsers();
-
         // creating new user account
         // using username, email and password from form input
-        // setting user ID as new incremented value and empty games object
         const newUserAccount: UserAccount = {
             ...newUser,
-            id: users.length,
+            id: Date.now(), // using date for unique id
             picture: "",
             bio: "",
             games: [],
             friends: [],
         };
-    } catch (error: any) {
-        throw new Error(`Error adding user: ${error.message}`);
+
+        // send new account data to backend
+        await axios.post("/users/new", newUserAccount);
+    } catch (error) {
+        throw new Error(`Error adding user`);
     }
 };

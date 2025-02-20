@@ -1,28 +1,66 @@
-const users = require("../data/users.json");
-
 const express = require("express");
 const router = express.Router();
+const fs = require("fs").promises;
+const path = require("path");
+
+// using file path and fs.readFile for data retrieval, instead of require(), as users.json will change during runtime
+const usersFilePath = path.join(__dirname, "../data/users.json");
 
 // all users
-router.get("/", (req, res) => {
-    res.json(users);
+router.get("/", async (req, res) => {
+    try {
+        const usersData = await fs.readFile(usersFilePath, "utf8");
+        const users = JSON.parse(usersData);
+        res.json(users);
+    } catch (error) {
+        res.status(500); // internal server error
+    }
+});
+
+// create new user (form validation is done in the frontend)
+router.post("/new", async (req, res) => {
+    try {
+        const newUserAccount = req.body;
+        const usersData = await fs.readFile(usersFilePath, "utf8");
+        const users = JSON.parse(usersData);
+
+        // ensure user only adds once
+        if (!users.some((user) => user.email === newUserAccount.email)) {
+            users.push(newUserAccount); // append new user to array
+        }
+        await fs.writeFile(
+            usersFilePath,
+            JSON.stringify(users, null, 2),
+            "utf8"
+        );
+
+        res.status(201).send("User Created");
+    } catch (error) {
+        res.status(500); // internal server error
+    }
 });
 
 // get user from id, email or username
-router.get("/:type/:value", (req, res) => {
-    const { type, value } = req.params; // get type (id, email, username) and value from URL
+router.get("/:type/:value", async (req, res) => {
+    try {
+        const { type, value } = req.params; // get type (id, email, username) and value from URL
 
-    // if type is invalid, send error code
-    if (!["id", "email", "username"].includes(type)) {
-        return res.status(400).send("Invalid search type");
-    }
+        // if type is invalid, send error code
+        if (!["id", "email", "username"].includes(type)) {
+            return res.status(400).send("Invalid search type");
+        }
 
-    const user = users.find((user) => String(user[type]) === value);
+        const usersData = await fs.readFile(usersFilePath, "utf8");
+        const users = JSON.parse(usersData);
+        const user = users.find((user) => String(user[type]) === value);
 
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404).send("User not found");
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).send("User not found");
+        }
+    } catch (error) {
+        res.status(500); // internal server error
     }
 });
 
