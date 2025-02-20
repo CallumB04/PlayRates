@@ -1,6 +1,6 @@
 # PlayRates
 
-PlayRates is a Video Game Tracking website I am building to learn new technologies such as Typescript and Tailwind CSS.
+PlayRates is a Video Game Tracking website.
 
 ### Planned Features
 - Keep track of Played, Playing, Backlog and Wishlist games
