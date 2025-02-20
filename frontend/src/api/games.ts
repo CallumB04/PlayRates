@@ -24,8 +24,7 @@ export const fetchGames = async (): Promise<Game[]> => {
         const response = await axios.get<Game[]>("/games");
         return response.data;
     } catch (error) {
-        console.error("Error fetching games:", error);
-        throw error;
+        throw new Error("Error fetching games");
     }
 };
 
@@ -36,7 +35,6 @@ export const fetchGameById = async (id: number): Promise<Game | undefined> => {
 
         return response.data;
     } catch (error) {
-        console.error("Error fetching game");
-        throw error;
+        throw new Error("Error fetching games");
     }
 };

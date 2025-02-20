@@ -5,19 +5,27 @@ const router = express.Router();
 
 // all games
 router.get("/", (req, res) => {
-    res.json(games);
+    try {
+        res.json(games);
+    } catch (error) {
+        res.status(500); // internal server error
+    }
 });
 
 // get game from id
 router.get("/:id", (req, res) => {
-    const { id } = req.params; // get id from URL
+    try {
+        const { id } = req.params; // get id from URL
 
-    const game = games.find((game) => String(game.id) === id);
+        const game = games.find((game) => String(game.id) === id);
 
-    if (game) {
-        res.json(game);
-    } else {
-        res.status(404).send("Game not found");
+        if (game) {
+            res.json(game);
+        } else {
+            res.status(404).send("Game not found");
+        }
+    } catch (error) {
+        res.status(500); // internal server error
     }
 });
 
