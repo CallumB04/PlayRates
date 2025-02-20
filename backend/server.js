@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // middleware which allows for json parsing
 
 app.get("/", (req, res) => {
     res.send("This is working");
