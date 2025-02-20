@@ -1,10 +1,6 @@
-import games from "../data/games.json";
+import axios from "axios";
 
-/*
-    This is a mock API that I am using during development to simulate API calls.
-    This will make it easier to integrate a real database and API calls in the
-    future. The fetches uses a timeout to simulate delay when making real API calls.
-*/
+axios.defaults.baseURL = "http://localhost:3000";
 
 /* Structure of game data in database */
 
@@ -24,14 +20,23 @@ export interface Game {
 
 // fetches whole games array
 export const fetchGames = async (): Promise<Game[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(games), 500);
-    });
+    try {
+        const response = await axios.get<Game[]>("/games");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching games:", error);
+        throw error;
+    }
 };
 
 // fetches a specific game by the given game ID
 export const fetchGameById = async (id: number): Promise<Game | undefined> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(games.find((game) => game.id === id)), 500);
-    });
+    try {
+        const response = await axios.get<Game>(`/games/${id}`);
+
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching game");
+        throw error;
+    }
 };

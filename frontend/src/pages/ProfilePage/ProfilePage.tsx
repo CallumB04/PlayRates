@@ -20,6 +20,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 }) => {
     const currentUser = useUser(); // getting the currently logged in user
     const { targetUsername } = useParams(); // getting user from URL as their username
+    const [isMyAccount, setIsMyAccount] = useState<boolean>(false);
 
     // getting game type from url search params
     const location = useLocation();
@@ -90,8 +91,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     }, [pageNumber, maxPageNumber]);
 
     // if no user in the URL, returns error
+    useEffect(() => {
+        if (!targetUsername) {
+            runNotification("No user found in URL", "error");
+        }
+    }, [targetUsername]);
     if (!targetUsername) {
-        runNotification("No user found in URL", "error");
         return <ProfileError />;
     }
 
@@ -104,6 +109,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryKey: ["targetUser", targetUsername],
         queryFn: () => fetchUserByUsername(targetUsername),
     });
+
+    useEffect(() => {
+        if (currentUser?.id === targetUser?.id) {
+            setIsMyAccount(true);
+        } else {
+            setIsMyAccount(false);
+        }
+    }, [currentUser, targetUser]);
 
     // boolean whether edit profile / add friend button is being hovered
     const [isHoveringProfileButton, setIsHoveringProfileButton] =
@@ -193,8 +206,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     };
 
     // user doesnt exist / failed to fetch
+    useEffect(() => {
+        if (targetUserError) {
+            runNotification("Failed to fetch user data", "error");
+        }
+    }, [targetUserError]);
     if (targetUserError) {
-        runNotification("Failed to fetch user data", "error");
         return <ProfileError />;
     }
 
@@ -233,11 +250,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             />
                             {/* User status (online, offline, etc). Currently only set to online if current user is on their page */}
                             <UserStatus
-                                status={
-                                    currentUser === targetUser
-                                        ? "online"
-                                        : "offline"
-                                }
+                                status={isMyAccount ? "online" : "offline"}
                                 sizes={[
                                     { value: "sm" },
                                     { value: "lg", breakpoint: "sm" },
@@ -259,7 +272,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             <div className="hidden w-full flex-col gap-4 lg:flex">
                                 {currentUser ? (
                                     <button
-                                        className={`button-outline flex w-full items-center justify-center gap-4 ${currentUser === targetUser ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-hover" : getUserRelationColors()}`}
+                                        className={`button-outline flex w-full items-center justify-center gap-4 ${isMyAccount ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-hover" : getUserRelationColors()}`}
                                         onMouseOver={() =>
                                             setIsHoveringProfileButton(true)
                                         }
@@ -268,13 +281,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         }
                                     >
                                         <p className="text-lg">
-                                            {currentUser === targetUser
+                                            {isMyAccount
                                                 ? "Edit Profile"
                                                 : getUserRelationText()}
                                         </p>
                                         <i
                                             className={`fas text-lg fa-${
-                                                currentUser === targetUser
+                                                currentUser?.id ===
+                                                targetUser?.id
                                                     ? "pen"
                                                     : getUserRelationIcon()
                                             }`}
@@ -310,13 +324,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             </p>
                         </div>
                         {/* Edit profile icon button (mobile) */}
-                        {currentUser === targetUser ? (
+                        {isMyAccount ? (
                             <i className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"></i>
                         ) : (
                             <></>
                         )}
                         {/* Profile Settings button */}
-                        {currentUser === targetUser ? (
+                        {isMyAccount ? (
                             <div className="group flex gap-3 hover:cursor-pointer lg:items-center">
                                 <i className="fas fa-cog text-2xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:text-[22px]"></i>
                                 <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">

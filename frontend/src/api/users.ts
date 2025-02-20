@@ -1,10 +1,6 @@
-import users from "../data/users.json";
+import axios from "axios";
 
-/*
-    This is a mock API that I am using during development to simulate API calls.
-    This will make it easier to integrate a real database and API calls in the
-    future. The fetches uses a timeout to simulate delay when making real API calls.
-*/
+axios.defaults.baseURL = "http://localhost:3000";
 
 /* Structure of user data in database */
 
@@ -40,59 +36,54 @@ export interface UserCreation {
 
 // fetches whole users array
 export const fetchUsers = async (): Promise<UserAccount[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(users), 500);
-    });
+    try {
+        const response = await axios.get<UserAccount[]>("/users");
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching users");
+        throw error;
+    }
 };
 
 // fetches a specific user by the given user ID
-export const fetchUserByID = async (
-    id: number
-): Promise<UserAccount | undefined> => {
-    return new Promise((resolve) => {
-        setTimeout(() => resolve(users.find((user) => user.id === id)), 500);
-    });
+export const fetchUserByID = async (id: number): Promise<UserAccount> => {
+    try {
+        const response = await axios.get<UserAccount>(`/users/id/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user");
+        throw error;
+    }
 };
 
 // fetches a specific user by the given email
-export const fetchUserByEmail = async (
-    email: string
-): Promise<UserAccount | undefined> => {
-    return new Promise((resolve) => {
-        setTimeout(
-            () =>
-                resolve(
-                    users.find(
-                        (user) =>
-                            user.email.toLowerCase() === email.toLowerCase()
-                    )
-                ),
-            500
-        );
-    });
+export const fetchUserByEmail = async (email: string): Promise<UserAccount> => {
+    try {
+        const response = await axios.get<UserAccount>(`/users/email/${email}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user");
+        throw error;
+    }
 };
 
 // fetches a specific user by the given username
 export const fetchUserByUsername = async (
     username: string
-): Promise<UserAccount | undefined> => {
-    return new Promise((resolve) => {
-        setTimeout(
-            () =>
-                resolve(
-                    users.find(
-                        (user) =>
-                            user.username.toLowerCase() ===
-                            username.toLowerCase()
-                    )
-                ),
-            500
+): Promise<UserAccount> => {
+    try {
+        const response = await axios.get<UserAccount>(
+            `/users/username/${username}`
         );
-    });
+
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user");
+        throw error;
+    }
 };
 
 // adds new user to user database
-// currently non-functional until a database is used instead of local json files
 export const addNewUser = async (newUser: UserCreation): Promise<void> => {
     try {
         // loading existing users
@@ -109,13 +100,6 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
             games: [],
             friends: [],
         };
-
-        // add new user to users
-        users.push(newUserAccount);
-
-        // here the new user will be added to the database
-        // due to current use of local json files this isnt currently possible
-        // ...
     } catch (error: any) {
         throw new Error(`Error adding user: ${error.message}`);
     }
