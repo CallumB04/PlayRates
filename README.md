@@ -1,12 +1,30 @@
 # PlayRates
 
-PlayRates is a Video Game Tracking website.
+PlayRates is a Video Game Tracking website. This is my first full-stack, and a long term project for me to improve on and learn new technologies.
 
-### Planned Features
-- Keep track of Played, Playing, Backlog and Wishlist games
-- Rate games and add other optional information
-- Browse large game library, with information about each game
-- Account system with friends feature
+## Installation and Setup
+
+### Prerequisites
+
+-   [Node.js](https://nodejs.org/) installed on your machine. To access `npm` commands.
+
+### Setup
+
+```bash
+## Clone the repository
+git clone https://github.com/CallumB04/playrates.git
+
+## Navigate to project directory
+cd playrates
+
+## Install project-wide dependencies
+npm run setup
+
+## Start up Frontend and Backend concurrently
+npm run dev
+```
+
+> The application will open in your default browser at http://localhost:5173
 
 ## Live Demo
 
