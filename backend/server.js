@@ -1,4 +1,4 @@
-const usersJsonSetup = require("./utils/createUsersJson"); // creating users.json if doesnt exist
+const usersJsonSetup = require("./utils/createJson"); // creating users and games json if they dont exist
 const express = require("express");
 const cors = require("cors");
 const app = express();
