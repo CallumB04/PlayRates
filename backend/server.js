@@ -1,3 +1,4 @@
+const usersJsonSetup = require("./utils/createUsersJson"); // creating users.json if doesnt exist
 const express = require("express");
 const cors = require("cors");
 const app = express();
