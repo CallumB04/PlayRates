@@ -1,0 +1,24 @@
+{
+    "name": "playrates",
+    "version": "1.0.0",
+    "description": "PlayRates is a Video Game Tracking website.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CallumB04/playrates.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/CallumB04/playrates/issues"
+    },
+    "homepage": "https://github.com/CallumB04/playrates#readme",
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}
