@@ -81,7 +81,7 @@ export const fetchUserByUsername = async (
 };
 
 // adds new user to user database
-export const addNewUser = async (newUser: UserCreation): Promise<void> => {
+export const addNewUser = async (newUser: UserCreation): Promise<boolean> => {
     try {
         // creating new user account
         // using username, email and password from form input
@@ -95,8 +95,12 @@ export const addNewUser = async (newUser: UserCreation): Promise<void> => {
         };
 
         // send new account data to backend
-        await axios.post("/users/new", newUserAccount);
+        const response = await axios.post("/users/new", newUserAccount);
+
+        if (response.status === 201) return true;
+        else return false;
     } catch (error) {
-        throw new Error(`Error adding user`);
+        console.error(error);
+        return false;
     }
 };

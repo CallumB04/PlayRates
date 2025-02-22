@@ -11,9 +11,9 @@ router.get("/", async (req, res) => {
     try {
         const usersData = await fs.readFile(usersFilePath, "utf8");
         const users = JSON.parse(usersData);
-        res.json(users);
+        res.status(200).json(users);
     } catch (error) {
-        res.status(500); // internal server error
+        res.status(500).json({ message: "Error fetching users" }); // internal server error
     }
 });
 
@@ -34,9 +34,9 @@ router.post("/new", async (req, res) => {
             "utf8"
         );
 
-        res.status(201).send("User Created");
+        res.status(201).json({ message: "User successfully created" });
     } catch (error) {
-        res.status(500); // internal server error
+        res.status(500).json({ message: "Error creating new user" }); // internal server error
     }
 });
 
@@ -47,7 +47,7 @@ router.get("/:type/:value", async (req, res) => {
 
         // if type is invalid, send error code
         if (!["id", "email", "username"].includes(type)) {
-            return res.status(400).send("Invalid search type");
+            return res.status(400).json({ message: "Invalid search type" });
         }
 
         const usersData = await fs.readFile(usersFilePath, "utf8");
@@ -55,9 +55,9 @@ router.get("/:type/:value", async (req, res) => {
         const user = users.find((user) => String(user[type]) === value);
 
         if (user) {
-            res.json(user);
+            res.status(200).json(user);
         } else {
-            res.status(404).send("User not found");
+            res.status(404).json({ message: "User not found" });
         }
     } catch (error) {
         res.status(500); // internal server error

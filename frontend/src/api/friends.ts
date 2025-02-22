@@ -13,7 +13,7 @@ export const sendFriendRequest = async (
             id: fromUser.id,
         });
 
-        if (response.status === 200) return true;
+        if (response.status === 204) return true;
         else return false;
     } catch (error) {
         console.error(error);
@@ -33,7 +33,7 @@ export const acceptFriendRequest = async (
             }
         );
 
-        if (response.status === 200) return true;
+        if (response.status === 204) return true;
         else return false;
     } catch (error) {
         console.error(error);

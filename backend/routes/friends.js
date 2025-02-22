@@ -34,7 +34,7 @@ router.patch("/add/:id", async (req, res) => {
 
         // ensuring both users exist in database
         if (fromUserIndex === -1 || toUserIndex === -1) {
-            return res.status(404).send("User not found");
+            return res.status(404).json({ message: "User not found" });
         }
 
         // add new friend statuses to user friend arrays
@@ -50,9 +50,9 @@ router.patch("/add/:id", async (req, res) => {
         // update local JSON file
         await updateUsersJSON(users);
 
-        res.status(200).send("Friend request sent");
+        res.status(204).json({ message: "Friend request sent" });
     } catch {
-        res.status(404).send("User not found");
+        res.status(500).json({ message: "Error sending friend request" });
     }
 });
 
@@ -72,7 +72,7 @@ router.patch("/accept/:id", async (req, res) => {
 
         // ensuring both users exist in database
         if (acceptingUserIndex === -1 || sendingUserIndex === -1) {
-            return res.status(404).send("User not found");
+            return res.status(404).json({ message: "User not found" });
         }
 
         // update new friend statuses to user friend arrays
@@ -94,9 +94,9 @@ router.patch("/accept/:id", async (req, res) => {
         // update local JSON file
         await updateUsersJSON(users);
 
-        res.status(200).send("Friend Request accepted");
+        res.status(204).json({ message: "Friend request accepted" });
     } catch {
-        res.status(404).send("User not found");
+        res.status(500).json({ message: "Error accepting friend request" });
     }
 });
 
