@@ -1,6 +1,6 @@
 interface NotificationProps {
     text: string;
-    type: "success" | "error";
+    type: "success" | "error" | "pending";
 }
 
 // function to return text color, bg color and icon to match the notification type
@@ -11,14 +11,20 @@ const typeToValues = (
         case "success":
             return {
                 textColor: "text-green-500",
-                bgColor: "bg-green-100",
+                bgColor: "bg-green-200",
                 iconName: "circle-check",
             };
         case "error":
             return {
                 textColor: "text-red-500",
-                bgColor: "bg-red-100",
+                bgColor: "bg-red-200",
                 iconName: "circle-xmark",
+            };
+        case "pending":
+            return {
+                textColor: "text-orange-500",
+                bgColor: "bg-orange-200",
+                iconName: "clock",
             };
     }
 };
