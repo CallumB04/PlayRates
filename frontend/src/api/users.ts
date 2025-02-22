@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3000";
+const API_IP = import.meta.env.VITE_API_IP; // importing ip from .env if exists
+axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // setting base url as env server ip, or localhost if doesnt exist
 
 /* Structure of user data in database */
 
