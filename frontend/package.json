@@ -5,7 +5,7 @@
     "type": "module",
     "homepage": "https://callumb04.github.io/PlayRates",
     "scripts": {
-        "dev": "git pull && vite",
+        "dev": "vite",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
