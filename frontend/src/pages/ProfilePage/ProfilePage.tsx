@@ -8,6 +8,7 @@ import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
 import GameElement from "./components/GameElement";
+import { sendFriendRequest } from "../../api/friends";
 
 interface ProfilePageProps {
     runNotification: (text: string, type: "success" | "error") => void;
@@ -205,6 +206,28 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     };
 
+    const executeFriendAction = async () => {
+        switch (userRelation) {
+            // TODO: add other friend request functions
+            case "friend":
+                break;
+            case "request-sent":
+                break;
+            case "request-received":
+                break;
+            case "":
+                const request = await sendFriendRequest(
+                    currentUser!,
+                    targetUser!
+                );
+
+                if (request) {
+                    setUserRelation("request-sent");
+                }
+                break;
+        }
+    };
+
     // user doesnt exist / failed to fetch
     useEffect(() => {
         if (targetUserError) {
@@ -278,6 +301,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         }
                                         onMouseOut={() =>
                                             setIsHoveringProfileButton(false)
+                                        }
+                                        onClick={() =>
+                                            currentUser?.id === targetUser?.id
+                                                ? null // TODO: run edit profile function on click
+                                                : executeFriendAction()
                                         }
                                     >
                                         <p className="text-lg">
