@@ -20,3 +20,23 @@ export const sendFriendRequest = async (
         return false;
     }
 };
+
+export const acceptFriendRequest = async (
+    acceptingUser: UserAccount,
+    sendingUser: UserAccount
+): Promise<boolean> => {
+    try {
+        const response = await axios.patch(
+            `/friends/accept/${sendingUser.id}`,
+            {
+                id: acceptingUser.id,
+            }
+        );
+
+        if (response.status === 200) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};

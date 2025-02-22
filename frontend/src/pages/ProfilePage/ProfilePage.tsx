@@ -8,7 +8,7 @@ import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
 import GameElement from "./components/GameElement";
-import { sendFriendRequest } from "../../api/friends";
+import { acceptFriendRequest, sendFriendRequest } from "../../api/friends";
 
 interface ProfilePageProps {
     runNotification: (
@@ -212,6 +212,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // function to determine what api call to make when user clicks profile button...
     // based on current user relation
     const executeFriendAction = async () => {
+        let request; // declare empty request variable
         switch (userRelation) {
             // TODO: add other friend request functions
             case "friend":
@@ -219,12 +220,20 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
             case "request-sent":
                 break;
             case "request-received":
+                request = await acceptFriendRequest(currentUser!, targetUser!);
+
+                if (request) {
+                    setUserRelation("friend");
+                    runNotification("Friend Request accepted", "success");
+                } else {
+                    runNotification(
+                        "Failed to accept Friend Request, please try again",
+                        "error"
+                    );
+                }
                 break;
             case "":
-                const request = await sendFriendRequest(
-                    currentUser!,
-                    targetUser!
-                );
+                request = await sendFriendRequest(currentUser!, targetUser!);
 
                 if (request) {
                     setUserRelation("request-sent");
