@@ -6,11 +6,25 @@ const path = require("path");
 // using file path and fs.readFile for data retrieval, instead of require(), as users.json will change during runtime
 const usersFilePath = path.join(__dirname, "../data/users.json");
 
+// function to read the JSON file
+const readUsersJSON = async () => {
+    const data = await fs.readFile(usersFilePath, "utf-8");
+    return JSON.parse(data);
+};
+
+// function to write data to the JSON file
+const updateUsersJSON = async (newUserData) => {
+    await fs.writeFile(
+        usersFilePath,
+        JSON.stringify(newUserData, null, 2),
+        "utf-8"
+    );
+};
+
 // all users
 router.get("/", async (req, res) => {
     try {
-        const usersData = await fs.readFile(usersFilePath, "utf8");
-        const users = JSON.parse(usersData);
+        const users = await readUsersJSON();
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: "Error fetching users" }); // internal server error
@@ -21,18 +35,13 @@ router.get("/", async (req, res) => {
 router.post("/new", async (req, res) => {
     try {
         const newUserAccount = req.body;
-        const usersData = await fs.readFile(usersFilePath, "utf8");
-        const users = JSON.parse(usersData);
+        const users = await readUsersJSON();
 
         // ensure user only adds once
         if (!users.some((user) => user.email === newUserAccount.email)) {
             users.push(newUserAccount); // append new user to array
         }
-        await fs.writeFile(
-            usersFilePath,
-            JSON.stringify(users, null, 2),
-            "utf8"
-        );
+        await updateUsersJSON(users);
 
         res.status(201).json({ message: "User successfully created" });
     } catch (error) {
@@ -50,8 +59,7 @@ router.get("/:type/:value", async (req, res) => {
             return res.status(400).json({ message: "Invalid search type" });
         }
 
-        const usersData = await fs.readFile(usersFilePath, "utf8");
-        const users = JSON.parse(usersData);
+        const users = await readUsersJSON();
         const user = users.find((user) => String(user[type]) === value);
 
         if (user) {
