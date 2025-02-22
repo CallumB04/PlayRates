@@ -11,7 +11,10 @@ import GameElement from "./components/GameElement";
 import { sendFriendRequest } from "../../api/friends";
 
 interface ProfilePageProps {
-    runNotification: (text: string, type: "success" | "error") => void;
+    runNotification: (
+        text: string,
+        type: "success" | "error" | "pending"
+    ) => void;
     openLoginForm: () => void;
 }
 
@@ -206,6 +209,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     };
 
+    // function to determine what api call to make when user clicks profile button...
+    // based on current user relation
     const executeFriendAction = async () => {
         switch (userRelation) {
             // TODO: add other friend request functions
@@ -223,6 +228,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
                 if (request) {
                     setUserRelation("request-sent");
+                    runNotification("Friend Request sent", "pending");
+                } else {
+                    runNotification(
+                        "Friend Request failed, please try again",
+                        "error"
+                    );
                 }
                 break;
         }
