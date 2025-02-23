@@ -199,6 +199,44 @@ router.patch("/cancel/:id", async (req, res) => {
     }
 });
 
+// remove friend
+router.patch("/remove/:id", async (req, res) => {
+    try {
+        const users = await readUsersJSON();
+        const friends = await readFriendsJSON();
+        const deletedUserID = Number(req.params.id);
+        const removingUserID = req.body.id;
+
+        // get user info from api request
+        const removingUserExists = users.find(
+            (user) => user.id === deletedUserID
+        ); // user removing friend, passed through request body
+        const deletedUserExists = users.find(
+            (user) => user.id === removingUserID
+        ); // user that is being removed, passed through URL
+
+        // ensuring both users exist in database
+        if (!removingUserExists || !deletedUserExists) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // remove users from eachothers friend arrays
+        friends[removingUserID] = friends[removingUserID].filter(
+            (friend) => friend.id !== deletedUserID
+        );
+        friends[deletedUserID] = friends[deletedUserID].filter(
+            (friend) => friend.id !== removingUserID
+        );
+
+        // update local JSON file
+        await updateFriendsJSON(friends);
+
+        res.status(204).json({ message: "Friend removed" });
+    } catch {
+        res.status(500).json({ message: "Error removing friend" });
+    }
+});
+
 // get user's friends from id
 router.get("/:id", async (req, res) => {
     try {

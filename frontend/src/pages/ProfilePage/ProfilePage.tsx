@@ -12,11 +12,12 @@ import {
     acceptFriendRequest,
     cancelFriendRequest,
     declineFriendRequest,
-    fetchFriends,
     fetchFriendsByID,
     Friend,
+    removeFriend,
     sendFriendRequest,
 } from "../../api/friends";
+import RemoveFriendPopup from "./components/RemoveFriendPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -49,6 +50,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [previousEnabled, setPreviousEnabled] = useState<boolean>(true); // whether previous button can be pressed (page number > 1)
     const [nextEnabled, setNextEnabled] = useState<boolean>(true); // whether next button can be pressed (not at final page)
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+    // popup visibilities
+    const [removeUserPopupVisible, setRemoveUserPopupVisible] =
+        useState<boolean>(false);
 
     // handling window resizing
     useEffect(() => {
@@ -246,6 +251,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         switch (userRelation) {
             // TODO: add other friend request functions
             case "friend":
+                setRemoveUserPopupVisible(true);
                 break;
             case "request-sent":
                 request = await cancelFriendRequest(currentUser!, targetUser!);
@@ -299,6 +305,21 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         } else {
             runNotification(
                 "Failed to decline Friend Request, please try again",
+                "error"
+            );
+        }
+    };
+
+    // function for removing friend, after confirming on popup
+    const handleFriendRemoval = async () => {
+        const request = await removeFriend(currentUser!, targetUser!);
+
+        if (request) {
+            setUserRelation("");
+            runNotification("Friend removed", "success");
+        } else {
+            runNotification(
+                "Failed to remove Friend, please try again",
                 "error"
             );
         }
@@ -585,6 +606,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <h2 className="card-header-text">Reviews</h2>
                     </div>
                 </div>
+                {removeUserPopupVisible ? (
+                    <RemoveFriendPopup
+                        closePopup={() => setRemoveUserPopupVisible(false)}
+                        confirmRemove={handleFriendRemoval}
+                        friendName={targetUser.username}
+                    />
+                ) : (
+                    <></>
+                )}
             </div>
         );
     }

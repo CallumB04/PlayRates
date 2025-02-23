@@ -38,6 +38,12 @@ main {
 .button-outline {
     @apply border-2;
 }
+.button-outline-default {
+    @apply border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary;
+}
+.button-outline-cancel {
+    @apply border-text-primary text-text-primary hover:border-red-300 hover:bg-[#f8717122] hover:text-red-200;
+}
 
 .button-primary,
 .button-secondary,
@@ -67,6 +73,9 @@ main {
 /* popup containers - such as account form */
 .popup {
     @apply rounded-lg bg-gradient-to-tl from-popup-start to-popup-end shadow-md;
+}
+.popup-default {
+    @apply p-4 font-lexend sm:p-6;
 }
 .popup-backdrop {
     @apply fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#00000066] px-4;

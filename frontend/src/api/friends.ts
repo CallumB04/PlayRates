@@ -103,3 +103,23 @@ export const cancelFriendRequest = async (
         return false;
     }
 };
+
+export const removeFriend = async (
+    removingUser: UserAccount,
+    deletedUser: UserAccount
+): Promise<boolean> => {
+    try {
+        const response = await axios.patch(
+            `/friends/remove/${deletedUser.id}`,
+            {
+                id: removingUser.id,
+            }
+        );
+
+        if (response.status === 204) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
