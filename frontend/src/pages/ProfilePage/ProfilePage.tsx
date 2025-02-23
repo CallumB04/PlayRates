@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import GameElement from "./components/GameElement";
 import {
     acceptFriendRequest,
+    cancelFriendRequest,
     declineFriendRequest,
     fetchFriends,
     fetchFriendsByID,
@@ -247,6 +248,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
             case "friend":
                 break;
             case "request-sent":
+                request = await cancelFriendRequest(currentUser!, targetUser!);
+
+                if (request) {
+                    setUserRelation("");
+                    runNotification("Friend Request cancelled", "success");
+                } else {
+                    runNotification(
+                        "Failed to cancel Friend Request, please try again",
+                        "error"
+                    );
+                }
                 break;
             case "request-received":
                 request = await acceptFriendRequest(currentUser!, targetUser!);

@@ -144,7 +144,7 @@ router.patch("/decline/:id", async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // update new friend statuses to user friend arrays
+        // remove users from eachothers friend arrays
         friends[decliningUserID] = friends[decliningUserID].filter(
             (friend) => friend.id !== sendingUserID
         );
@@ -158,6 +158,44 @@ router.patch("/decline/:id", async (req, res) => {
         res.status(204).json({ message: "Friend request declined" });
     } catch {
         res.status(500).json({ message: "Error declining friend request" });
+    }
+});
+
+// cancel friend request
+router.patch("/cancel/:id", async (req, res) => {
+    try {
+        const users = await readUsersJSON();
+        const friends = await readFriendsJSON();
+        const receivingUserID = Number(req.params.id);
+        const cancellingUserID = req.body.id;
+
+        // get user info from api request
+        const cancellingUserExists = users.find(
+            (user) => user.id === receivingUserID
+        ); // user cancelling request, passed through request body
+        const receivingUserExists = users.find(
+            (user) => user.id === cancellingUserID
+        ); // user that received request, passed through URL
+
+        // ensuring both users exist in database
+        if (!cancellingUserExists || !receivingUserExists) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // remove users from eachothers friend arrays
+        friends[cancellingUserID] = friends[cancellingUserID].filter(
+            (friend) => friend.id !== receivingUserID
+        );
+        friends[receivingUserID] = friends[receivingUserID].filter(
+            (friend) => friend.id !== cancellingUserID
+        );
+
+        // update local JSON file
+        await updateFriendsJSON(friends);
+
+        res.status(204).json({ message: "Friend request cancelled" });
+    } catch {
+        res.status(500).json({ message: "Error cancelling friend request" });
     }
 });
 
