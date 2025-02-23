@@ -123,6 +123,44 @@ router.patch("/accept/:id", async (req, res) => {
     }
 });
 
+// decline friend request
+router.patch("/decline/:id", async (req, res) => {
+    try {
+        const users = await readUsersJSON();
+        const friends = await readFriendsJSON();
+        const sendingUserID = Number(req.params.id);
+        const decliningUserID = req.body.id;
+
+        // get user info from api request
+        const decliningUserExists = users.find(
+            (user) => user.id === sendingUserID
+        ); // user declining request, passed through request body
+        const sendingUserExists = users.find(
+            (user) => user.id === decliningUserID
+        ); // user that sent request, passed through URL
+
+        // ensuring both users exist in database
+        if (!decliningUserExists || !sendingUserExists) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // update new friend statuses to user friend arrays
+        friends[decliningUserID] = friends[decliningUserID].filter(
+            (friend) => friend.id !== sendingUserID
+        );
+        friends[sendingUserID] = friends[sendingUserID].filter(
+            (friend) => friend.id !== decliningUserID
+        );
+
+        // update local JSON file
+        await updateFriendsJSON(friends);
+
+        res.status(204).json({ message: "Friend request declined" });
+    } catch {
+        res.status(500).json({ message: "Error declining friend request" });
+    }
+});
+
 // get user's friends from id
 router.get("/:id", async (req, res) => {
     try {

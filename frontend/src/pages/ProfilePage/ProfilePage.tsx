@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import GameElement from "./components/GameElement";
 import {
     acceptFriendRequest,
+    declineFriendRequest,
     fetchFriends,
     fetchFriendsByID,
     Friend,
@@ -276,6 +277,21 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     };
 
+    // function for decline option when received friend request
+    const handleFriendRequestDecline = async () => {
+        const request = await declineFriendRequest(currentUser!, targetUser!);
+
+        if (request) {
+            setUserRelation("");
+            runNotification("Friend Request declined", "success");
+        } else {
+            runNotification(
+                "Failed to decline Friend Request, please try again",
+                "error"
+            );
+        }
+    };
+
     // user doesnt exist / failed to fetch
     useEffect(() => {
         if (targetUserError) {
@@ -381,8 +397,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 )}
 
                                 {userRelation === "request-received" ? (
-                                    <button className="button-outline flex w-full items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500">
-                                        Decline Request
+                                    <button
+                                        className="button-outline flex w-full items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500"
+                                        onClick={handleFriendRequestDecline}
+                                    >
+                                        <p>Decline Request</p>
                                         <i className="fas fa-user-xmark"></i>
                                     </button>
                                 ) : (

@@ -63,3 +63,23 @@ export const acceptFriendRequest = async (
         return false;
     }
 };
+
+export const declineFriendRequest = async (
+    decliningUser: UserAccount,
+    sendingUser: UserAccount
+): Promise<boolean> => {
+    try {
+        const response = await axios.patch(
+            `/friends/decline/${sendingUser.id}`,
+            {
+                id: decliningUser.id,
+            }
+        );
+
+        if (response.status === 204) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
