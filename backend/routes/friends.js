@@ -138,6 +138,7 @@ router.get("/:id", async (req, res) => {
             res.status(404).json({ message: "User not found" });
         }
 
+        // send friends array or empty array if user has no friends
         res.status(200).json(friends[id] || []);
     } catch (error) {
         res.status(500); // internal server error
