@@ -3,52 +3,77 @@ const router = express.Router();
 const fs = require("fs").promises;
 const path = require("path");
 
-// using file path and fs.readFile for data retrieval, instead of require(), as users.json will change during runtime
+// using file path and fs.readFile for data retrieval, instead of require(), as json files will change during runtime
+const friendsFilePath = path.join(__dirname, "../data/friends.json");
 const usersFilePath = path.join(__dirname, "../data/users.json");
 
-// function to read the JSON file
+// function to read the friends JSON file
+const readFriendsJSON = async () => {
+    const data = await fs.readFile(friendsFilePath, "utf-8");
+    return JSON.parse(data);
+};
+
+// function to write data to the friends JSON file
+const updateFriendsJSON = async (newFriendsData) => {
+    await fs.writeFile(
+        friendsFilePath,
+        JSON.stringify(newFriendsData, null, 2),
+        "utf-8"
+    );
+};
+
+// function to read the users JSON file
 const readUsersJSON = async () => {
     const data = await fs.readFile(usersFilePath, "utf-8");
     return JSON.parse(data);
 };
 
-// function to write data to the JSON file
-const updateUsersJSON = async (newUserData) => {
-    await fs.writeFile(
-        usersFilePath,
-        JSON.stringify(newUserData, null, 2),
-        "utf-8"
-    );
-};
+// all friends of all users
+router.get("/", async (req, res) => {
+    try {
+        const friends = await readFriendsJSON();
+        res.status(200).json(friends);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching friends" }); // internal server error
+    }
+});
 
+// send friend request
 router.patch("/add/:id", async (req, res) => {
     try {
+        const friends = await readFriendsJSON();
         const users = await readUsersJSON();
         const toUserID = Number(req.params.id);
+        const fromUserID = req.body.id;
 
-        // get user info from api request
-        const fromUserIndex = users.findIndex(
-            (user) => user.id === req.body.id
-        ); // user sending request, passed through request body
-        const toUserIndex = users.findIndex((user) => user.id === toUserID); // user receiving request, passed through URL
+        // creating new friends array in file if either user doesnt exist yet
+        if (!friends.hasOwnProperty(toUserID)) {
+            friends[toUserID] = [];
+        }
+        if (!friends.hasOwnProperty(fromUserID)) {
+            friends[fromUserID] = [];
+        }
 
-        // ensuring both users exist in database
-        if (fromUserIndex === -1 || toUserIndex === -1) {
+        // checking users both exist in users database
+        const fromUserExists = users.find((user) => user.id === fromUserID); // user sending request, passed through request body
+        const toUserExists = users.find((user) => user.id === toUserID); // user receiving request, passed through URL
+
+        if (!fromUserExists || !toUserExists) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // add new friend statuses to user friend arrays
-        users[fromUserIndex]["friends"].push({
+        // adding new friend request to both users in friends json
+        friends[fromUserID].push({
             id: toUserID,
             status: "request-sent",
         });
-        users[toUserIndex]["friends"].push({
-            id: req.body.id,
+        friends[toUserID].push({
+            id: fromUserID,
             status: "request-received",
         });
 
         // update local JSON file
-        await updateUsersJSON(users);
+        await updateFriendsJSON(friends);
 
         res.status(204).json({ message: "Friend request sent" });
     } catch {
@@ -56,47 +81,66 @@ router.patch("/add/:id", async (req, res) => {
     }
 });
 
+// accept friend request
 router.patch("/accept/:id", async (req, res) => {
     try {
         const users = await readUsersJSON();
+        const friends = await readFriendsJSON();
         const sendingUserID = Number(req.params.id);
         const acceptingUserID = req.body.id;
 
         // get user info from api request
-        const acceptingUserIndex = users.findIndex(
-            (user) => user.id === acceptingUserID
-        ); // user accepting request, passed through request body
-        const sendingUserIndex = users.findIndex(
+        const acceptingUserExists = users.find(
             (user) => user.id === sendingUserID
+        ); // user accepting request, passed through request body
+        const sendingUserExists = users.find(
+            (user) => user.id === acceptingUserID
         ); // user that sent request, passed through URL
 
         // ensuring both users exist in database
-        if (acceptingUserIndex === -1 || sendingUserIndex === -1) {
+        if (!acceptingUserExists || !sendingUserExists) {
             return res.status(404).json({ message: "User not found" });
         }
 
         // update new friend statuses to user friend arrays
-        users[acceptingUserIndex]["friends"] = users[acceptingUserIndex][
-            "friends"
-        ].map((friend) =>
+        friends[acceptingUserID] = friends[acceptingUserID].map((friend) =>
             friend.id === sendingUserID
                 ? { ...friend, status: "friend" }
                 : friend
         );
-        users[sendingUserIndex]["friends"] = users[sendingUserIndex][
-            "friends"
-        ].map((friend) =>
+        friends[sendingUserID] = friends[sendingUserID].map((friend) =>
             friend.id === acceptingUserID
                 ? { ...friend, status: "friend" }
                 : friend
         );
 
         // update local JSON file
-        await updateUsersJSON(users);
+        await updateFriendsJSON(friends);
 
         res.status(204).json({ message: "Friend request accepted" });
     } catch {
         res.status(500).json({ message: "Error accepting friend request" });
+    }
+});
+
+// get user's friends from id
+router.get("/:id", async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+
+        const users = await readUsersJSON();
+        const friends = await readFriendsJSON();
+
+        // check user exists in database
+        const userExists = users.find((user) => user.id === id);
+
+        if (!userExists) {
+            res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(friends[id] || []);
+    } catch (error) {
+        res.status(500); // internal server error
     }
 });
 

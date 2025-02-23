@@ -8,7 +8,13 @@ import ProfilePicture from "../../components/ProfilePicture";
 import UserStatus from "../../components/UserStatus";
 import { useEffect, useState } from "react";
 import GameElement from "./components/GameElement";
-import { acceptFriendRequest, sendFriendRequest } from "../../api/friends";
+import {
+    acceptFriendRequest,
+    fetchFriends,
+    fetchFriendsByID,
+    Friend,
+    sendFriendRequest,
+} from "../../api/friends";
 
 interface ProfilePageProps {
     runNotification: (
@@ -114,6 +120,28 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryFn: () => fetchUserByUsername(targetUsername),
     });
 
+    // fetching target users friends from API using react query
+    const {
+        data: targetUserFriends,
+        error: targetUserFriendsError,
+        isLoading: targetUserFriendsLoading,
+    } = useQuery<Friend[] | undefined>({
+        queryKey: ["targetUserFriends", targetUser?.id],
+        queryFn: () => fetchFriendsByID(targetUser!.id),
+        enabled: !!targetUser,
+    });
+
+    // fetching current users friends from API using react query, if logged in
+    const {
+        data: currentUserFriends,
+        error: currentUserFriendsError,
+        isLoading: currentUserFriendsLoading,
+    } = useQuery<Friend[] | undefined>({
+        queryKey: ["currentUserFriends", currentUser?.id],
+        queryFn: () => fetchFriendsByID(currentUser!.id),
+        enabled: !!currentUser,
+    });
+
     useEffect(() => {
         if (currentUser?.id === targetUser?.id) {
             setIsMyAccount(true);
@@ -152,18 +180,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     useEffect(() => {
         // search if target user in current users friend list
-        const friend = currentUser?.friends.find(
+        const relationship = currentUserFriends?.find(
             (user) => user.id === targetUser?.id
         );
 
-        if (friend) {
+        if (relationship) {
             // setting user relation as status
-            setUserRelation(friend.status);
+            setUserRelation(relationship.status);
         } else {
             // emptying user relation if not found in friends list
             setUserRelation("");
         }
-    }, [currentUser, targetUser]);
+    }, [currentUserFriends, targetUserFriends]);
 
     // function to get icon for button from current and target user relation
     const getUserRelationIcon = () => {
@@ -514,10 +542,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         </button>
                     </div>
                 </div>
-                {/* Friends / Socials */}
+                {/* Friends / Reviews */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
                     <div className="card h-3/5 w-full">
                         <h2 className="card-header-text">Friends</h2>
+                        {targetUserFriends?.map((friend) => {
+                            return <p key={friend.id}>{friend.id}</p>;
+                        })}
                     </div>
                     <div className="card h-2/5 w-full">
                         <h2 className="card-header-text">Reviews</h2>

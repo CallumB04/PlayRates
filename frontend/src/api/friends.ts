@@ -4,6 +4,29 @@ import { UserAccount } from "./users";
 const API_IP = import.meta.env.VITE_API_IP; // importing ip from .env if exists
 axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // setting base url as env server ip, or localhost if doesnt exist
 
+export interface Friend {
+    id: number;
+    status: string; // "friend" | "request-sent" | "request-received"
+}
+
+export const fetchFriends = async () => {
+    try {
+        const response = await axios.get("/friends");
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching friends");
+    }
+};
+
+export const fetchFriendsByID = async (id: number): Promise<Friend[]> => {
+    try {
+        const response = await axios.get<Friend[]>(`/friends/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching user friends");
+    }
+};
+
 export const sendFriendRequest = async (
     fromUser: UserAccount,
     toUser: UserAccount
