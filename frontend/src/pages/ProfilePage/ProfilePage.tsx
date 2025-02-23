@@ -249,9 +249,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const executeFriendAction = async () => {
         let request; // declare empty request variable
         switch (userRelation) {
-            // TODO: add other friend request functions
             case "friend":
-                setRemoveUserPopupVisible(true);
+                setRemoveUserPopupVisible(true); // display remove friend popup
                 break;
             case "request-sent":
                 request = await cancelFriendRequest(currentUser!, targetUser!);
