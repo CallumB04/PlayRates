@@ -31,15 +31,15 @@ const RemoveFriendPopup: React.FC<RemoveFriendPopupProps> = ({
                         as your friend? This cannot be undone.
                     </p>
                 </div>
-                <div className="flex w-full justify-center gap-5">
+                <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
                     <button
-                        className="button-primary w-1/2"
+                        className="button-primary w-full sm:w-1/2"
                         onClick={handleConfirm}
                     >
                         Confirm
                     </button>
                     <button
-                        className="button-outline button-outline-cancel w-1/2"
+                        className="button-outline button-outline-cancel w-full sm:w-1/2"
                         onClick={closePopup}
                     >
                         Cancel
