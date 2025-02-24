@@ -497,28 +497,38 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         ) : (
                             <></>
                         )}
-                        <div className="flex w-full gap-4">
-                            <button
-                                className={`button-outline flex ${userRelation === "request-received" ? "w-1/2" : "w-full"} items-center justify-center gap-4 text-lg ${getUserRelationColors()}`}
-                                onClick={executeFriendAction}
-                            >
-                                <p>{getUserRelationText()}</p>
-                                <i
-                                    className={`fas fa-${getUserRelationIcon()}`}
-                                />
-                            </button>
-                            {userRelation === "request-received" ? (
+                        {currentUser ? (
+                            <div className="flex w-full gap-4">
                                 <button
-                                    className="button-outline flex w-1/2 items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500"
-                                    onClick={handleFriendRequestDecline}
+                                    className={`button-outline flex ${userRelation === "request-received" ? "w-1/2" : "w-full"} items-center justify-center gap-4 text-lg ${getUserRelationColors()}`}
+                                    onClick={executeFriendAction}
                                 >
-                                    <p>Decline</p>
-                                    <i className="fas fa-user-xmark"></i>
+                                    <p>{getUserRelationText()}</p>
+                                    <i
+                                        className={`fas fa-${getUserRelationIcon()}`}
+                                    />
                                 </button>
-                            ) : (
-                                <></>
-                            )}
-                        </div>
+                                {userRelation === "request-received" ? (
+                                    <button
+                                        className="button-outline flex w-1/2 items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500"
+                                        onClick={handleFriendRequestDecline}
+                                    >
+                                        <p>Decline</p>
+                                        <i className="fas fa-user-xmark"></i>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
+                        ) : (
+                            <button
+                                className="button-outline flex items-center justify-center gap-4 text-lg text-text-primary hover:cursor-pointer hover:border-highlight-primary hover:text-highlight-primary"
+                                onClick={openLoginForm}
+                            >
+                                <p>Login to add</p>
+                                <i className="fas fa-right-to-bracket"></i>
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <></>
