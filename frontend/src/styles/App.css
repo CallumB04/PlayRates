@@ -34,6 +34,9 @@ main {
 .button-secondary {
     @apply bg-text-primary text-text-dark hover:bg-text-secondary;
 }
+.button-danger {
+    @apply bg-red-600 text-text-primary hover:bg-red-500;
+}
 /* Button with only outline (Edit profile button, etc) Allowing for custom bg color */
 .button-outline {
     @apply border-2;
@@ -41,12 +44,13 @@ main {
 .button-outline-default {
     @apply border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary;
 }
-.button-outline-cancel {
+.button-outline-danger {
     @apply border-text-primary text-text-primary hover:border-red-300 hover:bg-[#f8717122] hover:text-red-200;
 }
 
 .button-primary,
 .button-secondary,
+.button-danger,
 .button-outline {
     @apply rounded-lg px-6 py-[14px] text-center font-lexend font-medium transition-colors duration-300 hover:cursor-pointer sm:py-3;
 }

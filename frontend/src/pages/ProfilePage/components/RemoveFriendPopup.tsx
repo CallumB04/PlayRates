@@ -33,13 +33,13 @@ const RemoveFriendPopup: React.FC<RemoveFriendPopupProps> = ({
                 </div>
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
                     <button
-                        className="button-primary w-full sm:w-1/2"
+                        className="button-danger w-full sm:w-1/2"
                         onClick={handleConfirm}
                     >
-                        Confirm
+                        Remove
                     </button>
                     <button
-                        className="button-outline button-outline-cancel w-full sm:w-1/2"
+                        className="button-outline button-outline-default w-full sm:w-1/2"
                         onClick={closePopup}
                     >
                         Cancel
