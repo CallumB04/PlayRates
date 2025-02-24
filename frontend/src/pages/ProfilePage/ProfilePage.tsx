@@ -18,6 +18,7 @@ import {
     sendFriendRequest,
 } from "../../api/friends";
 import RemoveFriendPopup from "./components/RemoveFriendPopup";
+import { exec } from "child_process";
 
 interface ProfilePageProps {
     runNotification: (
@@ -204,9 +205,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const getUserRelationIcon = () => {
         switch (userRelation) {
             case "friend":
-                return isHoveringProfileButton ? "user-xmark" : "user-group";
+                return isHoveringProfileButton || windowWidth < 1024
+                    ? "user-xmark"
+                    : "user-group";
             case "request-sent":
-                return isHoveringProfileButton ? "user-xmark" : "user-clock";
+                return isHoveringProfileButton || windowWidth < 1024
+                    ? "user-xmark"
+                    : "user-clock";
             case "request-received":
                 return "user-check";
             case "":
@@ -218,13 +223,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const getUserRelationText = () => {
         switch (userRelation) {
             case "friend":
-                return isHoveringProfileButton ? "Remove Friend" : "Friends";
+                return isHoveringProfileButton || windowWidth < 1024
+                    ? "Remove Friend"
+                    : "Friends";
             case "request-sent":
-                return isHoveringProfileButton
+                return isHoveringProfileButton || windowWidth < 1024
                     ? "Cancel Request"
                     : "Request Sent";
             case "request-received":
-                return "Accept Request";
+                return windowWidth < 1024 ? "Accept" : "Accept Request";
             case "":
                 return "Add Friend";
         }
@@ -445,7 +452,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <div className="flex flex-col-reverse items-center justify-end gap-3 sm:h-[148px] sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
                         {/* Friends list button */}
                         <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
-                            <i className="fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary lg:text-[22px]"></i>
+                            <i
+                                className={`fas fa-users ${!isMyAccount ? (userRelation === "friend" ? "h-16" : "h-[108px]") : "h-max"} text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary sm:h-max lg:text-[22px]`}
+                            ></i>
                             <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
                                 Friends
                             </p>
@@ -467,8 +476,53 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         ) : (
                             <></>
                         )}
+                        {/* Remove friend button (mobile) */}
+                        {userRelation === "friend" ? (
+                            <i
+                                className={`fas fa-${getUserRelationIcon()} text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]`}
+                                onClick={executeFriendAction}
+                            ></i>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
+                {/* Friends buttons (add, remove, etc) on mobile */}
+                {userRelation !== "friend" && !isMyAccount ? (
+                    <div className="flex w-full flex-col gap-3 lg:hidden">
+                        {userRelation === "request-received" ? (
+                            <p className="text-center font-lexend text-text-secondary">
+                                This user sent you a friend request!
+                            </p>
+                        ) : (
+                            <></>
+                        )}
+                        <div className="flex w-full gap-4">
+                            <button
+                                className={`button-outline flex ${userRelation === "request-received" ? "w-1/2" : "w-full"} items-center justify-center gap-4 text-lg ${getUserRelationColors()}`}
+                                onClick={executeFriendAction}
+                            >
+                                <p>{getUserRelationText()}</p>
+                                <i
+                                    className={`fas fa-${getUserRelationIcon()}`}
+                                />
+                            </button>
+                            {userRelation === "request-received" ? (
+                                <button
+                                    className="button-outline flex w-1/2 items-center justify-center gap-4 border-red-500 text-lg text-red-400 hover:border-red-600 hover:text-red-500"
+                                    onClick={handleFriendRequestDecline}
+                                >
+                                    <p>Decline</p>
+                                    <i className="fas fa-user-xmark"></i>
+                                </button>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                    </div>
+                ) : (
+                    <></>
+                )}
                 {/* Games card */}
                 <div className="card relative w-full lg:flex-grow">
                     {/* Header */}
