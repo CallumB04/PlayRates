@@ -360,7 +360,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         return (
             <div className="flex w-full flex-col gap-5 overflow-hidden lg:h-[85vh] lg:flex-row">
                 {/* Profile card */}
-                <div className="card flex w-full min-w-[300px] flex-row items-center justify-between font-lexend lg:max-w-[300px] lg:flex-col">
+                <div className="card flex w-full min-w-[300px] flex-row items-start justify-between font-lexend lg:max-w-[300px] lg:flex-col lg:items-center">
                     <div className="flex w-full flex-row items-center gap-5 sm:gap-6 lg:flex-col lg:gap-7">
                         <h2 className="card-header-text hidden w-full lg:block">
                             Profile
@@ -453,7 +453,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         {/* Friends list button */}
                         <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
                             <i
-                                className={`fas fa-users ${!isMyAccount ? (userRelation === "friend" ? "h-16" : "h-[108px]") : "h-max"} text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary sm:h-max lg:text-[22px]`}
+                                className={`fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary sm:h-max lg:text-[22px]`}
                             ></i>
                             <p className="hidden text-xl text-text-primary transition-colors duration-200 group-hover:text-highlight-primary lg:block lg:text-[22px]">
                                 Friends
