@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useUser } from "../../App";
-import { fetchUserByUsername, UserAccount } from "../../api";
+import { fetchUserByID, fetchUserByUsername, UserAccount } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 import ProfileError from "./components/ProfileError";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -18,7 +18,7 @@ import {
     sendFriendRequest,
 } from "../../api/friends";
 import RemoveFriendPopup from "./components/RemoveFriendPopup";
-import { exec } from "child_process";
+import FriendProfile from "../../components/FriendProfile";
 
 interface ProfilePageProps {
     runNotification: (
@@ -118,7 +118,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         return <ProfileError />;
     }
 
-    // fetching user from API using react query
+    // fetching user from API
     const {
         data: targetUser,
         error: targetUserError,
@@ -128,7 +128,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryFn: () => fetchUserByUsername(targetUsername),
     });
 
-    // fetching target users friends from API using react query
+    // fetching target users friends from API
     const {
         data: targetUserFriends,
         error: targetUserFriendsError,
@@ -139,7 +139,31 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         enabled: !!targetUser,
     });
 
-    // fetching current users friends from API using react query, if logged in
+    // fetching target users friends details from API
+    const {
+        data: targetUserFriendsDetails,
+        error: targetUserFriendsErrorDetails,
+        isLoading: targetUserFriendsLoadingDetails,
+    } = useQuery<UserAccount[] | undefined>({
+        queryKey: [
+            "targetUserFriendsDetails",
+            targetUserFriends
+                ?.filter((friend) => friend.status === "friend")
+                .map((friend) => friend.id),
+        ],
+        queryFn: async () => {
+            return (
+                Promise.all(
+                    targetUserFriends!
+                        .filter((friend) => friend.status === "friend")
+                        .map((friend) => fetchUserByID(friend.id))
+                ) || []
+            );
+        },
+        enabled: !!targetUserFriends && targetUserFriends.length > 0,
+    });
+
+    // fetching current users friends from API, if logged in
     const {
         data: currentUserFriends,
         error: currentUserFriendsError,
@@ -661,9 +685,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
                     <div className="card h-3/5 w-full">
                         <h2 className="card-header-text">Friends</h2>
-                        {targetUserFriends?.map((friend) => {
-                            return <p key={friend.id}>{friend.id}</p>;
-                        })}
+                        {/* List of friends, scrollable on overflow */}
+                        <div className="mt-2 max-h-[400px] overflow-y-scroll">
+                            {targetUserFriendsDetails?.map((friend) => {
+                                return (
+                                    <FriendProfile
+                                        key={friend.id}
+                                        user={friend}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                     <div className="card h-2/5 w-full">
                         <h2 className="card-header-text">Reviews</h2>
