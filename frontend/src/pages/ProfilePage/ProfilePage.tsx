@@ -398,9 +398,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 ]}
                                 user={targetUser}
                             />
-                            {/* User status (online, offline, etc). Currently only set to online if current user is on their page */}
+                            {/* User status (online, offline, etc). Currently using test data for design purposes */}
                             <UserStatus
-                                status={isMyAccount ? "online" : "offline"}
+                                status={
+                                    targetUser.online ? "online" : "offline"
+                                }
                                 sizes={[
                                     { value: "sm" },
                                     { value: "lg", breakpoint: "sm" },
@@ -686,7 +688,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <div className="card h-3/5 w-full">
                         <h2 className="card-header-text">Friends</h2>
                         {/* List of friends, scrollable on overflow */}
-                        <div className="mt-2 max-h-[400px] overflow-y-scroll">
+                        <div className="mt-2 max-h-[360px] overflow-y-scroll">
                             {targetUserFriendsDetails?.map((friend) => {
                                 return (
                                     <FriendProfile

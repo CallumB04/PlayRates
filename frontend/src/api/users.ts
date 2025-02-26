@@ -19,6 +19,7 @@ export interface UserAccount {
     password: string; // temporary non-encrypted password for testing
     picture: string; // user profile picture. empty string if none
     bio: string; // user biography
+    online: boolean; // test data for design purposes
     games: GameLog[];
 }
 
@@ -84,6 +85,7 @@ export const addNewUser = async (newUser: UserCreation): Promise<boolean> => {
             id: Date.now(), // using date for unique id
             picture: "",
             bio: "",
+            online: true,
             games: [],
         };
 
