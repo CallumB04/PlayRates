@@ -686,9 +686,21 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                 {/* Friends / Reviews */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
                     <div className="card h-3/5 w-full">
-                        <h2 className="card-header-text">Friends</h2>
+                        <span className="flex items-center justify-between">
+                            <h2 className="card-header-text">Friends</h2>
+                            <p className="text-center font-lexend font-light text-text-secondary">
+                                <span>
+                                    {
+                                        targetUserFriendsDetails?.filter(
+                                            (friend) => friend.online
+                                        ).length
+                                    }
+                                </span>
+                                /<span>{targetUserFriends?.length}</span> Online
+                            </p>
+                        </span>
                         {/* List of friends, scrollable on overflow */}
-                        <div className="mt-2 max-h-[360px] overflow-y-scroll">
+                        <div className="mt-2 max-h-[400px] overflow-y-scroll">
                             {targetUserFriendsDetails?.map((friend) => {
                                 return (
                                     <FriendProfile
