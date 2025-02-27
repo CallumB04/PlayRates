@@ -696,7 +696,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         ).length
                                     }
                                 </span>
-                                /<span>{targetUserFriends?.length}</span> Online
+                                /<span>{targetUserFriendsDetails?.length}</span>{" "}
+                                Online
                             </p>
                         </span>
                         {/* List of friends, scrollable on overflow */}
