@@ -19,6 +19,7 @@ import {
 } from "../../api/friends";
 import RemoveFriendPopup from "./components/RemoveFriendPopup";
 import FriendProfile from "../../components/FriendProfile";
+import MobileSearchPopup from "./components/MobileSearchPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -54,6 +55,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // popup visibilities
     const [removeUserPopupVisible, setRemoveUserPopupVisible] =
+        useState<boolean>(false);
+    const [mobileSearchPopupVisible, setMobileSearchPopupVisible] =
         useState<boolean>(false);
 
     // handling window resizing
@@ -596,6 +599,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 <i
                                     className="fas fa-magnifying-glass relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base md:text-searchInput-icon"
                                     title="Search"
+                                    onClick={() => {
+                                        if (windowWidth < 768)
+                                            setMobileSearchPopupVisible(true);
+                                    }}
                                 ></i>
                             </span>
                         </div>
@@ -717,11 +724,20 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <h2 className="card-header-text">Reviews</h2>
                     </div>
                 </div>
+                {/* Popups */}
                 {removeUserPopupVisible ? (
                     <RemoveFriendPopup
                         closePopup={() => setRemoveUserPopupVisible(false)}
                         confirmRemove={handleFriendRemoval}
                         friendName={targetUser.username}
+                    />
+                ) : (
+                    <></>
+                )}
+                {mobileSearchPopupVisible ? (
+                    <MobileSearchPopup
+                        onSearch={() => console.log("Pressed Search")}
+                        closePopup={() => setMobileSearchPopupVisible(false)}
                     />
                 ) : (
                     <></>
