@@ -20,6 +20,7 @@ import {
 import RemoveFriendPopup from "./components/RemoveFriendPopup";
 import FriendProfile from "../../components/FriendProfile";
 import MobileSearchPopup from "./components/MobileSearchPopup";
+import MobileGameSectionPopup from "./components/MobileGameSectionPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -57,6 +58,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [removeUserPopupVisible, setRemoveUserPopupVisible] =
         useState<boolean>(false);
     const [mobileSearchPopupVisible, setMobileSearchPopupVisible] =
+        useState<boolean>(false);
+    const [mobileGameSectionPopupVisible, setMobileGameSectionPopupVisible] =
         useState<boolean>(false);
 
     // handling window resizing
@@ -575,6 +578,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             <i
                                 className="fas fa-list hover-text-white text-xl md:hidden"
                                 title="Game Section"
+                                onClick={() =>
+                                    setMobileGameSectionPopupVisible(true)
+                                }
                             ></i>
                             {/* Filters icon (mobile) */}
                             <i
@@ -738,6 +744,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <MobileSearchPopup
                         onSearch={() => console.log("Pressed Search")}
                         closePopup={() => setMobileSearchPopupVisible(false)}
+                    />
+                ) : (
+                    <></>
+                )}
+                {mobileGameSectionPopupVisible ? (
+                    <MobileGameSectionPopup
+                        selectSection={setActiveGamesSection}
+                        closePopup={() =>
+                            setMobileGameSectionPopupVisible(false)
+                        }
+                        currentActiveSection={activeGamesSection}
                     />
                 ) : (
                     <></>
