@@ -1,3 +1,5 @@
+import ClosePopupIcon from "../../../components/ClosePopupIcon";
+
 interface MobileGameSectionPopupProps {
     closePopup: () => void;
     selectSection: (section: string) => void;
@@ -18,7 +20,7 @@ const MobileGameSectionPopup: React.FC<MobileGameSectionPopupProps> = ({
     return (
         <dialog className="popup-backdrop" onMouseDown={closePopup}>
             <div
-                className="popup popup-default relative flex w-[min(450px,95vw)] flex-col gap-3 text-center"
+                className="popup popup-default flex w-[min(450px,95vw)] flex-col gap-3 text-center"
                 onMouseDown={(event) => event.stopPropagation()}
             >
                 <h2 className="text-xl text-text-primary">Select Section</h2>
@@ -48,11 +50,7 @@ const MobileGameSectionPopup: React.FC<MobileGameSectionPopupProps> = ({
                     )}
                 </div>
 
-                {/* X icon to close popup */}
-                <i
-                    className="fas fa-xmark hover-text-white absolute right-[14px] top-3 px-1 text-2xl sm:right-5 sm:top-4 sm:text-3xl"
-                    onClick={closePopup}
-                ></i>
+                <ClosePopupIcon onClick={closePopup} />
             </div>
         </dialog>
     );

@@ -1,3 +1,5 @@
+import ClosePopupIcon from "../../../components/ClosePopupIcon";
+
 interface MobileSearchPopupProps {
     closePopup: () => void;
     onSearch: () => void;
@@ -15,7 +17,7 @@ const MobileSearchPopup: React.FC<MobileSearchPopupProps> = ({
     return (
         <dialog className="popup-backdrop" onMouseDown={closePopup}>
             <div
-                className="popup popup-default relative flex w-full max-w-[550px] flex-col gap-3 text-center"
+                className="popup popup-default flex w-full max-w-[550px] flex-col gap-3 text-center"
                 onMouseDown={(event) => event.stopPropagation()}
             >
                 <h2 className="text-xl text-text-primary">Search for Game</h2>
@@ -28,11 +30,7 @@ const MobileSearchPopup: React.FC<MobileSearchPopupProps> = ({
                     <button className="button-primary w-full">Search</button>
                 </div>
 
-                {/* X icon to close popup */}
-                <i
-                    className="fas fa-xmark hover-text-white absolute right-[14px] top-3 px-1 text-2xl sm:right-5 sm:top-4 sm:text-3xl"
-                    onClick={closePopup}
-                ></i>
+                <ClosePopupIcon onClick={closePopup} />
             </div>
         </dialog>
     );

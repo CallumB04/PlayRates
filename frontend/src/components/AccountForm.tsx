@@ -6,6 +6,7 @@ import {
     UserCreation,
 } from "../api";
 import LoadingSpinner from "./LoadingSpinner";
+import ClosePopupIcon from "./ClosePopupIcon";
 
 interface FormProps {
     formType: "signup" | "login";
@@ -241,7 +242,7 @@ const AccountForm: React.FC<FormProps> = ({
             <form
                 onSubmit={handleFormSubmit}
                 onMouseDown={(event) => event.stopPropagation()}
-                className="popup relative mx-auto flex w-full max-w-[630px] flex-col justify-center px-2 py-12 font-lexend text-text-primary sm:px-12 sm:py-16 md:px-16"
+                className="popup mx-auto flex w-full max-w-[630px] flex-col justify-center px-2 py-12 font-lexend text-text-primary sm:px-12 sm:py-16 md:px-16"
                 ref={formElement}
             >
                 <div className="text-center">
@@ -351,11 +352,7 @@ const AccountForm: React.FC<FormProps> = ({
                         <></>
                     )}
                 </div>
-                {/* Close form button (X) */}
-                <i
-                    className="fas fa-xmark absolute right-[14px] top-3 px-1 text-2xl transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary sm:right-5 sm:top-4 sm:text-3xl"
-                    onClick={closeAccountForm}
-                ></i>
+                <ClosePopupIcon onClick={closeAccountForm} />
                 {isLoading ? (
                     <dialog className="flex size-full items-center justify-center rounded-lg bg-[#00000077]">
                         <LoadingSpinner size={10} />

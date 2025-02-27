@@ -76,7 +76,7 @@ main {
 
 /* popup containers - such as account form */
 .popup {
-    @apply rounded-lg bg-gradient-to-tl from-popup-start to-popup-end shadow-md;
+    @apply relative rounded-lg bg-gradient-to-tl from-popup-start to-popup-end shadow-md;
 }
 .popup-default {
     @apply p-4 font-lexend sm:p-6;

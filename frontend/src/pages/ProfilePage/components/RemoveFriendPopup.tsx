@@ -1,3 +1,5 @@
+import ClosePopupIcon from "../../../components/ClosePopupIcon";
+
 interface RemoveFriendPopupProps {
     closePopup: () => void;
     confirmRemove: () => Promise<void>;
@@ -45,6 +47,8 @@ const RemoveFriendPopup: React.FC<RemoveFriendPopupProps> = ({
                         Cancel
                     </button>
                 </div>
+
+                <ClosePopupIcon onClick={closePopup} />
             </div>
         </dialog>
     );
