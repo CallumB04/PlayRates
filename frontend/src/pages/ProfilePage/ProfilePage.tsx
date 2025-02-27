@@ -397,6 +397,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                     { value: 40, breakpoint: "lg" },
                                 ]}
                                 user={targetUser}
+                                link={true}
                             />
                             {/* User status (online, offline, etc). Currently using test data for design purposes */}
                             <UserStatus

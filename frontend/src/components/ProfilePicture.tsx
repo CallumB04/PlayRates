@@ -9,10 +9,15 @@ interface Size {
 interface ProfilePictureProps {
     sizes: Size[];
     user: UserAccount;
+    link: boolean; // is clickable for navigation? allows for preventing nested <a> elements
 }
 
-const ProfilePicture: React.FC<ProfilePictureProps> = ({ sizes, user }) => {
-    return (
+const ProfilePicture: React.FC<ProfilePictureProps> = ({
+    sizes,
+    user,
+    link,
+}) => {
+    return link ? (
         <Link
             to={`/user/${user.username}`}
             className={`profile-picture-wrapper ${sizes
@@ -27,6 +32,20 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ sizes, user }) => {
                 <></>
             )}
         </Link>
+    ) : (
+        <div
+            className={`profile-picture-wrapper ${sizes
+                .map((size) => {
+                    return `${size.breakpoint ? size.breakpoint + ":" : ""}size-${size.value}`;
+                })
+                .join(" ")}`}
+        >
+            {user.picture ? (
+                <img src={user.picture} className="profile-picture" />
+            ) : (
+                <></>
+            )}
+        </div>
     );
 };
 
