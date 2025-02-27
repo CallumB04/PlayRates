@@ -14,7 +14,7 @@ const UserStatus: React.FC<UserStatusProps> = ({ status, sizes }) => {
     return (
         <div className="flex items-center gap-2">
             <div
-                className={`mt-1 size-2 rounded-full ${status === "online" ? "bg-green-500" : "bg-red-500"} `}
+                className={`size-2 rounded-full ${status === "online" ? "bg-green-500" : "bg-red-500"} `}
             ></div>
             <p
                 className={`font-lexend ${sizes
