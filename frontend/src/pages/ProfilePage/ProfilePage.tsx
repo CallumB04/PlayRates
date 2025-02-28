@@ -21,6 +21,7 @@ import RemoveFriendPopup from "./components/RemoveFriendPopup";
 import FriendProfile from "../../components/FriendProfile";
 import MobileSearchPopup from "./components/MobileSearchPopup";
 import MobileGameSectionPopup from "./components/MobileGameSectionPopup";
+import FriendsPopup from "./components/FriendsPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -60,6 +61,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [mobileSearchPopupVisible, setMobileSearchPopupVisible] =
         useState<boolean>(false);
     const [mobileGameSectionPopupVisible, setMobileGameSectionPopupVisible] =
+        useState<boolean>(false);
+    const [friendsPopupVisible, setFriendsPopupVisible] =
         useState<boolean>(false);
 
     // handling window resizing
@@ -398,9 +401,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <div className="flex flex-col items-center gap-2">
                             <ProfilePicture
                                 sizes={[
-                                    { value: 20 },
-                                    { value: 28, breakpoint: "sm" },
-                                    { value: 40, breakpoint: "lg" },
+                                    { value: 20, borderSize: 2 },
+                                    {
+                                        value: 28,
+                                        breakpoint: "sm",
+                                        borderSize: 2,
+                                    },
+                                    {
+                                        value: 40,
+                                        breakpoint: "lg",
+                                        borderSize: 3,
+                                    },
                                 ]}
                                 user={targetUser}
                                 link={true}
@@ -484,7 +495,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     </div>
                     <div className="flex flex-col-reverse items-center justify-end gap-3 sm:h-[148px] sm:flex-row sm:items-start lg:h-max lg:flex-col lg:gap-4">
                         {/* Friends list button */}
-                        <div className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden">
+                        <div
+                            className="group flex gap-3 hover:cursor-pointer lg:items-center 2xl:hidden"
+                            onClick={() => setFriendsPopupVisible(true)}
+                        >
                             <i
                                 className={`fas fa-users text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer group-hover:text-highlight-primary sm:h-max lg:text-[22px]`}
                             ></i>
@@ -715,12 +729,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             </p>
                         </span>
                         {/* List of friends, scrollable on overflow */}
-                        <div className="mt-2 max-h-[400px] overflow-y-scroll">
+                        <div className="mt-2 flex max-h-[400px] flex-col gap-1 overflow-y-scroll">
                             {targetUserFriendsDetails?.map((friend) => {
                                 return (
                                     <FriendProfile
                                         key={friend.id}
                                         user={friend}
+                                        profilePictureSize={10}
                                     />
                                 );
                             })}
@@ -755,6 +770,16 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             setMobileGameSectionPopupVisible(false)
                         }
                         currentActiveSection={activeGamesSection}
+                    />
+                ) : (
+                    <></>
+                )}
+                {friendsPopupVisible ? (
+                    <FriendsPopup
+                        closePopup={() => setFriendsPopupVisible(false)}
+                        friends={targetUserFriendsDetails}
+                        friendsLoading={targetUserFriendsLoadingDetails}
+                        friendsError={targetUserFriendsErrorDetails}
                     />
                 ) : (
                     <></>
