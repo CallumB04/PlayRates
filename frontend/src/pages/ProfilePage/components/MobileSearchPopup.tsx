@@ -1,17 +1,23 @@
+import { useRef } from "react";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 
 interface MobileSearchPopupProps {
     closePopup: () => void;
-    onSearch: () => void;
+    onSearch: (value: string) => void;
 }
 
 const MobileSearchPopup: React.FC<MobileSearchPopupProps> = ({
     closePopup,
     onSearch,
 }) => {
+    const searchInput = useRef<HTMLInputElement>(null);
+
     const handleSearch = () => {
-        onSearch();
-        closePopup();
+        // pass current value of search input into prop function
+        if (searchInput.current) {
+            onSearch(searchInput.current.value);
+            closePopup();
+        }
     };
 
     return (
@@ -26,8 +32,14 @@ const MobileSearchPopup: React.FC<MobileSearchPopupProps> = ({
                         type="text"
                         className="search-bar h-[52px] w-full"
                         placeholder="Search for a game..."
+                        ref={searchInput}
                     />
-                    <button className="button-primary w-full">Search</button>
+                    <button
+                        className="button-primary w-full"
+                        onClick={handleSearch}
+                    >
+                        Search
+                    </button>
                 </div>
 
                 <ClosePopupIcon onClick={closePopup} />
