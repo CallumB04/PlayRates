@@ -37,7 +37,7 @@ const MobileGameSectionPopup: React.FC<MobileGameSectionPopupProps> = ({
                                         sectionName === currentActiveSection
                                     }
                                 >
-                                    <span className="font-semibold">
+                                    <span className="font-light">
                                         {sectionName === currentActiveSection
                                             ? "Current: "
                                             : ""}
