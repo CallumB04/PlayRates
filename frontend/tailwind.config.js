@@ -9,6 +9,10 @@ export default {
                 (size) => `${bp}:size-${size}`
             )
         ),
+        ...["1", "2", "3", "4"].map((size) => `border-[${size}px]`),
+        ...["sm", "md", "lg", "xl"].flatMap((bp) =>
+            ["1", "2", "3", "4"].map((size) => `${bp}:border-[${size}px]`)
+        ),
     ],
     theme: {
         extend: {

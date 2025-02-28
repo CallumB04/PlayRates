@@ -10,12 +10,16 @@ const FriendProfile: React.FC<FriendProfileProps> = ({ user }) => {
     return (
         <Link
             to={`/user/${user.username}`}
-            className="group relative flex w-full items-center gap-2 rounded-md px-2 py-1 hover:bg-popup-end"
+            className="group relative flex w-full items-center gap-2 rounded-md px-2 py-1 transition-colors duration-200 hover:bg-popup-end"
         >
-            <ProfilePicture user={user} sizes={[{ value: 12 }]} link={false} />
+            <ProfilePicture
+                user={user}
+                sizes={[{ value: 12, borderSize: 2 }]}
+                link={false}
+            />
             <p className="font-lexend text-text-primary">{user.username}</p>
             <div
-                className={`absolute left-[6px] top-[6px] size-[14px] rounded-full border-2 border-text-dark ${user.online ? "bg-green-500" : "bg-red-500"} `}
+                className={`absolute left-[6px] top-[6px] size-[14px] rounded-full border-[1.5px] border-text-dark ${user.online ? "bg-green-500" : "bg-red-500"} `}
                 title={user.online ? "Online" : "Offline"}
             ></div>
         </Link>
