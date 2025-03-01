@@ -29,3 +29,6 @@ npm run dev
 ## Live Demo
 
 You can view the live version of the Website [here](https://callumb04.github.io/PlayRates).
+
+> [!TIP]
+> Live version last updated 20/01/25, please clone and run the application for an up-to-date experience!
