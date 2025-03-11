@@ -82,9 +82,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="h-12 w-[70vw] max-w-[300px] rounded bg-searchInput-primary px-2 pr-9 focus:outline-none"
+                        className="bg-input-primary h-12 w-[70vw] max-w-[300px] rounded px-2 pr-9 focus:outline-none"
                     />
-                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInput-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                    <i className="fas fa-magnifying-glass text-input-icon absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
 
                 <Link
@@ -310,7 +310,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         placeholder="Search for game..."
                         className="search-bar block w-60 lg:w-72"
                     />
-                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-searchInput-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                    <i className="fas fa-magnifying-glass text-input-icon absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
             </div>
         </nav>

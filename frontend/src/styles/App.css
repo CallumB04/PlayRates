@@ -111,7 +111,7 @@ main {
 
 /* Search bars */
 .search-bar {
-    @apply rounded bg-searchInput-primary px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
+    @apply bg-input-primary rounded px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
 }
 
 /* Game cover picture elements */

@@ -37,7 +37,7 @@ export default {
                     primary: "#9333ea",
                     hover: "#a855f7",
                 },
-                searchInput: {
+                input: {
                     primary: "#404040",
                     icon: "#a3a3a3",
                 },
