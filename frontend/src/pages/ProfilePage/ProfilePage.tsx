@@ -22,6 +22,7 @@ import FriendProfile from "../../components/FriendProfile";
 import MobileSearchPopup from "./components/MobileSearchPopup";
 import MobileGameSectionPopup from "./components/MobileGameSectionPopup";
 import FriendsPopup from "./components/FriendsPopup";
+import EditProfilePopup from "./components/EditProfilePopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -63,6 +64,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [mobileGameSectionPopupVisible, setMobileGameSectionPopupVisible] =
         useState<boolean>(false);
     const [friendsPopupVisible, setFriendsPopupVisible] =
+        useState<boolean>(false);
+    const [editProfilePopupVisible, setEditProfilePopupVisible] =
         useState<boolean>(false);
 
     // handling window resizing
@@ -451,7 +454,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         }
                                         onClick={() =>
                                             currentUser?.id === targetUser?.id
-                                                ? null // TODO: run edit profile function on click
+                                                ? setEditProfilePopupVisible(
+                                                      true
+                                                  )
                                                 : executeFriendAction()
                                         }
                                     >
@@ -508,7 +513,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         </div>
                         {/* Edit profile icon button (mobile) */}
                         {isMyAccount ? (
-                            <i className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"></i>
+                            <i
+                                className="fas fa-pen text-2xl text-text-primary transition-colors duration-200 hover:cursor-pointer hover:text-highlight-primary lg:hidden lg:text-[22px]"
+                                onClick={() => setEditProfilePopupVisible(true)}
+                            ></i>
                         ) : (
                             <></>
                         )}
@@ -780,6 +788,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         friends={targetUserFriendsDetails}
                         friendsLoading={targetUserFriendsLoadingDetails}
                         friendsError={targetUserFriendsErrorDetails}
+                    />
+                ) : (
+                    <></>
+                )}
+                {editProfilePopupVisible ? (
+                    <EditProfilePopup
+                        closePopup={() => setEditProfilePopupVisible(false)}
+                        user={targetUser}
                     />
                 ) : (
                     <></>
