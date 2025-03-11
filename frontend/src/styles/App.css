@@ -114,6 +114,16 @@ main {
     @apply bg-input-primary rounded px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
 }
 
+/* Text inputs */
+.multiline-input {
+    @apply resize-none overflow-auto;
+}
+
+.multiline-input,
+.text-input {
+    @apply bg-input-primary rounded px-2 py-1.5 font-lexend text-text-primary focus:outline-none;
+}
+
 /* Game cover picture elements */
 .game-cover {
     @apply aspect-[3/4] rounded-md;
