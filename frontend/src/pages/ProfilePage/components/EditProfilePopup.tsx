@@ -31,26 +31,38 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         Update your public profile and how others see you!
                     </p>
                 </div>
-                <div className="flex flex-col items-center">
-                    <div
-                        className="group relative hover:cursor-pointer"
-                        onClick={() => fileInput.current?.click()}
-                    >
-                        <ProfilePicture
-                            sizes={[{ value: 40, borderSize: 3 }]}
-                            user={user}
-                            link={false}
-                        />
-                        <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-full bg-[#0e0e0e99] font-semibold text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                            Click to Upload
+                <div className="flex flex-col items-center gap-8">
+                    {/* Profile picture with hidden uploader */}
+                    <div>
+                        <div
+                            className="group relative hover:cursor-pointer"
+                            onClick={() => fileInput.current?.click()}
+                        >
+                            <ProfilePicture
+                                sizes={[{ value: 40, borderSize: 3 }]}
+                                user={user}
+                                link={false}
+                            />
+                            <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-full bg-[#0e0e0e99] font-semibold text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                                Click to Upload
+                            </div>
                         </div>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInput}
+                            className="hidden"
+                        />
                     </div>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInput}
-                        className="hidden"
-                    />
+                    <div className="flex w-full flex-col gap-1">
+                        <p className="text-left font-semibold text-text-secondary">
+                            Bio
+                        </p>
+                        <textarea
+                            defaultValue={user.bio}
+                            className="multiline-input h-20 w-full"
+                        ></textarea>
+                    </div>
                 </div>
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
                     <button
