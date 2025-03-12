@@ -55,12 +55,18 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         />
                     </div>
                     <div className="flex w-full flex-col gap-1">
-                        <p className="text-left font-semibold text-text-secondary">
-                            Bio
-                        </p>
+                        <span className="flex w-full items-center justify-between">
+                            <p className="text-left font-semibold text-text-secondary">
+                                Bio
+                            </p>
+                            <p className="text-sm font-light text-text-secondary">
+                                Max 160 Characters
+                            </p>
+                        </span>
                         <textarea
                             defaultValue={user.bio}
                             className="multiline-input h-20 w-full"
+                            maxLength={160}
                         ></textarea>
                     </div>
                 </div>
