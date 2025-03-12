@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { UserAccount } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 import ProfilePicture from "../../../components/ProfilePicture";
+import { Link } from "react-router-dom";
 
 interface EditProfilePopupProps {
     closePopup: () => void;
@@ -55,7 +56,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         />
                     </div>
                     <div className="flex w-full flex-col gap-1">
-                        <span className="flex w-full items-center justify-between">
+                        <span className="flex w-full items-end justify-between">
                             <p className="text-left font-semibold text-text-secondary">
                                 Bio
                             </p>
@@ -68,6 +69,27 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             className="multiline-input h-20 w-full"
                             maxLength={160}
                         ></textarea>
+                    </div>
+                    <div className="flex w-full flex-col gap-1">
+                        <span className="flex w-full items-end justify-between">
+                            <p className="text-left font-semibold text-text-secondary">
+                                Username Capitalization
+                            </p>
+                            <p className="max-w-[18ch] text-right text-sm font-light text-text-secondary">
+                                Change full Username in{" "}
+                                <Link
+                                    to="/settings"
+                                    className="hover-text-white underline"
+                                >
+                                    Account Settings
+                                </Link>
+                            </p>
+                        </span>
+                        <input
+                            defaultValue={user.username}
+                            className="text-input h-12 w-full"
+                            maxLength={user.username.length}
+                        />
                     </div>
                 </div>
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
