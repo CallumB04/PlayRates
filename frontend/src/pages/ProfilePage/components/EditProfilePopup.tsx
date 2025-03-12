@@ -71,17 +71,17 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         ></textarea>
                     </div>
                     <div className="flex w-full flex-col gap-1">
-                        <span className="flex w-full items-end justify-between">
+                        <span className="flex w-full items-end justify-between gap-2">
                             <p className="text-left font-semibold text-text-secondary">
                                 Username Capitalization
                             </p>
-                            <p className="max-w-[18ch] text-right text-sm font-light text-text-secondary">
-                                Change full Username in{" "}
+                            <p className="text-right text-sm font-light text-text-secondary">
+                                Change in{" "}
                                 <Link
                                     to="/settings"
                                     className="hover-text-white underline"
                                 >
-                                    Account Settings
+                                    Settings
                                 </Link>
                             </p>
                         </span>
