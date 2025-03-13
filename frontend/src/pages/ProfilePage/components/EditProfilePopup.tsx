@@ -50,7 +50,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         </div>
                         <input
                             type="file"
-                            accept="image/*"
+                            accept="image/png, image/jpeg"
                             ref={fileInput}
                             className="hidden"
                         />
