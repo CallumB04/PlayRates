@@ -49,6 +49,31 @@ router.post("/new", async (req, res) => {
     }
 });
 
+// update user information
+router.patch("/update/:id", async (req, res) => {
+    try {
+        const newData = req.body; // new user to be updated into user
+        const { id } = req.params;
+        const users = await readUsersJSON();
+
+        // check if user exists
+        if (!users.some((user) => user.id === Number(id))) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // update user with new info
+        await updateUsersJSON(
+            users.map((user) =>
+                user.id === Number(id) ? { ...user, ...newData } : user
+            )
+        );
+
+        res.status(200).json({ message: "User successfully updated" });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating user" }); // internal server error
+    }
+});
+
 // get user from id, email or username
 router.get("/:type/:value", async (req, res) => {
     try {

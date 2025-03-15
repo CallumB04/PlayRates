@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { UserAccount } from "../../../api";
+import { useRef, useState } from "react";
+import { updateUserByID, UserAccount } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 import ProfilePicture from "../../../components/ProfilePicture";
 import { Link } from "react-router-dom";
@@ -13,11 +13,27 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     closePopup,
     user,
 }) => {
+    const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
+    const [bioInputValue, setBioInputValue] = useState<string>(user.bio);
+    const [usernameInputValue, setUsernameInputValue] = useState<string>(
+        user.username
+    );
+
     const fileInput = useRef<HTMLInputElement>(null);
 
-    const handleSave = () => {
-        console.log("Saved");
-        closePopup();
+    const handleSave = async () => {
+        // TODO: display loading spinner whilst loading, set to true when first clicking save
+
+        const request = await updateUserByID(user.id, {
+            username: usernameInputValue,
+            bio: bioInputValue,
+        });
+
+        if (request) {
+            // TODO: run notification
+            // TODO: update user state in app.tsx when user updated
+            closePopup();
+        }
     };
 
     return (
@@ -68,6 +84,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             defaultValue={user.bio}
                             className="multiline-input h-20 w-full"
                             maxLength={160}
+                            onChange={(e) =>
+                                setBioInputValue(e.currentTarget.value)
+                            }
                         ></textarea>
                     </div>
                     <div className="flex w-full flex-col gap-1">
@@ -89,6 +108,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             defaultValue={user.username}
                             className="text-input h-12 w-full"
                             maxLength={user.username.length}
+                            onChange={(e) =>
+                                setUsernameInputValue(e.currentTarget.value)
+                            }
                         />
                     </div>
                 </div>

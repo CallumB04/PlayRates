@@ -99,3 +99,19 @@ export const addNewUser = async (newUser: UserCreation): Promise<boolean> => {
         return false;
     }
 };
+
+// update user in database
+export const updateUserByID = async (
+    id: number,
+    newData: any
+): Promise<boolean> => {
+    try {
+        const response = await axios.patch(`/users/update/${id}`, newData);
+
+        if (response.status === 200) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
