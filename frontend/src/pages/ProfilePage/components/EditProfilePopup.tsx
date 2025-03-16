@@ -7,12 +7,16 @@ import { Link } from "react-router-dom";
 interface EditProfilePopupProps {
     closePopup: () => void;
     user: UserAccount;
+    bio: string;
+    username: string;
     updateUserInfo: (newData: { bio: string; username: string }) => void;
 }
 
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     closePopup,
     user,
+    bio,
+    username,
     updateUserInfo,
 }) => {
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
@@ -20,11 +24,20 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const [usernameInputValue, setUsernameInputValue] = useState<string>(
         user.username
     );
+    const [usernameInputMatches, setUsernameInputMatches] =
+        useState<boolean>(true);
 
     const fileInput = useRef<HTMLInputElement>(null);
 
     const handleSave = async () => {
         // TODO: display loading spinner whilst loading, set to true when first clicking save
+
+        if (usernameInputValue.toLowerCase() !== user.username.toLowerCase()) {
+            // TODO: run error notification
+            // TODO: end loading
+            setUsernameInputMatches(false);
+            return;
+        }
 
         const newData = {
             username: usernameInputValue,
@@ -34,8 +47,10 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         const request = await updateUserByID(user.id, newData);
 
         if (request) {
-            // TODO: run notification
+            setUsernameInputMatches(true);
             updateUserInfo(newData);
+            // TODO: end loading
+            // TODO: run success notification
             closePopup();
         }
     };
@@ -85,7 +100,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             </p>
                         </span>
                         <textarea
-                            defaultValue={user.bio}
+                            defaultValue={bio}
                             className="multiline-input h-20 w-full"
                             maxLength={160}
                             onChange={(e) =>
@@ -109,13 +124,21 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             </p>
                         </span>
                         <input
-                            defaultValue={user.username}
+                            defaultValue={username}
                             className="text-input h-12 w-full"
-                            maxLength={user.username.length}
+                            maxLength={username.length}
                             onChange={(e) =>
                                 setUsernameInputValue(e.currentTarget.value)
                             }
                         />
+                        {!usernameInputMatches ? (
+                            <p className="text-left font-lexend text-red-500">
+                                Username doesnt match '{username}', only change
+                                capitalization.
+                            </p>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
