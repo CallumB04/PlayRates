@@ -10,6 +10,10 @@ interface EditProfilePopupProps {
     bio: string;
     username: string;
     updateUserInfo: (newData: { bio: string; username: string }) => void;
+    runNotification: (
+        text: string,
+        type: "success" | "error" | "pending"
+    ) => void;
 }
 
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
@@ -18,6 +22,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     bio,
     username,
     updateUserInfo,
+    runNotification,
 }) => {
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
     const [bioInputValue, setBioInputValue] = useState<string>(user.bio);
@@ -30,12 +35,11 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const fileInput = useRef<HTMLInputElement>(null);
 
     const handleSave = async () => {
-        // TODO: display loading spinner whilst loading, set to true when first clicking save
+        setLoadingUpdate(true);
 
         if (usernameInputValue.toLowerCase() !== user.username.toLowerCase()) {
-            // TODO: run error notification
-            // TODO: end loading
             setUsernameInputMatches(false);
+            setLoadingUpdate(false);
             return;
         }
 
@@ -49,9 +53,14 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         if (request) {
             setUsernameInputMatches(true);
             updateUserInfo(newData);
-            // TODO: end loading
-            // TODO: run success notification
+            setLoadingUpdate(false);
+            runNotification("Successfully updated profile", "success");
             closePopup();
+        } else {
+            runNotification(
+                "Error updating profile, please try again",
+                "error"
+            );
         }
     };
 

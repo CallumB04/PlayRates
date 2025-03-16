@@ -838,6 +838,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             setTargetUserBio(newData.bio);
                             setTargetUserUsername(newData.username);
                         }}
+                        runNotification={runNotification}
                     />
                 ) : (
                     <></>
