@@ -140,6 +140,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryFn: () => fetchUserByUsername(targetUsername),
     });
 
+    // temporary state for bio and username capitalization to display incase of changes, until state refresh
+    const [targetUserBio, setTargetUserBio] = useState<string>("");
+    const [targetUserUsername, setTargetUserUsername] = useState<string>("");
+
+    useEffect(() => {
+        if (targetUser) {
+            setTargetUserBio(targetUser.bio);
+            setTargetUserUsername(targetUser.username);
+        }
+    }, [targetUser]);
+
     // fetching target users friends from API
     const {
         data: targetUserFriends,
@@ -447,12 +458,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <div className="flex w-3/5 flex-col gap-6 sm:max-w-full lg:w-full">
                             <div className="flex w-full flex-col gap-3">
                                 <h2 className="overflow-hidden break-all text-left text-xl font-semibold text-text-primary sm:text-2xl">
-                                    {targetUser.username}
+                                    {targetUserUsername}
                                 </h2>
 
                                 <p className="line-clamp-3 text-balance break-words text-left text-sm font-light text-text-secondary sm:text-base lg:line-clamp-5">
-                                    {targetUser.bio
-                                        ? targetUser.bio
+                                    {targetUserBio
+                                        ? targetUserBio
                                         : "User hasn't added a bio."}
                                 </p>
                             </div>
@@ -818,6 +829,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <EditProfilePopup
                         closePopup={() => setEditProfilePopupVisible(false)}
                         user={targetUser}
+                        updateUserInfo={(newData: {
+                            bio: string;
+                            username: string;
+                        }) => {
+                            setTargetUserBio(newData.bio);
+                            setTargetUserUsername(newData.username);
+                        }}
                     />
                 ) : (
                     <></>

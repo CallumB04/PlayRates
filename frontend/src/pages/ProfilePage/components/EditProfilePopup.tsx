@@ -7,11 +7,13 @@ import { Link } from "react-router-dom";
 interface EditProfilePopupProps {
     closePopup: () => void;
     user: UserAccount;
+    updateUserInfo: (newData: { bio: string; username: string }) => void;
 }
 
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     closePopup,
     user,
+    updateUserInfo,
 }) => {
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
     const [bioInputValue, setBioInputValue] = useState<string>(user.bio);
@@ -24,14 +26,16 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const handleSave = async () => {
         // TODO: display loading spinner whilst loading, set to true when first clicking save
 
-        const request = await updateUserByID(user.id, {
+        const newData = {
             username: usernameInputValue,
             bio: bioInputValue,
-        });
+        };
+
+        const request = await updateUserByID(user.id, newData);
 
         if (request) {
             // TODO: run notification
-            // TODO: update user state in app.tsx when user updated
+            updateUserInfo(newData);
             closePopup();
         }
     };
