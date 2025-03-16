@@ -3,6 +3,7 @@ import { updateUserByID, UserAccount } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 import ProfilePicture from "../../../components/ProfilePicture";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 interface EditProfilePopupProps {
     closePopup: () => void;
@@ -166,6 +167,13 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 </div>
 
                 <ClosePopupIcon onClick={closePopup} />
+                {loadingUpdate ? (
+                    <div className="absolute left-0 top-0 flex size-full items-center justify-center rounded-lg bg-[#00000077]">
+                        <LoadingSpinner size={10} />
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </dialog>
     );
