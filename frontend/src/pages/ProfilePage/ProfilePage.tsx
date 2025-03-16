@@ -829,6 +829,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <EditProfilePopup
                         closePopup={() => setEditProfilePopupVisible(false)}
                         user={targetUser}
+                        bio={targetUserBio}
+                        username={targetUserUsername}
                         updateUserInfo={(newData: {
                             bio: string;
                             username: string;
