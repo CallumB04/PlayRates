@@ -143,6 +143,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // fetching target users friends from API
     const {
         data: targetUserFriends,
+        refetch: refetchTargetUserFriends,
         error: targetUserFriendsError,
         isLoading: targetUserFriendsLoading,
     } = useQuery<Friend[] | undefined>({
@@ -154,6 +155,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // fetching target users friends details from API
     const {
         data: targetUserFriendsDetails,
+        refetch: refetchTargetUserFriendsDetails,
         error: targetUserFriendsErrorDetails,
         isLoading: targetUserFriendsLoadingDetails,
     } = useQuery<UserAccount[] | undefined>({
@@ -178,6 +180,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // fetching current users friends from API, if logged in
     const {
         data: currentUserFriends,
+        refetch: refetchCurrentUserFriends,
         error: currentUserFriendsError,
         isLoading: currentUserFriendsLoading,
     } = useQuery<Friend[] | undefined>({
@@ -320,6 +323,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         "error"
                     );
                 }
+
+                // refresh friends data in state
+                refetchCurrentUserFriends();
+                refetchTargetUserFriends();
+                refetchTargetUserFriendsDetails();
+
                 break;
             case "":
                 request = await sendFriendRequest(currentUser!, targetUser!);
@@ -359,6 +368,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         if (request) {
             setUserRelation("");
             runNotification("Friend removed", "success");
+
+            // refresh friends data in state
+            refetchCurrentUserFriends();
+            refetchTargetUserFriends();
+            refetchTargetUserFriendsDetails();
         } else {
             runNotification(
                 "Failed to remove Friend, please try again",
@@ -625,7 +639,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                     className="search-bar hidden h-11 w-60 md:block xl:w-72"
                                 />
                                 <i
-                                    className="fas fa-magnifying-glass md:text-input-icon relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base"
+                                    className="fas fa-magnifying-glass relative text-xl text-text-primary transition-colors hover:cursor-pointer hover:text-highlight-primary md:absolute md:right-1 md:top-1/2 md:-translate-y-1/2 md:transform md:p-2 md:text-base md:text-input-icon"
                                     title="Search"
                                     onClick={() => {
                                         if (windowWidth < 768)
@@ -724,17 +738,25 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <div className="card h-3/5 w-full">
                         <span className="flex items-center justify-between">
                             <h2 className="card-header-text">Friends</h2>
-                            <p className="text-center font-lexend font-light text-text-secondary">
-                                <span>
-                                    {
-                                        targetUserFriendsDetails?.filter(
-                                            (friend) => friend.online
-                                        ).length
-                                    }
-                                </span>
-                                /<span>{targetUserFriendsDetails?.length}</span>{" "}
-                                Online
-                            </p>
+                            {targetUserFriends &&
+                            targetUserFriends.length > 0 ? (
+                                <p className="text-center font-lexend font-light text-text-secondary">
+                                    <span>
+                                        {
+                                            targetUserFriendsDetails?.filter(
+                                                (friend) => friend.online
+                                            ).length
+                                        }
+                                    </span>
+                                    /
+                                    <span>
+                                        {targetUserFriendsDetails?.length}
+                                    </span>{" "}
+                                    Online
+                                </p>
+                            ) : (
+                                <></>
+                            )}
                         </span>
                         {/* List of friends, scrollable on overflow */}
                         <div className="mt-2 flex max-h-[400px] flex-col gap-1 overflow-y-scroll">
