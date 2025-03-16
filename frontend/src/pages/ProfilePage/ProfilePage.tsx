@@ -750,7 +750,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <span className="flex items-center justify-between">
                             <h2 className="card-header-text">Friends</h2>
                             {targetUserFriends &&
-                            targetUserFriends.length > 0 ? (
+                            targetUserFriends.some(
+                                (friend) => friend.status === "friend"
+                            ) ? (
                                 <p className="text-center font-lexend font-light text-text-secondary">
                                     <span>
                                         {
