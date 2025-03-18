@@ -1,6 +1,12 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useUser } from "../../App";
-import { fetchUserByID, fetchUserByUsername, UserAccount } from "../../api";
+import {
+    fetchGameLogsByUserID,
+    fetchUserByID,
+    fetchUserByUsername,
+    GameLog,
+    UserAccount,
+} from "../../api";
 import { useQuery } from "@tanstack/react-query";
 import ProfileError from "./components/ProfileError";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -200,6 +206,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         enabled: !!currentUser,
     });
 
+    // fetching target users game logs from API
+    const {
+        data: targetUserGameLogs,
+        refetch: refetchTargetUserGameLogs,
+        error: targetUserGameLogsError,
+        isLoading: targetUserGameLogsLoading,
+    } = useQuery<GameLog[] | undefined>({
+        queryKey: ["targetUserGameLogs", targetUser?.id],
+        queryFn: () => fetchGameLogsByUserID(targetUser!.id),
+        enabled: !!targetUser,
+    });
+
     useEffect(() => {
         if (currentUser?.id === targetUser?.id) {
             setIsMyAccount(true);
@@ -218,9 +236,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     // updating maximum page number when games per page or section changes
     // also checking if page is empty for displaying message
     useEffect(() => {
-        if (targetUser) {
+        if (targetUserGameLogs) {
             // calculate total amount of games in current open section
-            const overallCount = targetUser?.games.filter(
+            const overallCount = targetUserGameLogs.filter(
                 (gameLog) => gameLog.status === activeGamesSection
             ).length;
 
@@ -234,7 +252,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
             const maxPages = Math.floor(overallCount / gamesPerPage) + 1;
             setMaxPageNumber(maxPages);
         }
-    }, [gamesPerPage, activeGamesSection, targetUser]);
+    }, [gamesPerPage, activeGamesSection, targetUserGameLogs]);
 
     useEffect(() => {
         // search if target user in current users friend list
@@ -684,9 +702,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <h2 className="mt-16 text-center font-lexend text-2xl text-text-secondary">
                             No games found in {activeGamesSection}...
                         </h2>
-                    ) : (
+                    ) : targetUserGameLogs ? (
                         <div className="mt-6 flex w-full flex-wrap justify-center">
-                            {targetUser.games
+                            {targetUserGameLogs
                                 .filter(
                                     (gameLog) =>
                                         gameLog.status === activeGamesSection
@@ -704,6 +722,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                     );
                                 })}
                         </div>
+                    ) : (
+                        <></>
                     )}
                     {/* Page numbers and page change buttons */}
                     <div className="mx-auto mb-4 mt-12 flex w-max items-center justify-center gap-6 sm:mb-0 lg:absolute lg:bottom-6 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:transform">

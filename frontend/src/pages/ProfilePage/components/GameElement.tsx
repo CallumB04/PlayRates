@@ -11,7 +11,7 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog }) => {
     // fetch game data from ID in game log, and set state when fetched
     useEffect(() => {
         const fetchGameFromLog = async () => {
-            const fetchedGame = await fetchGameById(gameLog.gameId);
+            const fetchedGame = await fetchGameById(gameLog.id);
 
             if (fetchedGame) {
                 setGame(fetchedGame);
