@@ -1,4 +1,4 @@
-const usersJsonSetup = require("./utils/createJson"); // creating users and games json if they dont exist
+const usersJsonSetup = require("./utils/createJson"); // creating any json files if they dont exist
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -15,5 +15,7 @@ const gamesRouter = require("./routes/games");
 app.use("/games", gamesRouter); // all routes within games.js start with /games
 const friendsRouter = require("./routes/friends");
 app.use("/friends", friendsRouter); // all routes within friends.js start with /friends
+const gameLogsRouter = require("./routes/gamelogs");
+app.use("/gamelogs", gameLogsRouter); // all routes within gamelogs.js start with /gamelogs
 
 app.listen(3000); // localhost:3000
