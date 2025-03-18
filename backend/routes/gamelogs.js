@@ -36,7 +36,8 @@ router.get("/:userID", async (req, res) => {
     try {
         const userID = req.params.userID;
         const gameLogs = await readGameLogsJSON();
-        res.status(200).json(gameLogs[userID]);
+
+        res.status(200).json(gameLogs[userID] || []); // return user game logs, or empty array if none found
     } catch (error) {
         res.status(500).json({ message: "Error fetching game logs" }); // internal server error
     }
