@@ -5,13 +5,6 @@ axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // sett
 
 /* Structure of user data in database */
 
-export interface GameLog {
-    id: number; // log id, unique for all users
-    gameId: number; // corresponding game id
-    status: string; // played, playing, backlog, wishlist
-    rating?: number; // optional rating, in range of 1-10
-}
-
 export interface UserAccount {
     id: number;
     username: string; // account name, no spaces allowed, used in url too
@@ -20,7 +13,6 @@ export interface UserAccount {
     picture: string; // user profile picture. empty string if none
     bio: string; // user biography
     online: boolean; // test data for design purposes
-    games: GameLog[];
 }
 
 // for accounts that have been created in signup form, to add to UserAccount interface with unique ID
@@ -86,7 +78,6 @@ export const addNewUser = async (newUser: UserCreation): Promise<boolean> => {
             picture: "",
             bio: "",
             online: true,
-            games: [],
         };
 
         // send new account data to backend
