@@ -38,19 +38,19 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                     src={`/PlayRates/assets/game-covers/${game.id}.png`}
                 />
                 <div className="absolute left-0 top-0 h-full w-full p-1">
-                    <div className="flex h-full w-full items-center justify-center rounded-md transition-colors duration-200 group-hover:bg-[#0e0e0ebb]">
+                    <div className="hidden h-full w-full items-center justify-center rounded-md transition-colors duration-200 group-hover:bg-[#0e0e0ebb] lg:flex">
                         <p className="relative line-clamp-3 break-words px-1 text-center font-lexend text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:text-base lg:text-sm 2xl:text-base">
                             {game.title}
                         </p>
                         {/* Ellipsis icon, hover to reveal menu */}
                         <i
-                            className="fas fa-ellipsis absolute right-0 top-0 pr-3 pt-1 text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                            className="fas fa-ellipsis absolute right-0 top-0 pl-2 pr-3 pt-1 text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                             onMouseOver={() => setHoveringIcon(true)}
                             onMouseOut={() => setHoveringIcon(false)}
                         ></i>
                         {hoveringIcon || hoveringMenu ? (
                             <div
-                                className="absolute -right-24 top-2 z-50 h-1/2 w-full rounded bg-navbar text-center font-lexend text-sm text-text-primary"
+                                className="absolute right-8 top-2 z-50 h-1/2 min-h-16 w-full min-w-24 rounded bg-navbar text-center font-lexend text-sm text-text-primary"
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >
