@@ -718,6 +718,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         <GameElement
                                             key={gameLog.id}
                                             gameLog={gameLog}
+                                            isMyAccount={isMyAccount}
                                         />
                                     );
                                 })}
