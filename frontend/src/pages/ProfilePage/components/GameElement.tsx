@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchGameById, Game, GameLog } from "../../../api";
+import { Link } from "react-router-dom";
 
 interface GameElementProps {
     gameLog: GameLog;
@@ -23,7 +24,10 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog }) => {
 
     if (game) {
         return (
-            <div className="game-cover group relative w-1/3 p-1 sm:w-1/4 md:w-[14%] xl:w-[11%]">
+            <Link
+                to={`/game/${game.id}`}
+                className="game-cover group relative w-1/3 p-1 sm:w-1/4 md:w-[14%] xl:w-[11%]"
+            >
                 <img
                     className="h-full w-full rounded-md object-cover"
                     src={`/PlayRates/assets/game-covers/${game.id}.png`}
@@ -35,7 +39,7 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog }) => {
                         </p>
                     </div>
                 </div>
-            </div>
+            </Link>
         );
     }
 };
