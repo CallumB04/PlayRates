@@ -38,6 +38,7 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                     src={`/PlayRates/assets/game-covers/${game.id}.png`}
                 />
                 <div className="absolute left-0 top-0 h-full w-full p-1">
+                    {/* Hover menu (lg screens and above) */}
                     <div className="hidden h-full w-full items-center justify-center rounded-md transition-colors duration-200 group-hover:bg-[#0e0e0ebb] lg:flex">
                         <p className="relative line-clamp-3 break-words px-1 text-center font-lexend text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:text-base lg:text-sm 2xl:text-base">
                             {game.title}
@@ -68,6 +69,21 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                         ) : (
                             <></>
                         )}
+                    </div>
+
+                    {/* icon menu bar for smaller devices */}
+                    <div className="flex h-full w-full items-end justify-center p-1.5 lg:hidden">
+                        <span className="flex h-1/5 w-2/3 rounded bg-[#2e2e2edd]">
+                            <span className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary">
+                                <i className="fas fa-eye" title="View"></i>
+                            </span>
+                            <span className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary">
+                                <i
+                                    className={`fas ${isMyAccount ? "fa-pen-to-square" : "fa-add"}`}
+                                    title={isMyAccount ? "Edit" : "Add"}
+                                ></i>
+                            </span>
+                        </span>
                     </div>
                 </div>
             </Link>
