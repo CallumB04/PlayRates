@@ -12,6 +12,8 @@ export interface GameLog {
     startDate?: string; // stored in ISO 8601 format for easy Date object conversion
     finishDate?: string; // stored in ISO 8601 format for easy Date object conversion
     platform?: string; // Steam, Xbox Game pass, etc
+    achievementsTotal?: number; // achivement count of that game on that platform
+    achievementsCompleted?: number; // number of unlocked achievements
 }
 
 export const fetchGameLogs = async () => {
