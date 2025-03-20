@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchGameById, Game, GameLog } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
+import { getColorFromGameStatus } from "../../../App";
 
 interface ViewGameLogPopupProps {
     closePopup: () => void;
@@ -57,7 +58,9 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                         <div className="flex flex-col gap-1 pl-4 text-left">
                             <p className="text-text-primary">
                                 Status:{" "}
-                                <span className="font-extralight">
+                                <span
+                                    className={`font-light ${getColorFromGameStatus(gamelog!.status)?.bg} ${getColorFromGameStatus(gamelog!.status)?.text} rounded-full px-1.5 py-0.5`}
+                                >
                                     {gamelog?.status[0].toUpperCase()}
                                     {gamelog?.status.slice(1)}
                                 </span>

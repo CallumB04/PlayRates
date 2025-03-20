@@ -14,6 +14,31 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 const UserContext = createContext<UserAccount | null>(null);
 export const useUser = () => useContext(UserContext);
 
+export const getColorFromGameStatus = (status: string) => {
+    switch (status) {
+        case "played":
+            return {
+                bg: "bg-[#b19cd933]",
+                text: "text-[#b19cd9]",
+            };
+        case "playing":
+            return {
+                bg: "bg-[#bfe1f633]",
+                text: "text-[#bfe1f6]",
+            };
+        case "backlog":
+            return {
+                bg: "bg-[#ffb34733]",
+                text: "text-[#ffb347]",
+            };
+        case "wishlist":
+            return {
+                bg: "bg-[#d4edbc33]",
+                text: "text-[#d4edbc]",
+            };
+    }
+};
+
 function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);
