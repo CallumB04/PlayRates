@@ -3,6 +3,8 @@ import { fetchGameById, Game, GameLog } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 import { getColorFromGameStatus } from "../../../App";
 
+const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
+
 interface ViewGameLogPopupProps {
     closePopup: () => void;
     isMyAccount: boolean;
@@ -62,17 +64,18 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                     <span
                                         className={`font-light ${getColorFromGameStatus(gamelog!.status)?.bg} ${getColorFromGameStatus(gamelog!.status)?.text} rounded-full px-1.5 py-0.5`}
                                     >
-                                        {gamelog?.status[0].toUpperCase()}
-                                        {gamelog?.status.slice(1)}
+                                        {capitalise(gamelog!.status)}
                                     </span>
                                 </p>
                                 {gamelog?.platform ? (
                                     <p className="text-text-primary">
                                         Platform:{" "}
                                         <span className="font-extralight">
-                                            {gamelog.platform}
-                                            {/* TODO: ADD LOGO instead of / next to text */}
+                                            {capitalise(gamelog.platform)}
                                         </span>
+                                        <i
+                                            className={`fab fa-${gamelog.platform} ml-1`}
+                                        ></i>
                                     </p>
                                 ) : (
                                     <></>
