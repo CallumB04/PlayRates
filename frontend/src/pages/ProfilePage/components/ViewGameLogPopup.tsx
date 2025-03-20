@@ -42,14 +42,13 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                 </h2>
 
                 <div className="flex w-full flex-col gap-4">
-                    <span className="flex w-full items-end gap-3">
-                        <h3 className="text-left text-2xl text-text-primary">
-                            {game?.title}
-                        </h3>
-                        <p className="text-xl font-light text-text-secondary">
+                    <h3 className="text-left text-2xl text-text-primary">
+                        {game?.title}
+                        <span className="ml-2.5 text-xl font-light text-text-secondary">
                             {game?.releaseDate.slice(0, 4)}
-                        </p>
-                    </span>
+                        </span>
+                    </h3>
+
                     <div className="flex w-full">
                         <div className="flex min-h-40 max-w-[30%] flex-col gap-2">
                             <img
