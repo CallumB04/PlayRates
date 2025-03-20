@@ -84,7 +84,9 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                     <p className="text-text-primary">
                                         Started:{" "}
                                         <span className="font-extralight">
-                                            {gamelog.startDate}
+                                            {new Date(gamelog.startDate)
+                                                .toDateString()
+                                                .slice(4)}
                                         </span>
                                     </p>
                                 ) : (
@@ -94,7 +96,11 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                     <p className="text-text-primary">
                                         Finished:{" "}
                                         <span className="font-extralight">
-                                            {gamelog.finishDate || "N/A"}
+                                            {gamelog.finishDate
+                                                ? new Date(gamelog.finishDate)
+                                                      .toDateString()
+                                                      .slice(4)
+                                                : "N/A"}
                                         </span>
                                     </p>
                                 ) : (
