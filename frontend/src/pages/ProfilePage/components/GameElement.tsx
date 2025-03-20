@@ -51,7 +51,7 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                         ></i>
                         {hoveringIcon || hoveringMenu ? (
                             <div
-                                className="absolute right-8 top-2 z-50 h-1/2 min-h-16 w-full min-w-24 rounded bg-navbar text-center font-lexend text-sm text-text-primary"
+                                className="hover-menu fade-in-left absolute right-8 top-2 h-1/2 min-h-16 w-full min-w-24 text-center text-sm"
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >

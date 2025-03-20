@@ -111,7 +111,7 @@ main {
 
 /* Search bars */
 .search-bar {
-    @apply bg-input-primary rounded px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
+    @apply rounded bg-input-primary px-2 py-1.5 pr-9 font-lexend text-text-primary focus:outline-none;
 }
 
 /* Text inputs */
@@ -121,10 +121,45 @@ main {
 
 .multiline-input,
 .text-input {
-    @apply bg-input-primary rounded px-2 py-1.5 font-lexend text-text-primary focus:outline-none;
+    @apply rounded bg-input-primary px-2 py-1.5 font-lexend text-text-primary focus:outline-none;
 }
 
 /* Game cover picture elements */
 .game-cover {
     @apply aspect-[3/4] rounded-md;
+}
+
+/* Animations for elements fadein in with slight movement, like hover menus */
+@keyframes fade-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes fade-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.fade-in-right {
+    animation: 150ms fade-in-right linear;
+}
+.fade-in-left {
+    animation: 150ms fade-in-left linear;
+}
+
+/* Small menu when hovering element, such as an icon */
+.hover-menu {
+    @apply z-50 rounded bg-navbar font-lexend text-text-primary;
 }
