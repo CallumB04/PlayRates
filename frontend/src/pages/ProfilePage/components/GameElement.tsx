@@ -8,6 +8,7 @@ interface GameElementProps {
     handleView: () => void;
     handleEdit: () => void;
     handleAdd: () => void;
+    popupIsVisible: boolean;
 }
 
 const GameElement: React.FC<GameElementProps> = ({
@@ -16,12 +17,18 @@ const GameElement: React.FC<GameElementProps> = ({
     handleView,
     handleEdit,
     handleAdd,
+    popupIsVisible,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
     const [hoveringIcon, setHoveringIcon] = useState<boolean>(false);
     const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
 
-    useEffect(() => {});
+    useEffect(() => {
+        if (popupIsVisible) {
+            setHoveringIcon(false);
+            setHoveringMenu(false);
+        }
+    }, [popupIsVisible]);
 
     // fetch game data from ID in game log, and set state when fetched
     useEffect(() => {
@@ -58,7 +65,7 @@ const GameElement: React.FC<GameElementProps> = ({
                             onMouseOver={() => setHoveringIcon(true)}
                             onMouseOut={() => setHoveringIcon(false)}
                         ></i>
-                        {hoveringIcon || hoveringMenu ? (
+                        {(hoveringIcon || hoveringMenu) && !popupIsVisible ? (
                             <div
                                 className="hover-menu fade-in-left absolute right-8 top-2 h-1/2 min-h-16 w-full min-w-24 text-center text-sm"
                                 onMouseOver={() => setHoveringMenu(true)}
