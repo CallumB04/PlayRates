@@ -5,9 +5,18 @@ import { Link } from "react-router-dom";
 interface GameElementProps {
     gameLog: GameLog;
     isMyAccount: boolean;
+    handleView: () => void;
+    handleEdit: () => void;
+    handleAdd: () => void;
 }
 
-const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
+const GameElement: React.FC<GameElementProps> = ({
+    gameLog,
+    isMyAccount,
+    handleView,
+    handleEdit,
+    handleAdd,
+}) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
     const [hoveringIcon, setHoveringIcon] = useState<boolean>(false);
     const [hoveringMenu, setHoveringMenu] = useState<boolean>(false);
@@ -55,11 +64,25 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >
-                                <span className="flex h-1/2 w-full items-center justify-center gap-2 rounded-t border-b-[1px] border-b-[#cacaca44] transition-colors duration-200 hover:text-highlight-primary">
+                                <span
+                                    className="flex h-1/2 w-full items-center justify-center gap-2 rounded-t border-b-[1px] border-b-[#cacaca44] transition-colors duration-200 hover:text-highlight-primary"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // prevent Link from triggering
+                                        handleView();
+                                    }}
+                                >
                                     <p>View</p>
                                     <i className="fas fa-eye"></i>
                                 </span>
-                                <span className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary">
+                                <span
+                                    className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // prevent Link from triggering
+                                        isMyAccount
+                                            ? handleEdit()
+                                            : handleAdd();
+                                    }}
+                                >
                                     <p>{isMyAccount ? "Edit" : "Add"}</p>
                                     <i
                                         className={`fas ${isMyAccount ? "fa-pen-to-square" : "fa-add"}`}
@@ -74,10 +97,22 @@ const GameElement: React.FC<GameElementProps> = ({ gameLog, isMyAccount }) => {
                     {/* icon menu bar for smaller devices */}
                     <div className="flex h-full w-full items-end justify-center p-1.5 lg:hidden">
                         <span className="flex h-1/5 w-2/3 rounded bg-[#2e2e2edd]">
-                            <span className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary">
+                            <span
+                                className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                onClick={(e) => {
+                                    e.preventDefault(); // prevent Link from triggering
+                                    handleView();
+                                }}
+                            >
                                 <i className="fas fa-eye" title="View"></i>
                             </span>
-                            <span className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary">
+                            <span
+                                className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                onClick={(e) => {
+                                    e.preventDefault(); // prevent Link from triggering
+                                    isMyAccount ? handleEdit() : handleAdd();
+                                }}
+                            >
                                 <i
                                     className={`fas ${isMyAccount ? "fa-pen-to-square" : "fa-add"}`}
                                     title={isMyAccount ? "Edit" : "Add"}

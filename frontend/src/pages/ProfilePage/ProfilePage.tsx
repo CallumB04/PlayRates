@@ -719,6 +719,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                             key={gameLog.id}
                                             gameLog={gameLog}
                                             isMyAccount={isMyAccount}
+                                            handleView={() =>
+                                                console.log("Viewing")
+                                            }
+                                            handleEdit={() =>
+                                                console.log("Editing")
+                                            }
+                                            handleAdd={() =>
+                                                console.log("Adding")
+                                            }
                                         />
                                     );
                                 })}
