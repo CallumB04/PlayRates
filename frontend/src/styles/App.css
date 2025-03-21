@@ -126,6 +126,10 @@ main {
     @apply rounded bg-input-primary px-2 py-1.5 font-lexend text-text-primary focus:outline-none;
 }
 
+.range-input {
+    accent-color: #9333ea;
+}
+
 /* Game cover picture elements */
 .game-cover {
     @apply aspect-[3/4] rounded-md;
