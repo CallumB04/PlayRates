@@ -41,8 +41,8 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                     View Log
                 </h2>
 
-                <div className="flex w-full flex-col gap-4">
-                    <h3 className="text-left text-2xl text-text-primary">
+                <div className="relative flex w-full flex-col gap-4">
+                    <h3 className="max-w-[calc(100%-72px)] text-left text-2xl text-text-primary sm:max-w-0">
                         {game?.title}
                         <span className="ml-2.5 text-xl font-light text-text-secondary">
                             {game?.releaseDate.slice(0, 4)}
@@ -50,14 +50,14 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                     </h3>
 
                     <div className="flex w-full">
-                        <div className="flex min-h-40 max-w-[30%] flex-col gap-2">
+                        <div className="absolute right-0 top-0 flex min-h-40 w-16 max-w-[30%] flex-col gap-2 sm:relative sm:w-max">
                             <img
                                 className="w-full rounded-md object-cover"
                                 src={`/PlayRates/assets/game-covers/${game?.id}.png`}
                             />
                         </div>
-                        <div className="flex flex-grow justify-between">
-                            <div className="flex flex-col gap-1 pl-4 text-left">
+                        <div className="flex min-h-32 flex-grow justify-between">
+                            <div className="flex flex-col gap-1 text-left sm:pl-4">
                                 <p className="text-text-primary">
                                     Status:{" "}
                                     <span
@@ -135,7 +135,7 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                 )}
                             </div>
 
-                            <div className="flex flex-col gap-1 pr-4">
+                            <div className="flex flex-col justify-end gap-1 pr-4 sm:justify-normal">
                                 <span className="flex items-center justify-start gap-2 text-lg">
                                     <i className="fas fa-trophy text-yellow-300"></i>
                                     <p className="font-extralight text-text-primary">
