@@ -121,7 +121,8 @@ main {
 
 .multiline-input,
 .text-input,
-.dropdown-input {
+.dropdown-input,
+.date-input {
     @apply rounded bg-input-primary px-2 py-1.5 font-lexend text-text-primary focus:outline-none;
 }
 
