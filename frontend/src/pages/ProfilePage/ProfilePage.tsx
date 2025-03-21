@@ -30,6 +30,7 @@ import MobileGameSectionPopup from "./components/MobileGameSectionPopup";
 import FriendsPopup from "./components/FriendsPopup";
 import EditProfilePopup from "./components/EditProfilePopup";
 import ViewGameLogPopup from "./components/ViewGameLogPopup";
+import CreateOrEditGameLogPopup from "./components/CreateOrEditGameLogPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -79,7 +80,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         useState<boolean>(false);
     const [editGameLogPopupVisible, setEditGameLogPopupVisible] =
         useState<boolean>(false);
-    const [addGameLogPopupVisible, setAddGameLogPopupVisible] =
+    const [createGameLogPopupVisible, setCreateGameLogPopupVisible] =
         useState<boolean>(false);
     const [currentVisibleGameLog, setCurrentVisibleGameLog] =
         useState<GameLog | null>(null);
@@ -745,13 +746,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                                     true
                                                 );
                                             }}
-                                            handleAdd={() =>
-                                                setAddGameLogPopupVisible(true)
-                                            }
+                                            handleCreate={() => {
+                                                setCurrentVisibleGameLog(
+                                                    gameLog
+                                                );
+                                                setCreateGameLogPopupVisible(
+                                                    true
+                                                );
+                                            }}
                                             popupIsVisible={
                                                 viewGameLogPopupVisible ||
                                                 editGameLogPopupVisible ||
-                                                addGameLogPopupVisible
+                                                createGameLogPopupVisible
                                             }
                                         />
                                     );
@@ -906,6 +912,24 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         closePopup={() => setViewGameLogPopupVisible(false)}
                         isMyAccount={isMyAccount}
                         gamelog={currentVisibleGameLog}
+                    />
+                ) : (
+                    <></>
+                )}
+                {createGameLogPopupVisible ? (
+                    <CreateOrEditGameLogPopup
+                        closePopup={() => setCreateGameLogPopupVisible(false)}
+                        editing={false}
+                        gameID={currentVisibleGameLog?.id}
+                    />
+                ) : (
+                    <></>
+                )}
+                {editGameLogPopupVisible ? (
+                    <CreateOrEditGameLogPopup
+                        closePopup={() => setEditGameLogPopupVisible(false)}
+                        gamelog={currentVisibleGameLog}
+                        editing={true}
                     />
                 ) : (
                     <></>

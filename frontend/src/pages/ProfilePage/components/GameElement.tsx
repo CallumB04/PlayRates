@@ -7,7 +7,7 @@ interface GameElementProps {
     isMyAccount: boolean;
     handleView: () => void;
     handleEdit: () => void;
-    handleAdd: () => void;
+    handleCreate: () => void;
     popupIsVisible: boolean;
 }
 
@@ -16,7 +16,7 @@ const GameElement: React.FC<GameElementProps> = ({
     isMyAccount,
     handleView,
     handleEdit,
-    handleAdd,
+    handleCreate,
     popupIsVisible,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
@@ -87,7 +87,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                         e.preventDefault(); // prevent Link from triggering
                                         isMyAccount
                                             ? handleEdit()
-                                            : handleAdd();
+                                            : handleCreate();
                                     }}
                                 >
                                     <p>{isMyAccount ? "Edit" : "Add"}</p>
@@ -117,7 +117,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                 className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
                                 onClick={(e) => {
                                     e.preventDefault(); // prevent Link from triggering
-                                    isMyAccount ? handleEdit() : handleAdd();
+                                    isMyAccount ? handleEdit() : handleCreate();
                                 }}
                             >
                                 <i
