@@ -425,6 +425,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const viewUpdatedLog = (log: GameLog) => {
         refetchTargetUserGameLogs();
         setCurrentVisibleGameLog(log);
+        setActiveGamesSection(log.status);
         setViewGameLogPopupVisible(true);
     };
 
