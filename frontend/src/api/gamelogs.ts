@@ -6,6 +6,7 @@ axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // sett
 export interface GameLog {
     id: number; // corresponding game id
     status: string; // played, playing, backlog, wishlist
+    playedStatus?: string; // finished, mastered, shelved, retired
     rating?: number; // range of 1-10, step of 0.25 (e.g: 6.25, 8.75, 3.5, 5.0)
     hoursPlayed?: number; // to 1 decimal point
     hoursToBeat?: number; // to 1 decimal point

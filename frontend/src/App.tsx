@@ -16,10 +16,25 @@ export const useUser = () => useContext(UserContext);
 
 export const getColorFromGameStatus = (status: string) => {
     switch (status) {
-        case "played":
+        case "finished":
             return {
                 bg: "bg-[#b19cd933]",
                 text: "text-[#b19cd9]",
+            };
+        case "mastered":
+            return {
+                bg: "bg-[#a3e9ff33]",
+                text: "text-[#a3e9ff]",
+            };
+        case "shelved":
+            return {
+                bg: "bg-[#d8b81733]",
+                text: "text-[#d8b817]",
+            };
+        case "retired":
+            return {
+                bg: "bg-[#e8373733]",
+                text: "text-[#e83737]",
             };
         case "playing":
             return {

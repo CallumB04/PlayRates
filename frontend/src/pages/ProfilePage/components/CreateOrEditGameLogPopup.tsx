@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     createNewGameLog,
     editGameLog,
@@ -38,6 +38,9 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     const [statusInput, setStatusInput] = useState<string>(
         gamelog?.status || "played"
     );
+    const [playedStatusInput, setPlayedStatusInput] = useState<string>(
+        gamelog?.playedStatus || "finished"
+    );
     const [platformInput, setPlatformInput] = useState<string>(
         gamelog?.platform || "steam"
     );
@@ -62,6 +65,8 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
         gamelog?.rating?.toString() || "0"
     );
 
+    const popupElement = useRef<HTMLDivElement>(null);
+
     // fetch game data from ID in game log, and set state when fetched
     useEffect(() => {
         const fetchGameFromLog = async () => {
@@ -81,6 +86,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
         const logData: GameLog = {
             id: gameID || gamelog!.id,
             status: statusInput,
+            playedStatus: playedStatusInput,
             platform: platformInput,
             ...(startDateInput && { startDate: startDateInput }),
             ...(finishDateInput && { finishDate: finishDateInput }),
@@ -119,6 +125,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
             <div
                 className="popup popup-default flex w-[600px] flex-col gap-6 text-center"
                 onMouseDown={(event) => event.stopPropagation()}
+                ref={popupElement}
             >
                 <h2 className="border-b-[1px] border-b-[#cacaca55] pb-3 text-xl text-text-primary">
                     {editing ? "Edit" : "Create New"} Log
@@ -133,12 +140,17 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                     </h3>
 
                     <div className="flex w-full">
-                        <div className="absolute right-0 top-0 flex min-h-40 w-16 max-w-[30%] flex-col gap-2 sm:relative sm:w-max">
-                            <img
-                                className="w-full rounded-md object-cover"
-                                src={`/PlayRates/assets/game-covers/${game?.id}.png`}
-                            />
-                        </div>
+                        {popupElement.current &&
+                        popupElement.current.clientWidth > 425 ? (
+                            <div className="absolute right-0 top-0 flex min-h-40 w-16 max-w-[30%] flex-col gap-2 sm:relative sm:w-max">
+                                <img
+                                    className="w-full rounded-md object-cover"
+                                    src={`/PlayRates/assets/game-covers/${game?.id}.png`}
+                                />
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                         <div className="flex flex-grow flex-col gap-3 sm:px-4">
                             <span className="flex gap-3">
                                 <div className="flex h-max flex-col items-start gap-0.5">
@@ -162,6 +174,37 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                         </option>
                                     </select>
                                 </div>
+                                {statusInput === "played" ? (
+                                    <div className="flex h-max flex-col items-start gap-0.5">
+                                        <p className="text-xs font-semibold text-text-primary">
+                                            Played Status
+                                        </p>
+                                        <select
+                                            className="dropdown-input h-9"
+                                            defaultValue={playedStatusInput}
+                                            onChange={(e) =>
+                                                setPlayedStatusInput(
+                                                    e.currentTarget.value
+                                                )
+                                            }
+                                        >
+                                            <option value="finished">
+                                                Finished
+                                            </option>
+                                            <option value="mastered">
+                                                Mastered
+                                            </option>
+                                            <option value="shelved">
+                                                Shelved
+                                            </option>
+                                            <option value="retired">
+                                                Retired
+                                            </option>
+                                        </select>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                                 <div className="flex h-max flex-col items-start gap-0.5">
                                     <span className="flex gap-1.5">
                                         <p className="text-xs font-semibold text-text-primary">

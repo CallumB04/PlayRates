@@ -65,9 +65,11 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                 <p className="text-text-primary">
                                     Status:{" "}
                                     <span
-                                        className={`font-light ${getColorFromGameStatus(gamelog!.status)?.bg} ${getColorFromGameStatus(gamelog!.status)?.text} rounded-full px-1.5 py-0.5`}
+                                        className={`font-light ${getColorFromGameStatus(gamelog!.status === "played" && gamelog!.playedStatus ? gamelog?.playedStatus! : gamelog?.status!)?.bg} ${getColorFromGameStatus(gamelog!.status === "played" && gamelog!.playedStatus ? gamelog?.playedStatus! : gamelog?.status!)?.text} rounded-full px-1.5 py-0.5`}
                                     >
-                                        {capitalise(gamelog!.status)}
+                                        {gamelog?.status === "played"
+                                            ? capitalise(gamelog.playedStatus!)
+                                            : capitalise(gamelog!.status)}
                                     </span>
                                 </p>
                                 {gamelog?.platform ? (
