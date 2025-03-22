@@ -912,6 +912,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         closePopup={() => setViewGameLogPopupVisible(false)}
                         isMyAccount={isMyAccount}
                         gamelog={currentVisibleGameLog}
+                        openEdit={() => setEditGameLogPopupVisible(true)}
+                        openCreate={() => setCreateGameLogPopupVisible(true)}
                     />
                 ) : (
                     <></>

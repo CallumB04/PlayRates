@@ -9,12 +9,16 @@ interface ViewGameLogPopupProps {
     closePopup: () => void;
     isMyAccount: boolean;
     gamelog: GameLog | null;
+    openEdit: () => void;
+    openCreate: () => void;
 }
 
 const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
     closePopup,
     isMyAccount,
     gamelog,
+    openEdit,
+    openCreate,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
 
@@ -155,7 +159,13 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                 </div>
 
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
-                    <button className="button-secondary w-full sm:w-1/2">
+                    <button
+                        className="button-secondary w-full sm:w-1/2"
+                        onClick={() => {
+                            closePopup();
+                            isMyAccount ? openEdit() : openCreate();
+                        }}
+                    >
                         {isMyAccount ? "Edit" : "Add This Game"}
                     </button>
                     <button
