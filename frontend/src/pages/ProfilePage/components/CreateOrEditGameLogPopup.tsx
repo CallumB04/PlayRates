@@ -59,7 +59,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
         gamelog?.hoursToBeat?.toString() || ""
     );
     const [ratingInput, setRatingInput] = useState<string>(
-        gamelog?.rating?.toString() || "1"
+        gamelog?.rating?.toString() || "0"
     );
 
     // fetch game data from ID in game log, and set state when fetched
@@ -308,8 +308,12 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                 <div className="flex flex-col gap-0.5">
                                     <span className="flex justify-between text-xs font-semibold text-text-primary">
                                         <p>1</p>
-                                        <p className="w-[86px] text-left">
-                                            Rating ( {ratingInput} )
+                                        <p>
+                                            Rating ({" "}
+                                            {ratingInput === "0"
+                                                ? "0 = No Rating"
+                                                : ratingInput}{" "}
+                                            )
                                         </p>
                                         <p>10</p>
                                     </span>
@@ -317,7 +321,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                         type="range"
                                         className="range-input w-full"
                                         max="10"
-                                        min="1"
+                                        min="0"
                                         step="0.25"
                                         defaultValue={ratingInput}
                                         onChange={(e) =>

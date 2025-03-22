@@ -150,7 +150,10 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                 <span className="flex items-center justify-start gap-2 text-lg">
                                     <i className="fas fa-star text-highlight-hover"></i>
                                     <p className="font-extralight text-text-primary">
-                                        {gamelog?.rating || "?"}/10
+                                        {gamelog?.rating && gamelog.rating !== 0
+                                            ? gamelog.rating
+                                            : "?"}
+                                        /10
                                     </p>
                                 </span>
                             </div>
