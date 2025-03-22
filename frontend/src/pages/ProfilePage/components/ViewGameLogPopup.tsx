@@ -156,7 +156,7 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
 
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
                     <button className="button-secondary w-full sm:w-1/2">
-                        Edit
+                        {isMyAccount ? "Edit" : "Add This Game"}
                     </button>
                     <button
                         className="button-outline button-outline-default w-full sm:w-1/2"
