@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchGameById, Game, GameLog } from "../../../api";
+import { createNewGameLog, fetchGameById, Game, GameLog } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
@@ -9,6 +9,11 @@ interface CreateOrEditGameLogPopupProps {
     gamelog?: GameLog | null; // associated game log (if editing)
     gameID?: number; // if creating, allows for fetching of game
     editing: boolean; // true: editing, false: creating new
+    userID: number;
+    runNotification: (
+        text: string,
+        type: "success" | "error" | "pending"
+    ) => void;
 }
 
 const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
@@ -16,6 +21,8 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     gamelog,
     editing,
     gameID,
+    userID,
+    runNotification,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
 
@@ -60,6 +67,43 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
 
         fetchGameFromLog();
     }, []);
+
+    const handleCreateOrEdit = async () => {
+        // create new game log, all optional inputs are only added if present
+        const logData: GameLog = {
+            id: gameID || gamelog!.id,
+            status: statusInput,
+            platform: platformInput,
+            ...(startDateInput && { startDate: startDateInput }),
+            ...(finishDateInput && { finishDate: finishDateInput }),
+            ...(completeAchievementsInput && {
+                achievementsCompleted: Number(completeAchievementsInput),
+            }),
+            ...(totalAchievementsInput && {
+                achievementsTotal: Number(totalAchievementsInput),
+            }),
+            ...(hoursPlayedInput && { hoursPlayed: Number(hoursPlayedInput) }),
+            ...(hoursToBeatInput && { hoursToBeat: Number(hoursToBeatInput) }),
+            rating: Number(ratingInput),
+        };
+
+        const request = editing
+            ? null
+            : await createNewGameLog(userID, logData);
+
+        if (request) {
+            closePopup();
+            runNotification(
+                `Successfully ${editing ? "edited" : "created"} game log`,
+                "success"
+            );
+        } else {
+            runNotification(
+                `Failed to ${editing ? "edit" : "create"} game log`,
+                "error"
+            );
+        }
+    };
 
     return (
         <dialog className="popup-backdrop" onMouseDown={closePopup}>
@@ -280,7 +324,10 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                 </div>
 
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
-                    <button className="button-primary w-full sm:w-1/2">
+                    <button
+                        className="button-primary w-full sm:w-1/2"
+                        onClick={handleCreateOrEdit}
+                    >
                         {editing ? "Save" : "Create"}
                     </button>
                     <button

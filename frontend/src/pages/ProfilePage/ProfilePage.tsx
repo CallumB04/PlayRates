@@ -923,6 +923,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         closePopup={() => setCreateGameLogPopupVisible(false)}
                         editing={false}
                         gameID={currentVisibleGameLog?.id}
+                        userID={currentUser!.id}
+                        runNotification={runNotification}
                     />
                 ) : (
                     <></>
@@ -932,6 +934,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         closePopup={() => setEditGameLogPopupVisible(false)}
                         gamelog={currentVisibleGameLog}
                         editing={true}
+                        userID={currentUser!.id}
+                        runNotification={runNotification}
                     />
                 ) : (
                     <></>

@@ -33,3 +33,20 @@ export const fetchGameLogsByUserID = async (userID: number) => {
         throw new Error("Error fetching game logs");
     }
 };
+
+export const createNewGameLog = async (
+    userID: number,
+    logData: GameLog
+): Promise<boolean> => {
+    try {
+        const response = await axios.post(`/gamelogs/${userID}/create`, {
+            logData: logData,
+        });
+
+        if (response.status === 204) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
