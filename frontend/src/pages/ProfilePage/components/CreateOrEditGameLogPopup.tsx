@@ -12,7 +12,7 @@ const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 
 interface CreateOrEditGameLogPopupProps {
     closePopup: () => void;
-    refreshGameLogs: () => void;
+    viewUpdatedLog: (log: GameLog) => void;
     gamelog?: GameLog | null; // associated game log (if editing)
     gameID?: number; // if creating, allows for fetching of game
     editing: boolean; // true: editing, false: creating new
@@ -25,7 +25,7 @@ interface CreateOrEditGameLogPopupProps {
 
 const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     closePopup,
-    refreshGameLogs,
+    viewUpdatedLog,
     gamelog,
     editing,
     gameID,
@@ -101,7 +101,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
 
         if (request) {
             closePopup();
-            refreshGameLogs(); // refetch game logs using react query
+            viewUpdatedLog(logData); // refetch game logs, open view popup, etc
             runNotification(
                 `Successfully ${editing ? "edited" : "created"} game log`,
                 "success"

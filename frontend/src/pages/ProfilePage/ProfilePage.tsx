@@ -421,6 +421,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         }
     };
 
+    // function ran after successful edit or creation of a log
+    const viewUpdatedLog = (log: GameLog) => {
+        refetchTargetUserGameLogs();
+        setCurrentVisibleGameLog(log);
+        setViewGameLogPopupVisible(true);
+    };
+
     // user doesnt exist / failed to fetch
     useEffect(() => {
         if (targetUserError) {
@@ -925,7 +932,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         gameID={currentVisibleGameLog?.id}
                         userID={currentUser!.id}
                         runNotification={runNotification}
-                        refreshGameLogs={refetchTargetUserGameLogs}
+                        viewUpdatedLog={viewUpdatedLog}
                     />
                 ) : (
                     <></>
@@ -937,7 +944,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         editing={true}
                         userID={currentUser!.id}
                         runNotification={runNotification}
-                        refreshGameLogs={refetchTargetUserGameLogs}
+                        viewUpdatedLog={viewUpdatedLog}
                     />
                 ) : (
                     <></>
