@@ -50,3 +50,24 @@ export const createNewGameLog = async (
         return false;
     }
 };
+
+export const editGameLog = async (
+    userID: number,
+    gameID: number,
+    newData: GameLog
+): Promise<boolean> => {
+    try {
+        const response = await axios.patch(
+            `/gamelogs/${userID}/edit/${gameID}`,
+            {
+                newData: newData,
+            }
+        );
+
+        if (response.status === 204) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};

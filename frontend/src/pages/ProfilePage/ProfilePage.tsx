@@ -925,6 +925,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         gameID={currentVisibleGameLog?.id}
                         userID={currentUser!.id}
                         runNotification={runNotification}
+                        refreshGameLogs={refetchTargetUserGameLogs}
                     />
                 ) : (
                     <></>
@@ -936,6 +937,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         editing={true}
                         userID={currentUser!.id}
                         runNotification={runNotification}
+                        refreshGameLogs={refetchTargetUserGameLogs}
                     />
                 ) : (
                     <></>

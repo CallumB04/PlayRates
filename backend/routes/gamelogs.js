@@ -76,4 +76,33 @@ router.post("/:userID/create", async (req, res) => {
     }
 });
 
+// edit game log
+router.patch("/:userID/edit/:gameID", async (req, res) => {
+    try {
+        const { userID, gameID } = req.params;
+        const { newData } = req.body;
+        const gameLogs = await readGameLogsJSON();
+        const users = await readUsersJSON();
+
+        // ensuring user exists
+        if (!users.find((user) => user.id === Number(userID))) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // ensuring game log exists
+        if (!gameLogs[userID].find((log) => log.id === Number(gameID))) {
+            return res.status(404).json({ message: "Game log not found" });
+        }
+
+        // update game log in the users array and update in database
+        gameLogs[userID] = gameLogs[userID].map((log) =>
+            log.id === Number(gameID) ? { ...log, ...newData } : log
+        );
+        await updateGameLogsJSON(gameLogs);
+        res.status(204).json({ message: "Game log successfully edited" });
+    } catch (error) {
+        res.status(500).json({ message: "Error editing game log" }); // internal server error
+    }
+});
+
 module.exports = router;

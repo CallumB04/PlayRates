@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import { createNewGameLog, fetchGameById, Game, GameLog } from "../../../api";
+import {
+    createNewGameLog,
+    editGameLog,
+    fetchGameById,
+    Game,
+    GameLog,
+} from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 
 interface CreateOrEditGameLogPopupProps {
     closePopup: () => void;
+    refreshGameLogs: () => void;
     gamelog?: GameLog | null; // associated game log (if editing)
     gameID?: number; // if creating, allows for fetching of game
     editing: boolean; // true: editing, false: creating new
@@ -18,6 +25,7 @@ interface CreateOrEditGameLogPopupProps {
 
 const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     closePopup,
+    refreshGameLogs,
     gamelog,
     editing,
     gameID,
@@ -88,11 +96,12 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
         };
 
         const request = editing
-            ? null
+            ? await editGameLog(userID, gameID || gamelog!.id, logData)
             : await createNewGameLog(userID, logData);
 
         if (request) {
             closePopup();
+            refreshGameLogs(); // refetch game logs using react query
             runNotification(
                 `Successfully ${editing ? "edited" : "created"} game log`,
                 "success"
