@@ -84,7 +84,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     const handleCreateOrEdit = async () => {
         // create new game log, all optional inputs are only added if present
         const logData: GameLog = {
-            id: gameID || gamelog!.id,
+            id: gameID || gameID === 0 ? gameID : gamelog!.id,
             status: statusInput,
             playedStatus: playedStatusInput,
             platform: platformInput,
@@ -102,7 +102,11 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
         };
 
         const request = editing
-            ? await editGameLog(userID, gameID || gamelog!.id, logData)
+            ? await editGameLog(
+                  userID,
+                  gameID || gameID === 0 ? gameID : gamelog!.id,
+                  logData
+              )
             : await createNewGameLog(userID, logData);
 
         if (request) {
