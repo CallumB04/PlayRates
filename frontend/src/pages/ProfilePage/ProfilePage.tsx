@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../App";
 import {
     fetchGameLogsByUserID,
@@ -46,12 +46,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 }) => {
     const currentUser = useUser(); // getting the currently logged in user
     const { targetUsername } = useParams(); // getting user from URL as their username
+    const navigate = useNavigate();
     const [isMyAccount, setIsMyAccount] = useState<boolean>(false);
 
-    // getting game type from url search params
+    // getting game type and optional log id from url search params
     const location = useLocation();
     const urlParams = new URLSearchParams(location.search);
     const URLGamesSection = urlParams.get("type") || "played"; // getting game section (played, playing, etc) - default to played if no url data
+    const URLGameLog = urlParams.get("log");
 
     // currently displayed section (played, playing, backlog, etc)
     const [activeGamesSection, setActiveGamesSection] = useState<string>("");
@@ -228,6 +230,31 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryFn: () => fetchGameLogsByUserID(targetUser!.id),
         enabled: !!targetUser,
     });
+
+    // fetching current users game logs from API, only if not own page
+    const {
+        data: currentUserGameLogs,
+        error: currentUserGameLogsError,
+        isLoading: currentUserGameLogsLoading,
+    } = useQuery<GameLog[] | undefined>({
+        queryKey: ["currentUserGameLogs", currentUser?.id],
+        queryFn: () => fetchGameLogsByUserID(currentUser!.id),
+        enabled: !!currentUser && !isMyAccount,
+    });
+
+    // opening view log popup if url contains correct params
+    useEffect(() => {
+        if (URLGameLog && targetUserGameLogs) {
+            const log = targetUserGameLogs.find(
+                (log) => log.id === Number(URLGameLog)
+            );
+
+            if (log) {
+                setCurrentVisibleGameLog(log);
+                setViewGameLogPopupVisible(true);
+            }
+        }
+    }, [URLGameLog, targetUserGameLogs]);
 
     useEffect(() => {
         if (currentUser?.id === targetUser?.id) {
@@ -738,6 +765,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                             key={gameLog.id}
                                             gameLog={gameLog}
                                             isMyAccount={isMyAccount}
+                                            currentUserSharesLog={
+                                                isMyAccount
+                                                    ? false
+                                                    : currentUserGameLogs?.some(
+                                                          (log) =>
+                                                              log.id ===
+                                                              gameLog.id
+                                                      ) || false
+                                            }
                                             handleView={() => {
                                                 setCurrentVisibleGameLog(
                                                     gameLog
@@ -762,6 +798,11 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                                     true
                                                 );
                                             }}
+                                            handleRedirectAndView={() =>
+                                                navigate(
+                                                    `/user/${currentUser?.username}?type=${gameLog.status}&log=${gameLog.id}`
+                                                )
+                                            }
                                             popupIsVisible={
                                                 viewGameLogPopupVisible ||
                                                 editGameLogPopupVisible ||

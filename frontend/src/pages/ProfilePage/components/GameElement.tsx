@@ -5,18 +5,22 @@ import { Link } from "react-router-dom";
 interface GameElementProps {
     gameLog: GameLog;
     isMyAccount: boolean;
+    currentUserSharesLog: boolean; // if current user also has a log of this game
     handleView: () => void;
     handleEdit: () => void;
     handleCreate: () => void;
+    handleRedirectAndView: () => void;
     popupIsVisible: boolean;
 }
 
 const GameElement: React.FC<GameElementProps> = ({
     gameLog,
     isMyAccount,
+    currentUserSharesLog,
     handleView,
     handleEdit,
     handleCreate,
+    handleRedirectAndView,
     popupIsVisible,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
@@ -85,14 +89,22 @@ const GameElement: React.FC<GameElementProps> = ({
                                     className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary"
                                     onClick={(e) => {
                                         e.preventDefault(); // prevent Link from triggering
-                                        isMyAccount
-                                            ? handleEdit()
-                                            : handleCreate();
+                                        !currentUserSharesLog
+                                            ? isMyAccount
+                                                ? handleEdit()
+                                                : handleCreate()
+                                            : handleRedirectAndView();
                                     }}
                                 >
-                                    <p>{isMyAccount ? "Edit" : "Add"}</p>
+                                    <p>
+                                        {!currentUserSharesLog
+                                            ? isMyAccount
+                                                ? "Edit"
+                                                : "Add"
+                                            : "My Log"}
+                                    </p>
                                     <i
-                                        className={`fas ${isMyAccount ? "fa-pen-to-square" : "fa-add"}`}
+                                        className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-user"}`}
                                     ></i>
                                 </span>
                             </div>
@@ -117,12 +129,22 @@ const GameElement: React.FC<GameElementProps> = ({
                                 className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
                                 onClick={(e) => {
                                     e.preventDefault(); // prevent Link from triggering
-                                    isMyAccount ? handleEdit() : handleCreate();
+                                    !currentUserSharesLog
+                                        ? isMyAccount
+                                            ? handleEdit()
+                                            : handleCreate()
+                                        : handleRedirectAndView();
                                 }}
                             >
                                 <i
-                                    className={`fas ${isMyAccount ? "fa-pen-to-square" : "fa-add"}`}
-                                    title={isMyAccount ? "Edit" : "Add"}
+                                    className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-user"}`}
+                                    title={
+                                        !currentUserSharesLog
+                                            ? isMyAccount
+                                                ? "Edit"
+                                                : "Add"
+                                            : "My Log"
+                                    }
                                 ></i>
                             </span>
                         </span>
