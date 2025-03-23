@@ -121,9 +121,11 @@ const GameElement: React.FC<GameElementProps> = ({
 
                     {/* icon menu bar for smaller devices */}
                     <div className="flex h-full w-full items-end justify-center p-1.5 lg:hidden">
-                        <span className="flex h-1/5 w-2/3 rounded bg-[#2e2e2edd]">
+                        <span
+                            className={`flex h-1/5 ${userLoggedIn ? "w-2/3" : "w-1/3"} rounded bg-[#2e2e2edd]`}
+                        >
                             <span
-                                className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                className={`flex h-full ${userLoggedIn ? "w-1/2" : "w-full"} items-center justify-center text-text-secondary hover:text-highlight-primary`}
                                 onClick={(e) => {
                                     e.preventDefault(); // prevent Link from triggering
                                     handleView();
@@ -131,28 +133,32 @@ const GameElement: React.FC<GameElementProps> = ({
                             >
                                 <i className="fas fa-eye" title="View"></i>
                             </span>
-                            <span
-                                className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
-                                onClick={(e) => {
-                                    e.preventDefault(); // prevent Link from triggering
-                                    !currentUserSharesLog
-                                        ? isMyAccount
-                                            ? handleEdit()
-                                            : handleCreate()
-                                        : handleRedirectAndView();
-                                }}
-                            >
-                                <i
-                                    className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
-                                    title={
+                            {userLoggedIn ? (
+                                <span
+                                    className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // prevent Link from triggering
                                         !currentUserSharesLog
                                             ? isMyAccount
-                                                ? "Edit"
-                                                : "Add"
-                                            : "My Log"
-                                    }
-                                ></i>
-                            </span>
+                                                ? handleEdit()
+                                                : handleCreate()
+                                            : handleRedirectAndView();
+                                    }}
+                                >
+                                    <i
+                                        className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
+                                        title={
+                                            !currentUserSharesLog
+                                                ? isMyAccount
+                                                    ? "Edit"
+                                                    : "Add"
+                                                : "My Log"
+                                        }
+                                    ></i>
+                                </span>
+                            ) : (
+                                <></>
+                            )}
                         </span>
                     </div>
                 </div>
