@@ -8,6 +8,7 @@ const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 interface ViewGameLogPopupProps {
     closePopup: () => void;
     isMyAccount: boolean;
+    userLoggedIn: boolean;
     gamelog: GameLog | null;
     openEdit: () => void;
     openCreate: () => void;
@@ -18,6 +19,7 @@ interface ViewGameLogPopupProps {
 const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
     closePopup,
     isMyAccount,
+    userLoggedIn,
     gamelog,
     openEdit,
     openCreate,
@@ -168,25 +170,29 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                 </div>
 
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
-                    <button
-                        className="button-secondary w-full sm:w-1/2"
-                        onClick={() => {
-                            closePopup();
-                            currentUserSharesLog
-                                ? redirectAndOpenView()
+                    {userLoggedIn ? (
+                        <button
+                            className="button-secondary w-full sm:w-1/2"
+                            onClick={() => {
+                                closePopup();
+                                currentUserSharesLog
+                                    ? redirectAndOpenView()
+                                    : isMyAccount
+                                      ? openEdit()
+                                      : openCreate();
+                            }}
+                        >
+                            {currentUserSharesLog
+                                ? "View My Log"
                                 : isMyAccount
-                                  ? openEdit()
-                                  : openCreate();
-                        }}
-                    >
-                        {currentUserSharesLog
-                            ? "View My Log"
-                            : isMyAccount
-                              ? "Edit"
-                              : "Add This Game"}
-                    </button>
+                                  ? "Edit"
+                                  : "Add This Game"}
+                        </button>
+                    ) : (
+                        <></>
+                    )}
                     <button
-                        className="button-outline button-outline-default w-full sm:w-1/2"
+                        className={`button-outline button-outline-default w-full ${userLoggedIn ? "sm:w-1/2" : ""}`}
                         onClick={closePopup}
                     >
                         Close

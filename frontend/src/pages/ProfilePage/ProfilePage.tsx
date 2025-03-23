@@ -772,6 +772,9 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                             key={gameLog.id}
                                             gameLog={gameLog}
                                             isMyAccount={isMyAccount}
+                                            userLoggedIn={
+                                                currentUser ? true : false
+                                            }
                                             currentUserSharesLog={
                                                 isMyAccount
                                                     ? false
@@ -967,6 +970,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     <ViewGameLogPopup
                         closePopup={() => setViewGameLogPopupVisible(false)}
                         isMyAccount={isMyAccount}
+                        userLoggedIn={currentUser ? true : false}
                         gamelog={currentVisibleGameLog}
                         openEdit={() => setEditGameLogPopupVisible(true)}
                         openCreate={() => setCreateGameLogPopupVisible(true)}

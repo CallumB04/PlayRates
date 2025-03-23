@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 interface GameElementProps {
     gameLog: GameLog;
     isMyAccount: boolean;
+    userLoggedIn: boolean;
     currentUserSharesLog: boolean; // if current user also has a log of this game
     handleView: () => void;
     handleEdit: () => void;
@@ -16,6 +17,7 @@ interface GameElementProps {
 const GameElement: React.FC<GameElementProps> = ({
     gameLog,
     isMyAccount,
+    userLoggedIn,
     currentUserSharesLog,
     handleView,
     handleEdit,
@@ -71,12 +73,12 @@ const GameElement: React.FC<GameElementProps> = ({
                         ></i>
                         {(hoveringIcon || hoveringMenu) && !popupIsVisible ? (
                             <div
-                                className="hover-menu fade-in-left absolute right-8 top-2 h-1/2 min-h-16 w-full min-w-24 text-center text-sm"
+                                className={`hover-menu fade-in-left absolute right-8 top-2 ${userLoggedIn ? "h-1/2 min-h-16" : "h-1/4 min-h-8"} w-full min-w-24 text-center text-sm`}
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >
                                 <span
-                                    className="flex h-1/2 w-full items-center justify-center gap-2 rounded-t border-b-[1px] border-b-[#cacaca44] transition-colors duration-200 hover:text-highlight-primary"
+                                    className={`flex ${userLoggedIn ? "h-1/2 border-b-[1px] border-b-[#cacaca44]" : "h-full"} w-full items-center justify-center gap-2 rounded-t transition-colors duration-200 hover:text-highlight-primary`}
                                     onClick={(e) => {
                                         e.preventDefault(); // prevent Link from triggering
                                         handleView();
@@ -85,28 +87,32 @@ const GameElement: React.FC<GameElementProps> = ({
                                     <p>View</p>
                                     <i className="fas fa-eye"></i>
                                 </span>
-                                <span
-                                    className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary"
-                                    onClick={(e) => {
-                                        e.preventDefault(); // prevent Link from triggering
-                                        !currentUserSharesLog
-                                            ? isMyAccount
-                                                ? handleEdit()
-                                                : handleCreate()
-                                            : handleRedirectAndView();
-                                    }}
-                                >
-                                    <p>
-                                        {!currentUserSharesLog
-                                            ? isMyAccount
-                                                ? "Edit"
-                                                : "Add"
-                                            : "My Log"}
-                                    </p>
-                                    <i
-                                        className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
-                                    ></i>
-                                </span>
+                                {userLoggedIn ? (
+                                    <span
+                                        className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // prevent Link from triggering
+                                            !currentUserSharesLog
+                                                ? isMyAccount
+                                                    ? handleEdit()
+                                                    : handleCreate()
+                                                : handleRedirectAndView();
+                                        }}
+                                    >
+                                        <p>
+                                            {!currentUserSharesLog
+                                                ? isMyAccount
+                                                    ? "Edit"
+                                                    : "Add"
+                                                : "My Log"}
+                                        </p>
+                                        <i
+                                            className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
+                                        ></i>
+                                    </span>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                         ) : (
                             <></>
