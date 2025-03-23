@@ -250,6 +250,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
             );
 
             if (log) {
+                setActiveGamesSection(log.status);
                 setCurrentVisibleGameLog(log);
                 setViewGameLogPopupVisible(true);
             }
@@ -452,9 +453,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const viewUpdatedLog = (log: GameLog) => {
         // if created from another persons page, redirect before showing
         if (currentUser !== targetUser) {
-            navigate(
-                `/user/${currentUser?.username}?type=${log?.status}&log=${log?.id}`
-            );
+            navigate(`/user/${currentUser?.username}?log=${log?.id}`);
         }
 
         refetchTargetUserGameLogs();
@@ -810,7 +809,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                             }}
                                             handleRedirectAndView={() =>
                                                 navigate(
-                                                    `/user/${currentUser?.username}?type=${gameLog.status}&log=${gameLog.id}`
+                                                    `/user/${currentUser?.username}?log=${gameLog.id}`
                                                 )
                                             }
                                             popupIsVisible={
@@ -984,7 +983,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         }
                         redirectAndOpenView={() =>
                             navigate(
-                                `/user/${currentUser?.username}?type=${currentVisibleGameLog?.status}&log=${currentVisibleGameLog?.id}`
+                                `/user/${currentUser?.username}?log=${currentVisibleGameLog?.id}`
                             )
                         }
                     />
