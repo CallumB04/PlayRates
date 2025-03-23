@@ -450,6 +450,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
+        // if created from another persons page, redirect before showing
+        if (currentUser !== targetUser) {
+            navigate(
+                `/user/${currentUser?.username}?type=${log?.status}&log=${log?.id}`
+            );
+        }
+
         refetchTargetUserGameLogs();
         setCurrentVisibleGameLog(log);
         setActiveGamesSection(log.status);

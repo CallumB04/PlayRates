@@ -104,7 +104,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                             : "My Log"}
                                     </p>
                                     <i
-                                        className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-user"}`}
+                                        className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
                                     ></i>
                                 </span>
                             </div>
@@ -137,7 +137,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                 }}
                             >
                                 <i
-                                    className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-user"}`}
+                                    className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
                                     title={
                                         !currentUserSharesLog
                                             ? isMyAccount
