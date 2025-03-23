@@ -18,23 +18,34 @@ const FriendsPopup: React.FC<FriendsPopupProps> = ({ closePopup, friends }) => {
             >
                 <h2 className="text-xl text-text-primary">Friends</h2>
                 <div className="flex max-h-96 w-full flex-col gap-2 overflow-y-scroll border-t-[1px] border-t-[#cacaca55] pt-3">
-                    {friends?.map((friend) => {
-                        return (
-                            <FriendProfile
-                                key={friend.id}
-                                user={friend}
-                                closePopup={closePopup}
-                                profilePictureSize={12}
-                            />
-                        );
-                    })}
+                    {friends && friends?.length > 0 ? (
+                        friends?.map((friend) => {
+                            return (
+                                <FriendProfile
+                                    key={friend.id}
+                                    user={friend}
+                                    closePopup={closePopup}
+                                    profilePictureSize={12}
+                                />
+                            );
+                        })
+                    ) : (
+                        <p className="text-text-secondary">
+                            This user currently has no friends.
+                        </p>
+                    )}
                 </div>
-                <p className="mt-2 text-center font-light text-text-secondary">
-                    <span>
-                        {friends?.filter((friend) => friend.online).length}
-                    </span>
-                    /<span>{friends?.length}</span> Online
-                </p>
+
+                {friends && friends?.length > 0 ? (
+                    <p className="mt-2 text-center font-light text-text-secondary">
+                        <span>
+                            {friends?.filter((friend) => friend.online).length}
+                        </span>
+                        /<span>{friends?.length}</span> Online
+                    </p>
+                ) : (
+                    <></>
+                )}
 
                 <ClosePopupIcon onClick={closePopup} />
             </div>
