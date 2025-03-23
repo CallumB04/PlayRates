@@ -11,6 +11,8 @@ interface ViewGameLogPopupProps {
     gamelog: GameLog | null;
     openEdit: () => void;
     openCreate: () => void;
+    currentUserSharesLog: boolean;
+    redirectAndOpenView: () => void;
 }
 
 const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
@@ -19,6 +21,8 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
     gamelog,
     openEdit,
     openCreate,
+    currentUserSharesLog,
+    redirectAndOpenView,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
 
@@ -168,10 +172,18 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                         className="button-secondary w-full sm:w-1/2"
                         onClick={() => {
                             closePopup();
-                            isMyAccount ? openEdit() : openCreate();
+                            currentUserSharesLog
+                                ? redirectAndOpenView()
+                                : isMyAccount
+                                  ? openEdit()
+                                  : openCreate();
                         }}
                     >
-                        {isMyAccount ? "Edit" : "Add This Game"}
+                        {currentUserSharesLog
+                            ? "View My Log"
+                            : isMyAccount
+                              ? "Edit"
+                              : "Add This Game"}
                     </button>
                     <button
                         className="button-outline button-outline-default w-full sm:w-1/2"

@@ -963,6 +963,19 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         gamelog={currentVisibleGameLog}
                         openEdit={() => setEditGameLogPopupVisible(true)}
                         openCreate={() => setCreateGameLogPopupVisible(true)}
+                        currentUserSharesLog={
+                            isMyAccount
+                                ? false
+                                : currentUserGameLogs?.some(
+                                      (log) =>
+                                          log.id === currentVisibleGameLog?.id
+                                  ) || false
+                        }
+                        redirectAndOpenView={() =>
+                            navigate(
+                                `/user/${currentUser?.username}?type=${currentVisibleGameLog?.status}&log=${currentVisibleGameLog?.id}`
+                            )
+                        }
                     />
                 ) : (
                     <></>
