@@ -7,6 +7,7 @@ import {
     GameLog,
 } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 
@@ -33,6 +34,8 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     runNotification,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
+    const [loadingCreateOrEdit, setLoadingCreateOrEdit] =
+        useState<boolean>(false);
 
     // Input values
     const [statusInput, setStatusInput] = useState<string>(
@@ -82,6 +85,8 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
     }, []);
 
     const handleCreateOrEdit = async () => {
+        setLoadingCreateOrEdit(true);
+
         // create new game log, all optional inputs are only added if present
         const logData: GameLog = {
             id: gameID || gameID === 0 ? gameID : gamelog!.id,
@@ -122,12 +127,14 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                 "error"
             );
         }
+
+        setLoadingCreateOrEdit(false);
     };
 
     return (
         <dialog className="popup-backdrop" onMouseDown={closePopup}>
             <div
-                className="popup popup-default flex w-[600px] flex-col gap-6 text-center"
+                className="popup popup-default relative flex w-[600px] flex-col gap-6 text-center"
                 onMouseDown={(event) => event.stopPropagation()}
                 ref={popupElement}
             >
@@ -399,6 +406,14 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                 </div>
 
                 <ClosePopupIcon onClick={closePopup} />
+
+                {loadingCreateOrEdit ? (
+                    <dialog className="absolute top-0 flex size-full items-center justify-center rounded-lg bg-[#00000077]">
+                        <LoadingSpinner size={10} />
+                    </dialog>
+                ) : (
+                    <></>
+                )}
             </div>
         </dialog>
     );
