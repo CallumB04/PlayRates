@@ -54,6 +54,16 @@ export const getColorFromGameStatus = (status: string) => {
     }
 };
 
+// game platforms and their associated font awesome icons
+export const gamePlatforms = [
+    { name: "steam", display: "Steam", icon: "fab fa-steam" },
+    { name: "pc-game-pass", display: "PC Game Pass", icon: "fab fa-xbox" },
+    { name: "xbox", display: "Xbox", icon: "fab fa-xbox" },
+    { name: "playstation", display: "Playstation", icon: "fab fa-playstation" },
+    { name: "other-pc", display: "Other PC", icon: "fas fa-desktop" },
+    { name: "mobile", display: "Mobile", icon: "fas fa-mobile-screen" },
+];
+
 function App() {
     // user account in state
     const [user, setUser] = useState<UserAccount | null>(null);

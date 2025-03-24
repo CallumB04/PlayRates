@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchGameById, Game, GameLog } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
-import { getColorFromGameStatus } from "../../../App";
+import { gamePlatforms, getColorFromGameStatus } from "../../../App";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 
@@ -82,10 +82,22 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                                     <p className="text-text-primary">
                                         Platform:{" "}
                                         <span className="font-extralight">
-                                            {capitalise(gamelog.platform)}
+                                            {
+                                                gamePlatforms.find(
+                                                    (platform) =>
+                                                        platform.name ===
+                                                        gamelog.platform
+                                                )?.display
+                                            }
                                         </span>
                                         <i
-                                            className={`fab fa-${gamelog.platform} ml-1`}
+                                            className={`${
+                                                gamePlatforms.find(
+                                                    (platform) =>
+                                                        platform.name ===
+                                                        gamelog.platform
+                                                )?.icon
+                                            } ml-1.5`}
                                         ></i>
                                     </p>
                                 ) : (

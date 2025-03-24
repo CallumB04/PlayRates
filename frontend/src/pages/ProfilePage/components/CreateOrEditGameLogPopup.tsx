@@ -8,6 +8,7 @@ import {
 } from "../../../api";
 import ClosePopupIcon from "../../../components/ClosePopupIcon";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { gamePlatforms } from "../../../App";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 
@@ -222,7 +223,13 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                             Platform
                                         </p>
                                         <i
-                                            className={`fab fa-${platformInput} text-xs text-text-primary`}
+                                            className={`${
+                                                gamePlatforms.find(
+                                                    (platform) =>
+                                                        platform.name ===
+                                                        platformInput
+                                                )?.icon
+                                            } text-xs text-text-primary`}
                                         ></i>
                                     </span>
                                     <select
@@ -234,9 +241,11 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                             )
                                         }
                                     >
-                                        {/* TODO: Add more platforms */}
-                                        <option value="steam">Steam</option>
-                                        <option value="xbox">Xbox</option>
+                                        {gamePlatforms.map((platform) => (
+                                            <option value={platform.name}>
+                                                {platform.display}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </span>
