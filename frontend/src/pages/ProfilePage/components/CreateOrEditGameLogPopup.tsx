@@ -153,7 +153,7 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
 
                     <div className="flex w-full">
                         {popupElement.current &&
-                        popupElement.current.clientWidth > 425 ? (
+                        popupElement.current.clientWidth > 480 ? (
                             <div className="absolute right-0 top-0 flex min-h-40 w-16 max-w-[30%] flex-col gap-2 sm:relative sm:w-max">
                                 <img
                                     className="w-full rounded-md object-cover"
