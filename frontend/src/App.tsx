@@ -28,13 +28,13 @@ export const getColorFromGameStatus = (status: string) => {
             };
         case "shelved":
             return {
-                bg: "bg-[#d8b81733]",
-                text: "text-[#d8b817]",
+                bg: "bg-[#fdfd9633]",
+                text: "text-[#fdfd96]",
             };
         case "retired":
             return {
-                bg: "bg-[#e8373733]",
-                text: "text-[#e83737]",
+                bg: "bg-[#f01e2c33]",
+                text: "text-[#f01e2c]",
             };
         case "playing":
             return {
