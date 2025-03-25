@@ -63,9 +63,14 @@ main {
 .hover-text-purple {
     @apply text-highlight-primary hover:text-highlight-hover;
 }
+/* white text that can be hovered, turns red (danger/deletion actions) */
+.hover-text-danger {
+    @apply text-text-primary hover:text-red-600;
+}
 
 .hover-text-white,
-.hover-text-purple {
+.hover-text-purple,
+.hover-text-danger {
     @apply transition-colors duration-200 hover:cursor-pointer;
 }
 
