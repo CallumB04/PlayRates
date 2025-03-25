@@ -73,12 +73,12 @@ const GameElement: React.FC<GameElementProps> = ({
                         ></i>
                         {(hoveringIcon || hoveringMenu) && !popupIsVisible ? (
                             <div
-                                className={`hover-menu fade-in-left absolute right-8 top-2 ${userLoggedIn ? "h-1/2 min-h-16" : "h-1/4 min-h-8"} w-full min-w-24 text-center text-sm`}
+                                className={`hover-menu fade-in-left absolute right-8 top-2 ${isMyAccount ? "h-3/4 min-h-24" : userLoggedIn ? "h-1/2 min-h-16" : "h-1/4 min-h-8"} w-full min-w-24 text-center text-sm`}
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >
                                 <span
-                                    className={`flex ${userLoggedIn ? "h-1/2 border-b-[1px] border-b-[#cacaca44]" : "h-full"} w-full items-center justify-center gap-2 rounded-t transition-colors duration-200 hover:text-highlight-primary`}
+                                    className={`flex ${isMyAccount ? "h-1/3" : userLoggedIn ? "h-1/2" : "h-full"} w-full items-center justify-center gap-2 rounded-t transition-colors duration-200 hover:text-highlight-primary`}
                                     onClick={(e) => {
                                         e.preventDefault(); // prevent Link from triggering
                                         handleView();
@@ -89,7 +89,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                 </span>
                                 {userLoggedIn ? (
                                     <span
-                                        className="flex h-1/2 w-full items-center justify-center gap-2 rounded-b transition-colors duration-200 hover:text-highlight-primary"
+                                        className={`flex ${isMyAccount ? "h-1/3" : "h-1/2"} w-full items-center justify-center gap-2 rounded-b border-t-[1px] border-t-[#cacaca44] transition-colors duration-200 hover:text-highlight-primary`}
                                         onClick={(e) => {
                                             e.preventDefault(); // prevent Link from triggering
                                             !currentUserSharesLog
@@ -109,6 +109,19 @@ const GameElement: React.FC<GameElementProps> = ({
                                         <i
                                             className={`fas ${!currentUserSharesLog ? (isMyAccount ? "fa-pen-to-square" : "fa-add") : "fa-arrow-up-right-from-square"}`}
                                         ></i>
+                                    </span>
+                                ) : (
+                                    <></>
+                                )}
+                                {isMyAccount ? (
+                                    <span
+                                        className="hover-text-danger flex h-1/3 w-full items-center justify-center gap-2 rounded-b border-t-[1px] border-t-[#cacaca44] transition-colors duration-200"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // prevent Link from triggering
+                                        }}
+                                    >
+                                        <p>Delete</p>
+                                        <i className="fas fa-trash"></i>
                                     </span>
                                 ) : (
                                     <></>
