@@ -136,7 +136,7 @@ const GameElement: React.FC<GameElementProps> = ({
                     </div>
 
                     {/* icon menu bar for smaller devices */}
-                    <div className="flex h-full w-full items-end justify-center p-1.5 lg:hidden">
+                    <div className="relative flex h-full w-full items-end justify-center p-1.5 lg:hidden">
                         <span
                             className={`flex h-1/5 ${userLoggedIn ? "w-2/3" : "w-1/3"} rounded bg-[#2e2e2edd]`}
                         >
@@ -172,6 +172,18 @@ const GameElement: React.FC<GameElementProps> = ({
                                         }
                                     ></i>
                                 </span>
+                            ) : (
+                                <></>
+                            )}
+                            {isMyAccount ? (
+                                <i
+                                    className="fas fa-trash-can hover-text-danger absolute right-1.5 top-1.5 rounded bg-[#2e2e2edd] p-2"
+                                    title="Delete"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // prevent Link from triggering
+                                        handleDelete();
+                                    }}
+                                ></i>
                             ) : (
                                 <></>
                             )}
