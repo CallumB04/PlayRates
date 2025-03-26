@@ -11,6 +11,7 @@ interface GameElementProps {
     handleEdit: () => void;
     handleCreate: () => void;
     handleRedirectAndView: () => void;
+    handleDelete: () => void;
     popupIsVisible: boolean;
 }
 
@@ -23,6 +24,7 @@ const GameElement: React.FC<GameElementProps> = ({
     handleEdit,
     handleCreate,
     handleRedirectAndView,
+    handleDelete,
     popupIsVisible,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
@@ -118,6 +120,7 @@ const GameElement: React.FC<GameElementProps> = ({
                                         className="hover-text-danger flex h-1/3 w-full items-center justify-center gap-2 rounded-b border-t-[1px] border-t-[#cacaca44] transition-colors duration-200"
                                         onClick={(e) => {
                                             e.preventDefault(); // prevent Link from triggering
+                                            handleDelete();
                                         }}
                                     >
                                         <p>Delete</p>

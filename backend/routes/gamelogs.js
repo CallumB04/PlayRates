@@ -105,4 +105,33 @@ router.patch("/:userID/edit/:gameID", async (req, res) => {
     }
 });
 
+// delete game log
+router.delete("/:userID/delete/:gameID", async (req, res) => {
+    try {
+        const { userID, gameID } = req.params;
+        const gameLogs = await readGameLogsJSON();
+        const users = await readUsersJSON();
+
+        // ensuring user exists
+        if (!users.find((user) => user.id === Number(userID))) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // ensuring game log exists
+        if (!gameLogs[userID].find((log) => log.id === Number(gameID))) {
+            return res.status(404).json({ message: "Game log not found" });
+        }
+
+        // filter game log out of array
+        gameLogs[userID] = gameLogs[userID].filter(
+            (log) => log.id !== Number(gameID)
+        );
+
+        await updateGameLogsJSON(gameLogs);
+        res.status(204).json({ message: "Game log successfully deleted" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting game log" }); // internal server error
+    }
+});
+
 module.exports = router;

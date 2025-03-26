@@ -72,3 +72,20 @@ export const editGameLog = async (
         return false;
     }
 };
+
+export const deleteGameLog = async (
+    userID: number,
+    gameID: number
+): Promise<boolean> => {
+    try {
+        const response = await axios.delete(
+            `/gamelogs/${userID}/delete/${gameID}`
+        );
+
+        if (response.status === 204) return true;
+        else return false;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};

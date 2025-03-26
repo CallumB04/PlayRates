@@ -31,6 +31,7 @@ import FriendsPopup from "./components/FriendsPopup";
 import EditProfilePopup from "./components/EditProfilePopup";
 import ViewGameLogPopup from "./components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "./components/CreateOrEditGameLogPopup";
+import DeleteGameLogPopup from "./components/DeleteGameLogPopup";
 
 interface ProfilePageProps {
     runNotification: (
@@ -83,6 +84,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
     const [editGameLogPopupVisible, setEditGameLogPopupVisible] =
         useState<boolean>(false);
     const [createGameLogPopupVisible, setCreateGameLogPopupVisible] =
+        useState<boolean>(false);
+    const [deleteGameLogPopupVisible, setDeleteGameLogPopupVisible] =
         useState<boolean>(false);
     const [currentVisibleGameLog, setCurrentVisibleGameLog] =
         useState<GameLog | null>(null);
@@ -812,10 +815,19 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                                     `/user/${currentUser?.username}?log=${gameLog.id}`
                                                 )
                                             }
+                                            handleDelete={() => {
+                                                setCurrentVisibleGameLog(
+                                                    gameLog
+                                                );
+                                                setDeleteGameLogPopupVisible(
+                                                    true
+                                                );
+                                            }}
                                             popupIsVisible={
                                                 viewGameLogPopupVisible ||
                                                 editGameLogPopupVisible ||
-                                                createGameLogPopupVisible
+                                                createGameLogPopupVisible ||
+                                                deleteGameLogPopupVisible
                                             }
                                         />
                                     );
@@ -1010,6 +1022,17 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         userID={currentUser!.id}
                         runNotification={runNotification}
                         viewUpdatedLog={viewUpdatedLog}
+                    />
+                ) : (
+                    <></>
+                )}
+                {deleteGameLogPopupVisible ? (
+                    <DeleteGameLogPopup
+                        closePopup={() => setDeleteGameLogPopupVisible(false)}
+                        refreshLogs={refetchTargetUserGameLogs}
+                        runNotification={runNotification}
+                        gameLog={currentVisibleGameLog!}
+                        userID={currentUser!.id}
                     />
                 ) : (
                     <></>
