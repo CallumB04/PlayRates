@@ -247,8 +247,12 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
 
     // opening view log popup if url contains correct params
     useEffect(() => {
-        if (URLGameLog && targetUserGameLogs) {
-            const log = targetUserGameLogs.find(
+        if (
+            URLGameLog &&
+            !targetUserGameLogsLoading &&
+            !targetUserGameLogsError
+        ) {
+            const log = targetUserGameLogs?.find(
                 (log) => log.id === Number(URLGameLog)
             );
 
@@ -258,7 +262,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                 setViewGameLogPopupVisible(true);
             }
         }
-    }, [URLGameLog, targetUserGameLogs]);
+    }, [URLGameLog, targetUserGameLogsLoading, targetUserGameLogsError]);
 
     useEffect(() => {
         if (currentUser?.id === targetUser?.id) {
