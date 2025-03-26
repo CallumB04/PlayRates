@@ -761,6 +761,13 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                         <h2 className="mt-16 text-center font-lexend text-2xl text-text-secondary">
                             No games found in {activeGamesSection}...
                         </h2>
+                    ) : targetUserGameLogsLoading ? (
+                        <span className="mt-16 flex items-center justify-center gap-4">
+                            <LoadingSpinner size={8} />
+                            <p className="font-lexend text-xl tracking-wide text-text-primary">
+                                Loading Game Logs...
+                            </p>
+                        </span>
                     ) : targetUserGameLogs ? (
                         <div className="mt-6 flex w-full flex-wrap justify-center">
                             {targetUserGameLogs
