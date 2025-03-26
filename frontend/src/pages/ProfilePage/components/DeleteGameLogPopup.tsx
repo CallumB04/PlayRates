@@ -57,11 +57,11 @@ const DeleteGameLogPopup: React.FC<DeleteGameLogPopupProps> = ({
                 <div className="flex w-full flex-col gap-3">
                     <h2 className="text-xl text-text-primary">Delete Log</h2>
                     <p className="max-w-[40ch] border-t-[1px] border-t-[#cacaca55] pt-3 font-light text-text-secondary">
-                        Are you sure you want to delete your game log of{" "}
+                        Are you sure you want to delete{" "}
                         <span className="font-normal text-text-primary">
                             {gameName}
-                        </span>
-                        ? This cannot be undone.
+                        </span>{" "}
+                        from your profile? This cannot be undone.
                     </p>
                 </div>
                 <div className="flex w-full flex-col justify-center gap-5 sm:flex-row">
