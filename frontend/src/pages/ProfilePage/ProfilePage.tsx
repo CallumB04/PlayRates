@@ -888,7 +888,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                 </div>
                 {/* Friends / Reviews */}
                 <div className="hidden min-w-[300px] max-w-[300px] flex-col gap-5 2xl:flex">
-                    <div className="card h-3/5 w-full">
+                    <div className="card relative h-3/5 w-full">
                         <span className="flex items-center justify-between">
                             <h2 className="card-header-text">Friends</h2>
                             {targetUserFriends &&
@@ -914,17 +914,23 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                             )}
                         </span>
                         {/* List of friends, scrollable on overflow */}
-                        <div className="mt-2 flex max-h-[400px] flex-col gap-1 overflow-y-scroll">
-                            {targetUserFriendsDetails?.map((friend) => {
-                                return (
-                                    <FriendProfile
-                                        key={friend.id}
-                                        user={friend}
-                                        profilePictureSize={10}
-                                    />
-                                );
-                            })}
-                        </div>
+                        {targetUserFriendsLoading ? (
+                            <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
+                                <LoadingSpinner size={10} />
+                            </span>
+                        ) : (
+                            <div className="mt-2 flex max-h-[400px] flex-col gap-1 overflow-y-scroll">
+                                {targetUserFriendsDetails?.map((friend) => {
+                                    return (
+                                        <FriendProfile
+                                            key={friend.id}
+                                            user={friend}
+                                            profilePictureSize={10}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                     <div className="card h-2/5 w-full">
                         <h2 className="card-header-text">Reviews</h2>
