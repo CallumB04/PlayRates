@@ -85,6 +85,12 @@ const AccountForm: React.FC<FormProps> = ({
 
             // setting username and displaying success message
             usernameInput.current!.value = usernameAfterSignup;
+
+            // focusing password input
+            passwordInput.current?.focus();
+        } else {
+            // focusing username input
+            usernameInput.current?.focus();
         }
     }, [formType]);
 
