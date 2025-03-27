@@ -85,7 +85,9 @@ router.get("/:type/:value", async (req, res) => {
         }
 
         const users = await readUsersJSON();
-        const user = users.find((user) => String(user[type]) === value);
+        const user = users.find(
+            (user) => String(user[type]).toLowerCase() === value.toLowerCase()
+        );
 
         if (user) {
             res.status(200).json(user);
