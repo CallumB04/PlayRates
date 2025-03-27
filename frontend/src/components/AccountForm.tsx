@@ -190,7 +190,7 @@ const AccountForm: React.FC<FormProps> = ({
             // defining user structure
             const newUser: UserCreation = {
                 username: usernameInput.current!.value,
-                email: emailInput.current!.value,
+                email: emailInput.current!.value.toLowerCase(),
                 password: passwordInput.current!.value,
             };
 
