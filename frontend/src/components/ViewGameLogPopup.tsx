@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchGameById, Game, GameLog } from "../../../api";
-import ClosePopupIcon from "../../../components/ClosePopupIcon";
-import { gamePlatforms, getColorFromGameStatus } from "../../../App";
+import { fetchGameById, Game, GameLog } from "../api";
+import ClosePopupIcon from "./ClosePopupIcon";
+import { gamePlatforms, getColorFromGameStatus } from "../App";
 
 const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
 

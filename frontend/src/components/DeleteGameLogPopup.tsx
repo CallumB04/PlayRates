@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { deleteGameLog, fetchGameById, GameLog } from "../../../api";
-import ClosePopupIcon from "../../../components/ClosePopupIcon";
+import { deleteGameLog, fetchGameById, GameLog } from "../api";
+import ClosePopupIcon from "./ClosePopupIcon";
 
 interface DeleteGameLogPopupProps {
     closePopup: () => void;

@@ -29,9 +29,9 @@ import MobileSearchPopup from "./components/MobileSearchPopup";
 import MobileGameSectionPopup from "./components/MobileGameSectionPopup";
 import FriendsPopup from "./components/FriendsPopup";
 import EditProfilePopup from "./components/EditProfilePopup";
-import ViewGameLogPopup from "./components/ViewGameLogPopup";
-import CreateOrEditGameLogPopup from "./components/CreateOrEditGameLogPopup";
-import DeleteGameLogPopup from "./components/DeleteGameLogPopup";
+import ViewGameLogPopup from "../../components/ViewGameLogPopup";
+import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
+import DeleteGameLogPopup from "../../components/DeleteGameLogPopup";
 
 interface ProfilePageProps {
     runNotification: (

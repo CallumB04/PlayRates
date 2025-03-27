@@ -5,12 +5,10 @@ import {
     fetchGameById,
     Game,
     GameLog,
-} from "../../../api";
-import ClosePopupIcon from "../../../components/ClosePopupIcon";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import { gamePlatforms } from "../../../App";
-
-const capitalise = (word: string) => `${word[0].toUpperCase()}${word.slice(1)}`;
+} from "../api";
+import ClosePopupIcon from "./ClosePopupIcon";
+import LoadingSpinner from "./LoadingSpinner";
+import { gamePlatforms } from "../App";
 
 interface CreateOrEditGameLogPopupProps {
     closePopup: () => void;
