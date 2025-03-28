@@ -9,6 +9,7 @@ import { createContext, useContext } from "react";
 import AccountForm from "./components/AccountForm";
 import Notification from "./components/Notification";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import LibraryPage from "./pages/LibraryPage/LibraryPage";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -183,6 +184,7 @@ function App() {
                                 />
                             }
                         />
+                        <Route path="/library" element={<LibraryPage />} />
                     </Routes>
                 </main>
                 <Footer />
