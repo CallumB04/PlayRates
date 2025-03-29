@@ -148,7 +148,11 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                                         setCurrentVisibleGameID(game.id);
                                         setCreateGameLogPopupVisible(true);
                                     }}
-                                    popupIsVisible={false}
+                                    popupIsVisible={
+                                        viewGameLogPopupVisible ||
+                                        editGameLogPopupVisible ||
+                                        createGameLogPopupVisible
+                                    }
                                 />
                             );
                         })}
