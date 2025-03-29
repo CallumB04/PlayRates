@@ -101,22 +101,30 @@ const GameElement: React.FC<GameElementProps> = ({
                     </div>
 
                     {/* icon menu bar for smaller devices */}
-                    <div className="relative flex h-full w-full items-end justify-center p-1.5 lg:hidden">
-                        <span
-                            className={`flex h-1/5 ${userLoggedIn ? "w-2/3" : "w-1/3"} rounded bg-[#2e2e2edd]`}
-                        >
+                    {userLoggedIn ? (
+                        <div className="relative flex h-full w-full items-end justify-center p-1.5 lg:hidden">
                             <span
-                                className={`flex h-full ${userLoggedIn ? "w-1/2" : "w-full"} items-center justify-center text-text-secondary hover:text-highlight-primary`}
-                                onClick={(e) => {
-                                    e.preventDefault(); // prevent Link from triggering
-                                    handleView();
-                                }}
+                                className={`flex h-1/5 ${userHasLog ? "w-2/3" : "w-1/3"} rounded bg-[#2e2e2edd]`}
                             >
-                                <i className="fas fa-eye" title="View"></i>
-                            </span>
-                            {userLoggedIn ? (
+                                {userHasLog ? (
+                                    <span
+                                        className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // prevent Link from triggering
+                                            handleView();
+                                        }}
+                                    >
+                                        <i
+                                            className="fas fa-eye"
+                                            title="View"
+                                        ></i>
+                                    </span>
+                                ) : (
+                                    <></>
+                                )}
+
                                 <span
-                                    className="flex h-full w-1/2 items-center justify-center text-text-secondary hover:text-highlight-primary"
+                                    className={`flex h-full ${userHasLog ? "w-1/2" : "w-full"} items-center justify-center text-text-secondary hover:text-highlight-primary`}
                                     onClick={(e) => {
                                         e.preventDefault(); // prevent Link from triggering
 
@@ -130,11 +138,11 @@ const GameElement: React.FC<GameElementProps> = ({
                                         title={userHasLog ? "Edit" : "Add"}
                                     ></i>
                                 </span>
-                            ) : (
-                                <></>
-                            )}
-                        </span>
-                    </div>
+                            </span>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </Link>
         );
