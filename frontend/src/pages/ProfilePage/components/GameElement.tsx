@@ -55,7 +55,7 @@ const GameElement: React.FC<GameElementProps> = ({
         return (
             <Link
                 to={`/game/${game.id}`}
-                className="game-cover group relative w-1/3 p-1 sm:w-1/4 md:w-[14%] xl:w-[11%] 2xl:w-[9%]"
+                className="game-cover group relative w-1/3 p-1 sm:w-1/4 md:w-[14%] xl:w-[11%]"
             >
                 <img
                     className="h-full w-full rounded-md object-cover"
@@ -75,7 +75,7 @@ const GameElement: React.FC<GameElementProps> = ({
                         ></i>
                         {(hoveringIcon || hoveringMenu) && !popupIsVisible ? (
                             <div
-                                className={`hover-menu fade-in-left absolute right-8 top-2 ${isMyAccount ? "h-3/4 min-h-24" : userLoggedIn ? "h-1/2 min-h-16" : "h-1/4 min-h-8"} w-full min-w-24 text-center text-sm`}
+                                className={`hover-menu fade-in-left absolute right-8 top-2 ${isMyAccount ? "h-3/4 max-h-28 min-h-24" : userLoggedIn ? "h-1/2 max-h-20 min-h-16" : "h-1/4 max-h-12 min-h-8"} w-full min-w-24 max-w-28 text-center text-sm`}
                                 onMouseOver={() => setHoveringMenu(true)}
                                 onMouseOut={() => setHoveringMenu(false)}
                             >
