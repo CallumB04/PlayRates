@@ -60,7 +60,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     return (
         <section className="flex w-full gap-4">
             {/* Filters Menu (for larger screens) */}
-            <aside className="card hidden h-[85vh] w-80 lg:flex">
+            <aside className="card hidden h-[85vh] w-96 lg:flex">
                 <h2 className="card-header-text">Filters</h2>
             </aside>
             {/* Games */}
