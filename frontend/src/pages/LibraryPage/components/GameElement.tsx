@@ -35,7 +35,7 @@ const GameElement: React.FC<GameElementProps> = ({
         return (
             <Link
                 to={`/game/${game.id}`}
-                className="game-cover group relative h-[140px] w-[105px] p-1"
+                className="game-cover group relative h-[180px] w-[135px] p-1 lg:h-[140px] lg:w-[105px]"
             >
                 <img
                     className="h-full w-full rounded-md object-cover"

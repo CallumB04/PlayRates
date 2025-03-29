@@ -72,7 +72,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     </p>
                 </span>
             ) : (
-                <div className="flex h-max w-full flex-wrap gap-1">
+                <div className="mx-auto flex h-max w-full flex-wrap justify-center gap-1">
                     {games?.map((game) => {
                         return (
                             <GameElement
