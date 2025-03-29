@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGameLogsByUserID, fetchGames, Game, GameLog } from "../../api";
 import { useUser } from "../../App";
 import GameElement from "./components/GameElement";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -16,6 +16,8 @@ interface LibraryPageProps {
 
 const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const currentUser = useUser();
+
+    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
 
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
@@ -50,6 +52,17 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         enabled: !!currentUser,
     });
 
+    // handling window resizing
+    useEffect(() => {
+        // updates state with window width
+        const handleResize = () => setWindowWidth(window.innerWidth);
+
+        // listening for window resizing and matching it in state
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
         refetchCurrentUserGameLogs();
@@ -63,7 +76,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             <aside className="card hidden h-[85vh] w-96 lg:flex">
                 <h2 className="card-header-text">Filters</h2>
             </aside>
-            {/* Games */}
+            {/* Main Container */}
             {gamesLoading || currentUserGameLogsLoading ? (
                 <span className="mx-auto flex h-[85vh] w-max flex-row items-center justify-center gap-6">
                     <LoadingSpinner size={8} />
@@ -72,44 +85,74 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     </p>
                 </span>
             ) : (
-                <div className="mx-auto flex h-max w-full flex-wrap justify-center gap-1">
-                    {games?.map((game) => {
-                        return (
-                            <GameElement
-                                key={game.id}
-                                game={game}
-                                userLoggedIn={currentUser ? true : false}
-                                userHasLog={
-                                    currentUserGameLogs?.some(
-                                        (log) => log.id === game.id
-                                    )
-                                        ? true
-                                        : false
-                                }
-                                handleView={() => {
-                                    setCurrentVisibleGameLog(
-                                        currentUserGameLogs?.find(
+                <div className="flex h-full w-full flex-col gap-3">
+                    {/* Header Card */}
+                    <div className="card w-full space-y-4 font-lexend">
+                        <div className="w-full space-y-1">
+                            <h2 className="card-header-text text-center">
+                                Game Library
+                            </h2>
+                            <p className="text-center text-text-secondary">
+                                Explore our extensive game library and see what
+                                others are playing. You can{" "}
+                                <span className="font-semibold">view</span>,{" "}
+                                <span className="font-semibold">create</span>,
+                                and <span className="font-semibold">edit</span>{" "}
+                                your game logs all within this page!
+                            </p>
+                        </div>
+                        {windowWidth < 1024 ? (
+                            <span className="flex w-full justify-end font-lexend">
+                                <button className="button-outline button-outline-default flex w-full min-w-36 items-center justify-center gap-3 md:w-max">
+                                    Filters
+                                    <i className="fas fa-filter"></i>
+                                </button>
+                            </span>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+
+                    {/* Games */}
+                    <div className="mx-auto flex h-max w-full flex-wrap justify-center gap-1">
+                        {games?.map((game) => {
+                            return (
+                                <GameElement
+                                    key={game.id}
+                                    game={game}
+                                    userLoggedIn={currentUser ? true : false}
+                                    userHasLog={
+                                        currentUserGameLogs?.some(
                                             (log) => log.id === game.id
-                                        )!
-                                    );
-                                    setViewGameLogPopupVisible(true);
-                                }}
-                                handleEdit={() => {
-                                    setCurrentVisibleGameLog(
-                                        currentUserGameLogs?.find(
-                                            (log) => log.id === game.id
-                                        )!
-                                    );
-                                    setEditGameLogPopupVisible(true);
-                                }}
-                                handleCreate={() => {
-                                    setCurrentVisibleGameID(game.id);
-                                    setCreateGameLogPopupVisible(true);
-                                }}
-                                popupIsVisible={false}
-                            />
-                        );
-                    })}
+                                        )
+                                            ? true
+                                            : false
+                                    }
+                                    handleView={() => {
+                                        setCurrentVisibleGameLog(
+                                            currentUserGameLogs?.find(
+                                                (log) => log.id === game.id
+                                            )!
+                                        );
+                                        setViewGameLogPopupVisible(true);
+                                    }}
+                                    handleEdit={() => {
+                                        setCurrentVisibleGameLog(
+                                            currentUserGameLogs?.find(
+                                                (log) => log.id === game.id
+                                            )!
+                                        );
+                                        setEditGameLogPopupVisible(true);
+                                    }}
+                                    handleCreate={() => {
+                                        setCurrentVisibleGameID(game.id);
+                                        setCreateGameLogPopupVisible(true);
+                                    }}
+                                    popupIsVisible={false}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
             )}
             {viewGameLogPopupVisible ? (
