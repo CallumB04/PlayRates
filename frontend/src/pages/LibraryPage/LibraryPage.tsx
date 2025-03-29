@@ -5,6 +5,7 @@ import GameElement from "./components/GameElement";
 import { useState } from "react";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 interface LibraryPageProps {
     runNotification: (
@@ -63,45 +64,54 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                 <h2 className="card-header-text">Filters</h2>
             </aside>
             {/* Games */}
-            <div className="flex h-max w-full flex-wrap gap-1">
-                {games?.map((game) => {
-                    return (
-                        <GameElement
-                            key={game.id}
-                            game={game}
-                            userLoggedIn={currentUser ? true : false}
-                            userHasLog={
-                                currentUserGameLogs?.some(
-                                    (log) => log.id === game.id
-                                )
-                                    ? true
-                                    : false
-                            }
-                            handleView={() => {
-                                setCurrentVisibleGameLog(
-                                    currentUserGameLogs?.find(
+            {gamesLoading || currentUserGameLogsLoading ? (
+                <span className="mx-auto flex h-[85vh] w-max flex-row items-center justify-center gap-6">
+                    <LoadingSpinner size={8} />
+                    <p className="font-lexend text-xl tracking-wide text-text-primary">
+                        Loading Games...
+                    </p>
+                </span>
+            ) : (
+                <div className="flex h-max w-full flex-wrap gap-1">
+                    {games?.map((game) => {
+                        return (
+                            <GameElement
+                                key={game.id}
+                                game={game}
+                                userLoggedIn={currentUser ? true : false}
+                                userHasLog={
+                                    currentUserGameLogs?.some(
                                         (log) => log.id === game.id
-                                    )!
-                                );
-                                setViewGameLogPopupVisible(true);
-                            }}
-                            handleEdit={() => {
-                                setCurrentVisibleGameLog(
-                                    currentUserGameLogs?.find(
-                                        (log) => log.id === game.id
-                                    )!
-                                );
-                                setEditGameLogPopupVisible(true);
-                            }}
-                            handleCreate={() => {
-                                setCurrentVisibleGameID(game.id);
-                                setCreateGameLogPopupVisible(true);
-                            }}
-                            popupIsVisible={false}
-                        />
-                    );
-                })}
-            </div>
+                                    )
+                                        ? true
+                                        : false
+                                }
+                                handleView={() => {
+                                    setCurrentVisibleGameLog(
+                                        currentUserGameLogs?.find(
+                                            (log) => log.id === game.id
+                                        )!
+                                    );
+                                    setViewGameLogPopupVisible(true);
+                                }}
+                                handleEdit={() => {
+                                    setCurrentVisibleGameLog(
+                                        currentUserGameLogs?.find(
+                                            (log) => log.id === game.id
+                                        )!
+                                    );
+                                    setEditGameLogPopupVisible(true);
+                                }}
+                                handleCreate={() => {
+                                    setCurrentVisibleGameID(game.id);
+                                    setCreateGameLogPopupVisible(true);
+                                }}
+                                popupIsVisible={false}
+                            />
+                        );
+                    })}
+                </div>
+            )}
             {viewGameLogPopupVisible ? (
                 <ViewGameLogPopup
                     closePopup={() => setViewGameLogPopupVisible(false)}
