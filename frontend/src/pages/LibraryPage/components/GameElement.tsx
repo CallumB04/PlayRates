@@ -48,11 +48,15 @@ const GameElement: React.FC<GameElementProps> = ({
                             {game.title}
                         </p>
                         {/* Ellipsis icon, hover to reveal menu */}
-                        <i
-                            className="fas fa-ellipsis absolute right-0 top-0 pl-2 pr-3 pt-1 text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                            onMouseOver={() => setHoveringIcon(true)}
-                            onMouseOut={() => setHoveringIcon(false)}
-                        ></i>
+                        {userLoggedIn ? (
+                            <i
+                                className="fas fa-ellipsis absolute right-0 top-0 pl-2 pr-3 pt-1 text-lg text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                                onMouseOver={() => setHoveringIcon(true)}
+                                onMouseOut={() => setHoveringIcon(false)}
+                            ></i>
+                        ) : (
+                            <></>
+                        )}
                         {(hoveringIcon || hoveringMenu) &&
                         !popupIsVisible &&
                         userLoggedIn ? (

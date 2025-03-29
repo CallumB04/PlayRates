@@ -14,6 +14,7 @@ interface ViewGameLogPopupProps {
     openCreate: () => void;
     currentUserSharesLog: boolean;
     redirectAndOpenView: () => void;
+    libraryPage?: boolean;
 }
 
 const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
@@ -25,6 +26,7 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
     openCreate,
     currentUserSharesLog,
     redirectAndOpenView,
+    libraryPage,
 }) => {
     const [game, setGame] = useState<Game | undefined>(undefined);
 
@@ -187,14 +189,14 @@ const ViewGameLogPopup: React.FC<ViewGameLogPopupProps> = ({
                             className="button-secondary w-full sm:w-1/2"
                             onClick={() => {
                                 closePopup();
-                                currentUserSharesLog
+                                currentUserSharesLog && !libraryPage
                                     ? redirectAndOpenView()
                                     : isMyAccount
                                       ? openEdit()
                                       : openCreate();
                             }}
                         >
-                            {currentUserSharesLog
+                            {currentUserSharesLog && !libraryPage
                                 ? "View My Log"
                                 : isMyAccount
                                   ? "Edit"

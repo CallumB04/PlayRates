@@ -184,7 +184,14 @@ function App() {
                                 />
                             }
                         />
-                        <Route path="/library" element={<LibraryPage />} />
+                        <Route
+                            path="/library"
+                            element={
+                                <LibraryPage
+                                    runNotification={runNotification}
+                                />
+                            }
+                        />
                     </Routes>
                 </main>
                 <Footer />
