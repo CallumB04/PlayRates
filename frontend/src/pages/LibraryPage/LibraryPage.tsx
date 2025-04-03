@@ -74,8 +74,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // handling max games per page
+    // handling game container when page is resized
     useEffect(() => {
+        /* handling max games per page */
+
         // larger screens
         if (windowWidth >= 1024) {
             // 4 -> gap inbetween game cards
@@ -103,6 +105,11 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             else if (windowWidth < 755) setGamesPerPage(20);
             else if (windowWidth < 894) setGamesPerPage(20);
             else if (windowWidth < 1024) setGamesPerPage(18);
+        }
+
+        /* ensure window resize doesnt put current page over max page number */
+        if (pageNumber > maxPageNumber) {
+            setPageNumber((previous) => previous - 1);
         }
     }, [windowWidth, windowHeight]);
 
