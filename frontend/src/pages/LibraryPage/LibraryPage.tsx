@@ -105,6 +105,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             }
             // smaller / mobile screens
             else {
+                if (windowWidth < 584) setGamesPerPage(18);
+                else if (windowWidth < 755) setGamesPerPage(20);
+                else if (windowWidth < 894) setGamesPerPage(20);
+                else if (windowWidth < 1024) setGamesPerPage(18);
             }
         }
     }, [windowWidth, windowHeight, gamesContainerElementLoaded]);
@@ -145,6 +149,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                                 <span className="font-semibold">create</span>,
                                 and <span className="font-semibold">edit</span>{" "}
                                 your game logs all within this page!
+                                {gamesPerPage}
                             </p>
                         </div>
                         {windowWidth < 1024 ? (
