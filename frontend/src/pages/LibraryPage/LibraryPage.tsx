@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGameLogsByUserID, fetchGames, Game, GameLog } from "../../api";
 import { useUser } from "../../App";
 import GameElement from "./components/GameElement";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -14,10 +14,16 @@ interface LibraryPageProps {
     ) => void;
 }
 
+const calculateMaxGamesPerPage = (containerWidth: number) => {};
+
 const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const currentUser = useUser();
 
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState<number>(
+        window.innerHeight
+    );
+    const [gamesPerPage, setGamesPerPage] = useState<number>(0);
 
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
@@ -29,6 +35,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const [currentVisibleGameLog, setCurrentVisibleGameLog] =
         useState<GameLog | null>(null);
     const [currentVisibleGameID, setCurrentVisibleGameID] = useState<number>(0); // for create popup
+
+    const gamesContainerElement = useRef<HTMLDivElement | null>(null);
+    const [gamesContainerElementLoaded, setGamesContainerElementLoaded] =
+        useState<boolean>(false);
 
     // fetching all games from API
     const {
@@ -54,14 +64,50 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
 
     // handling window resizing
     useEffect(() => {
-        // updates state with window width
-        const handleResize = () => setWindowWidth(window.innerWidth);
+        // updates state with window width and height
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
+        };
 
         // listening for window resizing and matching it in state
         window.addEventListener("resize", handleResize);
 
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(() => {
+        if (gamesContainerElement.current) {
+            setGamesContainerElementLoaded(true);
+        }
+    }, [gamesContainerElement.current]);
+
+    // handling max games per page
+    useEffect(() => {
+        if (gamesContainerElement.current) {
+            if (windowWidth >= 1024) {
+                // larger screens
+                // 4 -> gap inbetween game cards
+                // 105 -> width of game cards
+                const gamesPerRow = Math.floor(
+                    (gamesContainerElement.current.clientWidth + 4) / (105 + 4)
+                );
+                // 140 -> height of game cards
+                // 160 -> page top and bottom padding (80 each)
+                // 128 -> height of header card
+                // 12 -> gap between header card and games container
+                // TODO: when pagination buttons add, also add this to height total
+                const rowsCount = Math.floor(
+                    (windowHeight - (160 + 128 + 12)) / 140
+                );
+
+                setGamesPerPage(gamesPerRow * rowsCount);
+            }
+            // smaller / mobile screens
+            else {
+            }
+        }
+    }, [windowWidth, windowHeight, gamesContainerElementLoaded]);
 
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
@@ -85,7 +131,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     </p>
                 </span>
             ) : (
-                <div className="flex h-full w-full flex-col gap-3">
+                <div className="flex w-full flex-col gap-3 lg:h-[85vh]">
                     {/* Header Card */}
                     <div className="card w-full space-y-4 font-lexend">
                         <div className="w-full space-y-1">
@@ -114,7 +160,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     </div>
 
                     {/* Games */}
-                    <div className="mx-auto flex h-max w-full flex-wrap justify-center gap-1">
+                    <div
+                        className="flex flex-wrap justify-center gap-1 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(105px,1fr))]"
+                        ref={gamesContainerElement}
+                    >
                         {games?.map((game) => {
                             return (
                                 <GameElement
