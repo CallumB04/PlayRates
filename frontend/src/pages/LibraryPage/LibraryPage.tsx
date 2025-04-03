@@ -128,6 +128,9 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         } else {
             setNextEnabled(true);
         }
+
+        // scroll to top of page whenever page number changes
+        window.scrollTo(0, 0);
     }, [pageNumber, maxPageNumber]);
 
     // updating maximum page number when games per page or section changes
@@ -169,13 +172,11 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                                 Game Library
                             </h2>
                             <p className="text-center text-text-secondary">
-                                Explore our extensive game library and see what
-                                others are playing. You can{" "}
+                                You can{" "}
                                 <span className="font-semibold">view</span>,{" "}
                                 <span className="font-semibold">create</span>,
                                 and <span className="font-semibold">edit</span>{" "}
                                 your game logs all within this page!
-                                {gamesPerPage}
                             </p>
                         </div>
                         {windowWidth < 1024 ? (
