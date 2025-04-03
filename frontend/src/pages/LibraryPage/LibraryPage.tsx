@@ -14,8 +14,6 @@ interface LibraryPageProps {
     ) => void;
 }
 
-const calculateMaxGamesPerPage = (containerWidth: number) => {};
-
 const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const currentUser = useUser();
 
@@ -24,6 +22,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         window.innerHeight
     );
     const [gamesPerPage, setGamesPerPage] = useState<number>(0);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [maxPageNumber, setMaxPageNumber] = useState<number>(1); // re-calculates when window width updates, final page number based on games
+    const [previousEnabled, setPreviousEnabled] = useState<boolean>(true); // whether previous button can be pressed (page number > 1)
+    const [nextEnabled, setNextEnabled] = useState<boolean>(true); // whether next button can be pressed (not at final page)
 
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
@@ -35,10 +37,6 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const [currentVisibleGameLog, setCurrentVisibleGameLog] =
         useState<GameLog | null>(null);
     const [currentVisibleGameID, setCurrentVisibleGameID] = useState<number>(0); // for create popup
-
-    const gamesContainerElement = useRef<HTMLDivElement | null>(null);
-    const [gamesContainerElementLoaded, setGamesContainerElementLoaded] =
-        useState<boolean>(false);
 
     // fetching all games from API
     const {
@@ -76,42 +74,63 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    useEffect(() => {
-        if (gamesContainerElement.current) {
-            setGamesContainerElementLoaded(true);
-        }
-    }, [gamesContainerElement.current]);
-
     // handling max games per page
     useEffect(() => {
-        if (gamesContainerElement.current) {
-            if (windowWidth >= 1024) {
-                // larger screens
-                // 4 -> gap inbetween game cards
-                // 105 -> width of game cards
-                const gamesPerRow = Math.floor(
-                    (gamesContainerElement.current.clientWidth + 4) / (105 + 4)
-                );
-                // 140 -> height of game cards
-                // 160 -> page top and bottom padding (80 each)
-                // 128 -> height of header card
-                // 12 -> gap between header card and games container
-                // TODO: when pagination buttons add, also add this to height total
-                const rowsCount = Math.floor(
-                    (windowHeight - (160 + 128 + 12)) / 140
-                );
+        if (windowWidth >= 1024) {
+            // larger screens
+            // 4 -> gap inbetween game cards
+            // 105 -> width of game cards
+            // 64 -> left and right padding on page (32 each)
+            // 320 -> width of filters card
+            // 16 -> gap between filters card and game container
+            const gamesPerRow = Math.floor(
+                (windowWidth - (64 + 320 + 16) + 4) / (105 + 4)
+            );
+            // 140 -> height of game cards
+            // 160 -> page top and bottom padding (80 each)
+            // 128 -> height of header card
+            // 12 -> gap between header card and games container
+            // TODO: when pagination buttons add, also add this to height total
+            const rowsCount = Math.floor(
+                (windowHeight - (160 + 128 + 12)) / 140
+            );
 
-                setGamesPerPage(gamesPerRow * rowsCount);
-            }
-            // smaller / mobile screens
-            else {
-                if (windowWidth < 584) setGamesPerPage(18);
-                else if (windowWidth < 755) setGamesPerPage(20);
-                else if (windowWidth < 894) setGamesPerPage(20);
-                else if (windowWidth < 1024) setGamesPerPage(18);
-            }
+            setGamesPerPage(gamesPerRow * rowsCount);
         }
-    }, [windowWidth, windowHeight, gamesContainerElementLoaded]);
+        // smaller / mobile screens
+        else {
+            if (windowWidth < 584) setGamesPerPage(18);
+            else if (windowWidth < 755) setGamesPerPage(20);
+            else if (windowWidth < 894) setGamesPerPage(20);
+            else if (windowWidth < 1024) setGamesPerPage(18);
+        }
+    }, [windowWidth, windowHeight]);
+
+    // updating next and previous buttons when current or max page number changes
+    useEffect(() => {
+        // disable previous if on first page
+        if (pageNumber === 1) {
+            setPreviousEnabled(false);
+        } else {
+            setPreviousEnabled(true);
+        }
+
+        // disable next if on final page
+        if (pageNumber === maxPageNumber) {
+            setNextEnabled(false);
+        } else {
+            setNextEnabled(true);
+        }
+    }, [pageNumber, maxPageNumber]);
+
+    // updating maximum page number when games per page or section changes
+    // also checking if page is empty for displaying message
+    useEffect(() => {
+        if (games) {
+            const maxPages = Math.floor(games.length / gamesPerPage) + 1;
+            setMaxPageNumber(maxPages);
+        }
+    }, [gamesPerPage, games]);
 
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
@@ -123,7 +142,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     return (
         <section className="flex w-full gap-4">
             {/* Filters Menu (for larger screens) */}
-            <aside className="card hidden h-[85vh] w-96 lg:flex">
+            <aside className="card hidden h-[85vh] min-w-[320px] max-w-[320px] lg:flex">
                 <h2 className="card-header-text">Filters</h2>
             </aside>
             {/* Main Container */}
@@ -165,51 +184,89 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     </div>
 
                     {/* Games */}
-                    <div
-                        className="flex flex-wrap justify-center gap-1 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(105px,1fr))]"
-                        ref={gamesContainerElement}
-                    >
-                        {games?.map((game) => {
-                            return (
-                                <GameElement
-                                    key={game.id}
-                                    game={game}
-                                    userLoggedIn={currentUser ? true : false}
-                                    userHasLog={
-                                        currentUserGameLogs?.some(
-                                            (log) => log.id === game.id
-                                        )
-                                            ? true
-                                            : false
-                                    }
-                                    handleView={() => {
-                                        setCurrentVisibleGameLog(
-                                            currentUserGameLogs?.find(
+                    <div className="flex w-full flex-grow flex-col justify-between">
+                        <div className="flex flex-wrap justify-center gap-1 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(105px,1fr))]">
+                            {games?.map((game) => {
+                                return (
+                                    <GameElement
+                                        key={game.id}
+                                        game={game}
+                                        userLoggedIn={
+                                            currentUser ? true : false
+                                        }
+                                        userHasLog={
+                                            currentUserGameLogs?.some(
                                                 (log) => log.id === game.id
-                                            )!
-                                        );
-                                        setViewGameLogPopupVisible(true);
-                                    }}
-                                    handleEdit={() => {
-                                        setCurrentVisibleGameLog(
-                                            currentUserGameLogs?.find(
-                                                (log) => log.id === game.id
-                                            )!
-                                        );
-                                        setEditGameLogPopupVisible(true);
-                                    }}
-                                    handleCreate={() => {
-                                        setCurrentVisibleGameID(game.id);
-                                        setCreateGameLogPopupVisible(true);
-                                    }}
-                                    popupIsVisible={
-                                        viewGameLogPopupVisible ||
-                                        editGameLogPopupVisible ||
-                                        createGameLogPopupVisible
-                                    }
-                                />
-                            );
-                        })}
+                                            )
+                                                ? true
+                                                : false
+                                        }
+                                        handleView={() => {
+                                            setCurrentVisibleGameLog(
+                                                currentUserGameLogs?.find(
+                                                    (log) => log.id === game.id
+                                                )!
+                                            );
+                                            setViewGameLogPopupVisible(true);
+                                        }}
+                                        handleEdit={() => {
+                                            setCurrentVisibleGameLog(
+                                                currentUserGameLogs?.find(
+                                                    (log) => log.id === game.id
+                                                )!
+                                            );
+                                            setEditGameLogPopupVisible(true);
+                                        }}
+                                        handleCreate={() => {
+                                            setCurrentVisibleGameID(game.id);
+                                            setCreateGameLogPopupVisible(true);
+                                        }}
+                                        popupIsVisible={
+                                            viewGameLogPopupVisible ||
+                                            editGameLogPopupVisible ||
+                                            createGameLogPopupVisible
+                                        }
+                                    />
+                                );
+                            })}
+                        </div>
+                        <div className="mx-auto mb-4 mt-12 flex w-max items-center justify-center gap-6">
+                            {/* Previous Button */}
+                            <button
+                                className={`${previousEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} button-outline flex h-10 w-16 items-center justify-center sm:w-28`}
+                                onClick={() =>
+                                    previousEnabled
+                                        ? setPageNumber(pageNumber - 1)
+                                        : null
+                                }
+                            >
+                                {windowWidth >= 640 ? (
+                                    "Previous"
+                                ) : (
+                                    <i className="fas fa-arrow-left text-lg"></i>
+                                )}
+                            </button>
+                            {/* Page number text */}
+                            <p className="font-lexend text-text-primary sm:text-lg">
+                                Page {pageNumber} of {maxPageNumber}
+                            </p>
+
+                            {/* Next Button */}
+                            <button
+                                className={`button-outline flex h-10 w-16 items-center justify-center sm:w-28 ${nextEnabled ? "border-text-primary text-text-primary hover:border-highlight-primary hover:text-highlight-primary" : "border-[#ffffff55] text-[#ffffff55]"} `}
+                                onClick={() =>
+                                    nextEnabled
+                                        ? setPageNumber(pageNumber + 1)
+                                        : null
+                                }
+                            >
+                                {windowWidth >= 640 ? (
+                                    "Next"
+                                ) : (
+                                    <i className="fas fa-arrow-right text-lg"></i>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
