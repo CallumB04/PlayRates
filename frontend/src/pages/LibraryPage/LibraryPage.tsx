@@ -109,7 +109,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
 
         /* ensure window resize doesnt put current page over max page number */
         if (pageNumber > maxPageNumber) {
-            setPageNumber((previous) => previous - 1);
+            setPageNumber(maxPageNumber);
         }
     }, [windowWidth, windowHeight]);
 
