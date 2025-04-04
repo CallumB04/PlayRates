@@ -27,3 +27,4 @@ dist-ssr
 /backend/data
 .env
 *.rest
+*.png
