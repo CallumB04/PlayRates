@@ -240,7 +240,10 @@ const CreateOrEditGameLogPopup: React.FC<CreateOrEditGameLogPopupProps> = ({
                                         }
                                     >
                                         {gamePlatforms.map((platform) => (
-                                            <option value={platform.name}>
+                                            <option
+                                                key={platform.name}
+                                                value={platform.name}
+                                            >
                                                 {platform.display}
                                             </option>
                                         ))}
