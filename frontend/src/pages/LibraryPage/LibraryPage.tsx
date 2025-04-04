@@ -106,12 +106,14 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             else if (windowWidth < 894) setGamesPerPage(20);
             else if (windowWidth < 1024) setGamesPerPage(18);
         }
+    }, [windowWidth, windowHeight]);
 
-        /* ensure window resize doesnt put current page over max page number */
+    // ensure window resize doesnt put current page over max page number
+    useEffect(() => {
         if (pageNumber > maxPageNumber) {
             setPageNumber(maxPageNumber);
         }
-    }, [windowWidth, windowHeight]);
+    }, [maxPageNumber]);
 
     // updating next and previous buttons when current or max page number changes
     useEffect(() => {
