@@ -33,7 +33,7 @@ const GameElement: React.FC<GameElementProps> = ({
 
     if (game) {
         return (
-            <div className="flex w-full justify-center">
+            <div className="flex justify-center lg:w-full">
                 <Link
                     to={`/game/${game.id}`}
                     className="game-cover group relative h-[180px] w-[135px] p-1 lg:h-[140px] lg:w-[105px]"
