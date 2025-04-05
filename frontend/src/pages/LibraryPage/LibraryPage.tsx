@@ -182,8 +182,18 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                             </p>
                         </div>
                         {windowWidth < 1024 ? (
-                            <span className="flex w-full justify-end font-lexend">
-                                <button className="button-outline button-outline-default flex w-full min-w-36 items-center justify-center gap-3 md:w-max">
+                            <span className="flex w-full flex-col gap-3 font-lexend md:flex-row">
+                                {/* Search bar */}
+                                <span className="relative h-max w-full">
+                                    <input
+                                        type="text"
+                                        placeholder="Search for game..."
+                                        className="search-bar h-12 w-full"
+                                    />
+                                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                                </span>
+                                {/* Filters button */}
+                                <button className="button-outline button-outline-default flex h-12 w-full min-w-36 items-center justify-center gap-3 md:w-max">
                                     Filters
                                     <i className="fas fa-filter"></i>
                                 </button>
