@@ -27,6 +27,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     const [previousEnabled, setPreviousEnabled] = useState<boolean>(true); // whether previous button can be pressed (page number > 1)
     const [nextEnabled, setNextEnabled] = useState<boolean>(true); // whether next button can be pressed (not at final page)
 
+    // filter values
+    const [existingLogInputValue, setExistingLogInputValue] =
+        useState<boolean>(true);
+
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
         useState<boolean>(false);
@@ -139,10 +143,18 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     // also checking if page is empty for displaying message
     useEffect(() => {
         if (games) {
-            const maxPages = Math.ceil(games.length / gamesPerPage);
+            const maxPages = Math.ceil(
+                games.filter((game) =>
+                    existingLogInputValue
+                        ? true
+                        : !currentUserGameLogs?.some(
+                              (log) => log.id === game.id
+                          )
+                ).length / gamesPerPage
+            );
             setMaxPageNumber(maxPages);
         }
-    }, [gamesPerPage, games]);
+    }, [gamesPerPage, games, existingLogInputValue]);
 
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
@@ -154,8 +166,38 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     return (
         <section className="flex w-full gap-4">
             {/* Filters Menu (for larger screens) */}
-            <aside className="card hidden h-[85vh] min-w-[320px] max-w-[320px] lg:flex">
-                <h2 className="card-header-text">Filters</h2>
+            <aside className="card hidden h-[85vh] min-w-[320px] max-w-[320px] flex-col gap-6 font-lexend lg:flex">
+                <div className="flex w-full flex-col gap-4">
+                    <h2 className="card-header-text">Filters</h2>
+                    {/* Search bar */}
+                    <span className="relative h-max w-full">
+                        <input
+                            type="text"
+                            placeholder="Search for game..."
+                            className="search-bar h-11 w-full"
+                        />
+                        <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                    </span>
+                </div>
+
+                <div className="flex w-full flex-col gap-4">
+                    {/* Existing log checkbox */}
+                    <span className="flex gap-2">
+                        <input
+                            type="checkbox"
+                            defaultChecked
+                            onChange={(e) =>
+                                setExistingLogInputValue(
+                                    e.currentTarget.checked
+                                )
+                            }
+                            disabled={!currentUser}
+                        />
+                        <p className="font-light text-text-primary">
+                            Include already logged games?
+                        </p>
+                    </span>
+                </div>
             </aside>
             {/* Main Container */}
             {gamesLoading || currentUserGameLogsLoading ? (
@@ -207,7 +249,14 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     <div className="flex w-full flex-grow flex-col justify-between">
                         <div className="flex flex-wrap justify-center gap-1 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(105px,1fr))]">
                             {games
-                                ?.slice(
+                                ?.filter((game) =>
+                                    existingLogInputValue
+                                        ? true
+                                        : !currentUserGameLogs?.some(
+                                              (log) => log.id === game.id
+                                          )
+                                )
+                                .slice(
                                     (pageNumber - 1) * gamesPerPage,
                                     gamesPerPage * pageNumber
                                 )
