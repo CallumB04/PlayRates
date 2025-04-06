@@ -193,17 +193,14 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                 <div className="flex w-full flex-col gap-4">
                     <h2 className="card-header-text">Filters</h2>
                     {/* Search bar */}
-                    <span className="relative h-max w-full">
-                        <input
-                            type="text"
-                            placeholder="Search for game..."
-                            className="search-bar h-11 w-full"
-                            onChange={(e) =>
-                                setFilterSearchBarValue(e.currentTarget.value)
-                            }
-                        />
-                        <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
-                    </span>
+                    <input
+                        type="text"
+                        placeholder="Search for game..."
+                        className="search-bar h-11 w-full"
+                        onChange={(e) =>
+                            setFilterSearchBarValue(e.currentTarget.value)
+                        }
+                    />
                 </div>
 
                 <div className="flex w-full flex-col gap-4">
