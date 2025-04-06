@@ -30,6 +30,8 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     // filter values
     const [existingLogInputValue, setExistingLogInputValue] =
         useState<boolean>(true);
+    const [filterSearchBarValue, setFilterSearchBarValue] =
+        useState<string>("");
 
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
@@ -68,15 +70,26 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         enabled: !!currentUser,
     });
 
+    // handling filter updates
     useEffect(() => {
         setFilteredGames(
-            games?.filter((game) =>
-                existingLogInputValue
-                    ? true
-                    : !currentUserGameLogs?.some((log) => log.id === game.id)
-            )
+            games
+                ?.filter((game) =>
+                    existingLogInputValue
+                        ? true
+                        : !currentUserGameLogs?.some(
+                              (log) => log.id === game.id
+                          )
+                )
+                .filter((game) =>
+                    filterSearchBarValue
+                        ? game.title
+                              .toLowerCase()
+                              .includes(filterSearchBarValue.toLowerCase())
+                        : true
+                )
         );
-    }, [games, existingLogInputValue]);
+    }, [games, existingLogInputValue, filterSearchBarValue]);
 
     // handling window resizing
     useEffect(() => {
@@ -136,7 +149,7 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     // updating next and previous buttons when current or max page number changes
     useEffect(() => {
         // disable previous if on first page
-        if (pageNumber === 1) {
+        if (pageNumber <= 1) {
             setPreviousEnabled(false);
         } else {
             setPreviousEnabled(true);
@@ -147,6 +160,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             setNextEnabled(false);
         } else {
             setNextEnabled(true);
+        }
+
+        if (maxPageNumber === 1) {
+            setPageNumber(1);
         }
 
         // scroll to top of page whenever page number changes
@@ -181,6 +198,9 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                             type="text"
                             placeholder="Search for game..."
                             className="search-bar h-11 w-full"
+                            onChange={(e) =>
+                                setFilterSearchBarValue(e.currentTarget.value)
+                            }
                         />
                         <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                     </span>
