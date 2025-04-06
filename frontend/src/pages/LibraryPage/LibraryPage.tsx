@@ -52,6 +52,10 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         queryFn: () => fetchGames(),
     });
 
+    const [filteredGames, setFilteredGames] = useState<Game[] | undefined>(
+        games
+    );
+
     // fetching current users game logs from API, if logged in
     const {
         data: currentUserGameLogs,
@@ -63,6 +67,16 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         queryFn: () => fetchGameLogsByUserID(currentUser!.id),
         enabled: !!currentUser,
     });
+
+    useEffect(() => {
+        setFilteredGames(
+            games?.filter((game) =>
+                existingLogInputValue
+                    ? true
+                    : !currentUserGameLogs?.some((log) => log.id === game.id)
+            )
+        );
+    }, [games, existingLogInputValue]);
 
     // handling window resizing
     useEffect(() => {
@@ -142,19 +156,11 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     // updating maximum page number when games per page or section changes
     // also checking if page is empty for displaying message
     useEffect(() => {
-        if (games) {
-            const maxPages = Math.ceil(
-                games.filter((game) =>
-                    existingLogInputValue
-                        ? true
-                        : !currentUserGameLogs?.some(
-                              (log) => log.id === game.id
-                          )
-                ).length / gamesPerPage
-            );
+        if (filteredGames) {
+            const maxPages = Math.ceil(filteredGames.length / gamesPerPage);
             setMaxPageNumber(maxPages);
         }
-    }, [gamesPerPage, games, existingLogInputValue]);
+    }, [gamesPerPage, filteredGames]);
 
     // function ran after successful edit or creation of a log
     const viewUpdatedLog = (log: GameLog) => {
@@ -248,15 +254,8 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     {/* Games */}
                     <div className="flex w-full flex-grow flex-col justify-between">
                         <div className="flex flex-wrap justify-center gap-1 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(105px,1fr))]">
-                            {games
-                                ?.filter((game) =>
-                                    existingLogInputValue
-                                        ? true
-                                        : !currentUserGameLogs?.some(
-                                              (log) => log.id === game.id
-                                          )
-                                )
-                                .slice(
+                            {filteredGames
+                                ?.slice(
                                     (pageNumber - 1) * gamesPerPage,
                                     gamesPerPage * pageNumber
                                 )
