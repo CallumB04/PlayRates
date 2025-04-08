@@ -10,6 +10,7 @@ export interface Game {
     title: string;
     trending: boolean; // temporary feature, in future will be based on weekly listings
     releaseDate: string; // stored in ISO 8601 format for easy Date object conversion
+    platforms: string[]; // steam, xbox, etc
     listings: {
         played: number;
         playing: number;
