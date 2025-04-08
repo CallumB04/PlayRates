@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchGameLogsByUserID, fetchGames, Game, GameLog } from "../../api";
-import { useUser } from "../../App";
+import { gamePlatforms, useUser } from "../../App";
 import GameElement from "./components/GameElement";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -220,6 +220,24 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                             Include already logged games?
                         </p>
                     </span>
+
+                    {/* Platform dropdown */}
+                    <div className="flex flex-col gap-0.5">
+                        <p className="text-sm font-semibold text-text-primary">
+                            Platform
+                        </p>
+                        <select className="dropdown-input h-11 w-full">
+                            <option value="all">All Platforms</option>
+                            {gamePlatforms.map((platform) => (
+                                <option
+                                    key={platform.name}
+                                    value={platform.name}
+                                >
+                                    {platform.display}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
             </aside>
             {/* Main Container */}
