@@ -32,6 +32,8 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
         useState<boolean>(true);
     const [filterSearchBarValue, setFilterSearchBarValue] =
         useState<string>("");
+    const [platformsDropdownValue, setPlatformsDropdownValue] =
+        useState<string>("all");
 
     // game log popup visiblilities
     const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
@@ -88,8 +90,18 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                               .includes(filterSearchBarValue.toLowerCase())
                         : true
                 )
+                .filter((game) =>
+                    platformsDropdownValue === "all"
+                        ? true
+                        : game.platforms.includes(platformsDropdownValue)
+                )
         );
-    }, [games, existingLogInputValue, filterSearchBarValue]);
+    }, [
+        games,
+        existingLogInputValue,
+        filterSearchBarValue,
+        platformsDropdownValue,
+    ]);
 
     // handling window resizing
     useEffect(() => {
@@ -226,7 +238,12 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                         <p className="text-sm font-semibold text-text-primary">
                             Platform
                         </p>
-                        <select className="dropdown-input h-11 w-full">
+                        <select
+                            className="dropdown-input h-11 w-full"
+                            onChange={(e) =>
+                                setPlatformsDropdownValue(e.currentTarget.value)
+                            }
+                        >
                             <option value="all">All Platforms</option>
                             {gamePlatforms.map((platform) => (
                                 <option
