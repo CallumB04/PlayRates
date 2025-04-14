@@ -36,11 +36,11 @@ const GamePage = () => {
                     <p className="text-xl font-light text-text-secondary">
                         Released on{" "}
                         <span className="font-normal">
-                            {game?.releaseDate
+                            {game?.releaseDate && game?.releaseDate !== "TBA"
                                 ? new Date(game?.releaseDate)
                                       .toDateString()
                                       .slice(4)
-                                : "N/A"}
+                                : "TBA"}
                         </span>
                     </p>
                 </div>
