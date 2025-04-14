@@ -10,6 +10,7 @@ import AccountForm from "./components/AccountForm";
 import Notification from "./components/Notification";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import LibraryPage from "./pages/LibraryPage/LibraryPage";
+import GamePage from "./pages/GamePage/GamePage";
 
 // creating context for user, to be accessed throughout whole application
 const UserContext = createContext<UserAccount | null>(null);
@@ -197,6 +198,7 @@ function App() {
                                 />
                             }
                         />
+                        <Route path="/game/:gameID" element={<GamePage />} />
                     </Routes>
                 </main>
                 <Footer />
