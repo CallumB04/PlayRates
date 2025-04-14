@@ -30,6 +30,8 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
     // filter values
     const [existingLogInputValue, setExistingLogInputValue] =
         useState<boolean>(true);
+    const [ageRatingInputValue, setAgeRatingInputValue] =
+        useState<boolean>(false);
     const [filterSearchBarValue, setFilterSearchBarValue] =
         useState<string>("");
     const [platformsDropdownValue, setPlatformsDropdownValue] =
@@ -95,10 +97,14 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                         ? true
                         : game.platforms.includes(platformsDropdownValue)
                 )
+                .filter((game) =>
+                    ageRatingInputValue ? true : !game.eighteenPlus
+                )
         );
     }, [
         games,
         existingLogInputValue,
+        ageRatingInputValue,
         filterSearchBarValue,
         platformsDropdownValue,
     ]);
@@ -230,6 +236,19 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                         />
                         <p className="font-light text-text-primary">
                             Include already logged games?
+                        </p>
+                    </span>
+
+                    {/* 18+ age rating checkbox */}
+                    <span className="flex gap-2">
+                        <input
+                            type="checkbox"
+                            onChange={(e) =>
+                                setAgeRatingInputValue(e.currentTarget.checked)
+                            }
+                        />
+                        <p className="font-light text-text-primary">
+                            Include 18+ age-rated games?
                         </p>
                     </span>
 
