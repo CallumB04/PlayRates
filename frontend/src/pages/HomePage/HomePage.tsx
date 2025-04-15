@@ -152,9 +152,7 @@ const HomePage: React.FC<HomePageProps> = ({
             {/* Most Popular games (by amount of user listings) */}
             <h2 className={gameSectionTitleStyles}>Most Popular</h2>
             <GameSection
-                games={games
-                    ?.sort((a, b) => b.listings.overall - a.listings.overall)
-                    .slice(0, 6)}
+                games={games?.slice(0, 6)}
                 loading={gamesLoading}
                 error={gamesError}
             />

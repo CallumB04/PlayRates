@@ -12,13 +12,6 @@ export interface Game {
     releaseDate: string; // stored in ISO 8601 format for easy Date object conversion
     platforms: string[]; // steam, xbox, etc
     eighteenPlus: boolean; // 18+ age restriction
-    listings: {
-        played: number;
-        playing: number;
-        backlog: number;
-        wishlist: number;
-        overall: number;
-    };
 }
 
 // fetches whole games array
