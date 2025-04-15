@@ -23,10 +23,10 @@ const GamePage = () => {
     return (
         <section className="mx-auto mt-20 min-w-[1200px] max-w-[1200px] font-lexend">
             <span className="flex gap-8">
-                <div className="game-cover h-80">
+                <div className="flex w-full flex-col">
                     <img
                         src={`/PlayRates/assets/game-covers/${game?.id}.png`}
-                        className="size-full rounded-md object-cover"
+                        className="h-80 max-w-max rounded-md"
                     />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -42,6 +42,31 @@ const GamePage = () => {
                                       .slice(4)
                                 : "TBA"}
                         </span>
+                    </p>
+                    <p className="mt-5 line-clamp-[8] text-text-secondary">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing
+                        elit. Sapiente possimus voluptate iusto soluta quae
+                        illum reprehenderit nisi, hic vitae at. Dignissimos
+                        natus error molestias modi praesentium commodi
+                        recusandae consequatur minus. Lorem ipsum dolor sit amet
+                        consectetur, adipisicing elit. Sapiente possimus
+                        voluptate iusto soluta quae illum reprehenderit nisi,
+                        hic vitae at. Dignissimos natus error molestias modi
+                        praesentium commodi recusandae consequatur minus. Lorem
+                        ipsum dolor sit amet consectetur, adipisicing elit.
+                        Sapiente possimus voluptate iusto soluta quae illum
+                        reprehenderit nisi, hic vitae at. Dignissimos natus
+                        error molestias modi praesentium commodi recusandae
+                        consequatur minus. Lorem ipsum dolor sit amet
+                        consectetur, adipisicing elit. Sapiente possimus
+                        voluptate iusto soluta quae illum reprehenderit nisi,
+                        hic vitae at. Dignissimos natus error molestias modi
+                        praesentium commodi recusandae consequatur minus. Lorem
+                        ipsum dolor sit amet consectetur, adipisicing elit.
+                        Sapiente possimus voluptate iusto soluta quae illum
+                        reprehenderit nisi, hic vitae at. Dignissimos natus
+                        error molestias modi praesentium commodi recusandae
+                        consequatur minus.
                     </p>
                 </div>
             </span>
