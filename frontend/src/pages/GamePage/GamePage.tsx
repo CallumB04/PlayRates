@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchGameById, Game } from "../../api";
+import { fetchGameById, fetchGameLogs, Game, GameLog } from "../../api";
 import { gamePlatforms } from "../../App";
+import { useQuery } from "@tanstack/react-query";
 
 const GamePage = () => {
     const { gameID } = useParams(); // getting game id from URL
     const [game, setGame] = useState<Game | undefined>(undefined);
+    const [gameLogs, setGameLogs] = useState<GameLog[] | undefined>(undefined);
+
+    // fetching gamelogs from API
+    const {
+        data: overallGameLogs,
+        error: overallGameLogsError,
+        isLoading: overallGameLogsLoading,
+    } = useQuery<{ [userID: string]: GameLog[] }>({
+        queryKey: ["gamelogs"],
+        queryFn: fetchGameLogs,
+    });
 
     useEffect(() => {
         const loadGameByID = async () => {
@@ -21,15 +33,33 @@ const GamePage = () => {
         loadGameByID();
     }, []);
 
+    useEffect(() => {
+        if (overallGameLogs && game) {
+            // flattens all nested logs into a singular array of game logs
+            // then filters game based on which matches the current game
+            const matchingGameLogs = Object.values(overallGameLogs)
+                .flatMap((logs) => logs)
+                .filter((log) => log.id === game?.id);
+            setGameLogs(matchingGameLogs);
+        }
+    }, [overallGameLogs, game]);
+
     return (
         <section className="mx-auto mt-20 min-w-[1200px] max-w-[1200px] font-lexend">
             <span className="flex gap-8">
                 {/* Left column */}
-                <div className="flex w-full flex-col">
+                <div className="flex w-full flex-col gap-3">
                     <img
                         src={`/PlayRates/assets/game-covers/${game?.id}.png`}
                         className="h-80 max-w-max rounded-md"
                     />
+                    <span className="flex w-1/2 items-center justify-center gap-3 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                        <p>
+                            {gameLogs?.length}{" "}
+                            {gameLogs?.length === 1 ? "Log" : "Logs"}
+                        </p>
+                        <i className="fa-solid fa-chart-bar"></i>
+                    </span>
                 </div>
                 {/* Right column */}
                 <div className="flex flex-col gap-2">
