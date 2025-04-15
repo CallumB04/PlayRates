@@ -77,7 +77,7 @@ const GamePage = () => {
                                     Avg. Rating
                                 </p>
                             ) : (
-                                <p>No Ratings</p>
+                                <p>No Rating</p>
                             )}
                             <i className="fa-solid fa-star"></i>
                         </span>
