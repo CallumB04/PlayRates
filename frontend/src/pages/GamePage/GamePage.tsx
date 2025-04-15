@@ -53,13 +53,35 @@ const GamePage = () => {
                         src={`/PlayRates/assets/game-covers/${game?.id}.png`}
                         className="h-80 max-w-max rounded-md"
                     />
-                    <span className="flex w-1/2 items-center justify-center gap-3 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
-                        <p>
-                            {gameLogs?.length}{" "}
-                            {gameLogs?.length === 1 ? "Log" : "Logs"}
-                        </p>
-                        <i className="fa-solid fa-chart-bar"></i>
-                    </span>
+                    <div className="flex w-full flex-col gap-2">
+                        <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                            <p>
+                                {gameLogs?.length}{" "}
+                                {gameLogs?.length === 1 ? "Log" : "Logs"}
+                            </p>
+                            <i className="fa-solid fa-chart-bar"></i>
+                        </span>
+                        <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                            {gameLogs &&
+                            gameLogs.filter((log) => log.rating).length >= 1 ? (
+                                <p>
+                                    {gameLogs?.reduce(
+                                        (acc, log) =>
+                                            log.rating
+                                                ? acc + log.rating
+                                                : acc + 0,
+                                        0
+                                    ) /
+                                        gameLogs.filter((log) => log.rating)
+                                            .length}{" "}
+                                    Avg. Rating
+                                </p>
+                            ) : (
+                                <p>No Ratings</p>
+                            )}
+                            <i className="fa-solid fa-star"></i>
+                        </span>
+                    </div>
                 </div>
                 {/* Right column */}
                 <div className="flex flex-col gap-2">
@@ -104,7 +126,10 @@ const GamePage = () => {
                     <span className="mt-2 flex flex-wrap gap-3">
                         {game?.platforms.map((platform) => {
                             return (
-                                <span className="flex items-center gap-2 rounded-full border-2 border-text-secondary px-2.5 py-0.5 text-text-primary">
+                                <span
+                                    className="flex items-center gap-2 rounded-full border-2 border-text-secondary px-2.5 py-0.5 text-text-primary"
+                                    key={platform}
+                                >
                                     <p>
                                         {
                                             gamePlatforms.find(
