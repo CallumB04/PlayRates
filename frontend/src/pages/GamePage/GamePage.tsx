@@ -45,50 +45,69 @@ const GamePage = () => {
     }, [overallGameLogs, game]);
 
     return (
-        <section className="mx-auto mt-20 min-w-[1200px] max-w-[1200px] font-lexend">
-            <span className="flex gap-8">
+        <section className="mx-auto mt-20 max-w-[1200px] font-lexend">
+            <span className="flex flex-col gap-8 md:flex-row">
                 {/* Left column */}
-                <div className="flex w-full flex-col gap-3">
-                    <img
-                        src={`/PlayRates/assets/game-covers/${game?.id}.png`}
-                        className="h-80 max-w-max rounded-md"
-                    />
-                    <div className="flex w-full flex-col gap-2">
-                        <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
-                            <p>
-                                {gameLogs?.length}{" "}
-                                {gameLogs?.length === 1 ? "Log" : "Logs"}
-                            </p>
-                            <i className="fa-solid fa-chart-bar"></i>
-                        </span>
-                        <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
-                            {gameLogs &&
-                            gameLogs.filter((log) => log.rating).length >= 1 ? (
+                <div className="flex w-full gap-4">
+                    <div className="flex w-max flex-col gap-3 md:w-full">
+                        <img
+                            src={`/PlayRates/assets/game-covers/${game?.id}.png`}
+                            className="max-h-64 max-w-52 rounded-md md:min-h-80 md:min-w-52 md:max-w-max"
+                        />
+                        <div className="flex w-full flex-col gap-2">
+                            <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
                                 <p>
-                                    {gameLogs?.reduce(
-                                        (acc, log) =>
-                                            log.rating
-                                                ? acc + log.rating
-                                                : acc + 0,
-                                        0
-                                    ) /
-                                        gameLogs.filter((log) => log.rating)
-                                            .length}{" "}
-                                    Avg. Rating
+                                    {gameLogs?.length}{" "}
+                                    {gameLogs?.length === 1 ? "Log" : "Logs"}
                                 </p>
-                            ) : (
-                                <p>No Rating</p>
-                            )}
-                            <i className="fa-solid fa-star"></i>
-                        </span>
+                                <i className="fa-solid fa-chart-bar"></i>
+                            </span>
+                            <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                                {gameLogs &&
+                                gameLogs.filter((log) => log.rating).length >=
+                                    1 ? (
+                                    <p>
+                                        {gameLogs?.reduce(
+                                            (acc, log) =>
+                                                log.rating
+                                                    ? acc + log.rating
+                                                    : acc + 0,
+                                            0
+                                        ) /
+                                            gameLogs.filter((log) => log.rating)
+                                                .length}{" "}
+                                        Avg. Rating
+                                    </p>
+                                ) : (
+                                    <p>No Rating</p>
+                                )}
+                                <i className="fa-solid fa-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-1 md:hidden">
+                        <h2 className="text-2xl tracking-wide text-text-primary sm:text-3xl">
+                            {game?.title}
+                        </h2>
+                        <p className="font-light text-text-secondary sm:text-lg">
+                            Released on{" "}
+                            <span className="font-normal">
+                                {game?.releaseDate &&
+                                game?.releaseDate !== "TBA"
+                                    ? new Date(game?.releaseDate)
+                                          .toUTCString()
+                                          .slice(5, 16)
+                                    : "TBA"}
+                            </span>
+                        </p>
                     </div>
                 </div>
                 {/* Right column */}
                 <div className="flex flex-col gap-2">
-                    <h2 className="text-4xl tracking-wide text-text-primary">
+                    <h2 className="hidden text-4xl tracking-wide text-text-primary md:block">
                         {game?.title}
                     </h2>
-                    <p className="text-xl font-light text-text-secondary">
+                    <p className="hidden text-xl font-light text-text-secondary md:block">
                         Released on{" "}
                         <span className="font-normal">
                             {game?.releaseDate && game?.releaseDate !== "TBA"
@@ -98,7 +117,7 @@ const GamePage = () => {
                                 : "TBA"}
                         </span>
                     </p>
-                    <p className="mt-5 line-clamp-[8] text-text-secondary">
+                    <p className="line-clamp-[8] text-text-secondary md:mt-5">
                         Lorem ipsum dolor sit amet consectetur, adipisicing
                         elit. Sapiente possimus voluptate iusto soluta quae
                         illum reprehenderit nisi, hic vitae at. Dignissimos
@@ -123,7 +142,7 @@ const GamePage = () => {
                         error molestias modi praesentium commodi recusandae
                         consequatur minus.
                     </p>
-                    <span className="mt-2 flex flex-wrap gap-3">
+                    <span className="mt-2 flex flex-wrap justify-center gap-3 md:justify-start">
                         {game?.platforms.map((platform) => {
                             return (
                                 <span
