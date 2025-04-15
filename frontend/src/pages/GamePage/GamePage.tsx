@@ -38,8 +38,8 @@ const GamePage = () => {
                         <span className="font-normal">
                             {game?.releaseDate && game?.releaseDate !== "TBA"
                                 ? new Date(game?.releaseDate)
-                                      .toDateString()
-                                      .slice(4)
+                                      .toUTCString()
+                                      .slice(5, 16)
                                 : "TBA"}
                         </span>
                     </p>
