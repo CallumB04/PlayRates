@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchGames, fetchUsers, Game, UserAccount } from "../../api";
+import {
+    fetchGameLogs,
+    fetchGames,
+    fetchUsers,
+    Game,
+    GameLog,
+    UserAccount,
+} from "../../api";
 import GameSection from "./components/GameSection";
 import { useUser } from "../../App";
 import { useEffect, useState } from "react";
@@ -46,6 +53,16 @@ const HomePage: React.FC<HomePageProps> = ({
     } = useQuery<Game[]>({
         queryKey: ["games"],
         queryFn: fetchGames,
+    });
+
+    // fetching gamelogs from API
+    const {
+        data: gameLogs,
+        error: gameLogsError,
+        isLoading: gameLogsLoading,
+    } = useQuery<{ [userID: string]: GameLog[] }>({
+        queryKey: ["gamelogs"],
+        queryFn: fetchGameLogs,
     });
 
     return (
@@ -111,10 +128,14 @@ const HomePage: React.FC<HomePageProps> = ({
                     <div className="flex flex-col gap-y-1 text-center">
                         <i className="fa-solid fa-chart-bar text-3xl md:text-[32px] 2xl:text-4xl"></i>
                         <p>
-                            {games?.reduce((acc, el) => {
-                                return acc + el.listings.overall;
-                            }, 0) || 0}{" "}
-                            Listings
+                            {gameLogs
+                                ? Object.keys(gameLogs).reduce(
+                                      (acc, userID) =>
+                                          acc + gameLogs[userID].length,
+                                      0
+                                  )
+                                : 0}{" "}
+                            Logs
                         </p>
                     </div>
                 </div>
