@@ -52,7 +52,7 @@ const GamePage = () => {
                     <div className="flex w-max flex-col gap-3 md:w-full">
                         <img
                             src={`/PlayRates/assets/game-covers/${game?.id}.png`}
-                            className="max-h-64 max-w-52 rounded-md md:min-h-80 md:min-w-52 md:max-w-max"
+                            className="max-h-64 max-w-52 rounded-md md:max-h-80 md:min-w-52 md:max-w-max"
                         />
                         <div className="flex w-full flex-col gap-2">
                             <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
