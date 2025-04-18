@@ -8,6 +8,7 @@ axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // sett
 export interface Game {
     id: number;
     title: string;
+    description: string;
     trending: boolean; // temporary feature, in future will be based on weekly listings
     releaseDate: string; // stored in ISO 8601 format for easy Date object conversion
     platforms: string[]; // steam, xbox, etc
