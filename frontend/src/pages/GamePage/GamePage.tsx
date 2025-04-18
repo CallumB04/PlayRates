@@ -48,8 +48,8 @@ const GamePage = () => {
         <section className="mx-auto mt-20 max-w-[1200px] font-lexend">
             <span className="flex flex-col gap-8 md:flex-row">
                 {/* Left column */}
-                <div className="flex w-full gap-4">
-                    <div className="flex w-max flex-col gap-3 md:w-full">
+                <div className="flex gap-4">
+                    <div className="flex w-max flex-col gap-3">
                         <img
                             src={`/PlayRates/assets/game-covers/${game?.id}.png`}
                             className="max-h-64 max-w-52 rounded-md md:max-h-80 md:min-w-52 md:max-w-max"
@@ -103,7 +103,7 @@ const GamePage = () => {
                     </div>
                 </div>
                 {/* Right column */}
-                <div className="flex flex-col gap-2">
+                <div className="flex w-full flex-col gap-2">
                     <h2 className="hidden text-4xl tracking-wide text-text-primary md:block">
                         {game?.title}
                     </h2>
@@ -117,30 +117,10 @@ const GamePage = () => {
                                 : "TBA"}
                         </span>
                     </p>
-                    <p className="line-clamp-[8] text-text-secondary md:mt-5">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Sapiente possimus voluptate iusto soluta quae
-                        illum reprehenderit nisi, hic vitae at. Dignissimos
-                        natus error molestias modi praesentium commodi
-                        recusandae consequatur minus. Lorem ipsum dolor sit amet
-                        consectetur, adipisicing elit. Sapiente possimus
-                        voluptate iusto soluta quae illum reprehenderit nisi,
-                        hic vitae at. Dignissimos natus error molestias modi
-                        praesentium commodi recusandae consequatur minus. Lorem
-                        ipsum dolor sit amet consectetur, adipisicing elit.
-                        Sapiente possimus voluptate iusto soluta quae illum
-                        reprehenderit nisi, hic vitae at. Dignissimos natus
-                        error molestias modi praesentium commodi recusandae
-                        consequatur minus. Lorem ipsum dolor sit amet
-                        consectetur, adipisicing elit. Sapiente possimus
-                        voluptate iusto soluta quae illum reprehenderit nisi,
-                        hic vitae at. Dignissimos natus error molestias modi
-                        praesentium commodi recusandae consequatur minus. Lorem
-                        ipsum dolor sit amet consectetur, adipisicing elit.
-                        Sapiente possimus voluptate iusto soluta quae illum
-                        reprehenderit nisi, hic vitae at. Dignissimos natus
-                        error molestias modi praesentium commodi recusandae
-                        consequatur minus.
+                    <p className="line-clamp-[8] text-center text-text-secondary md:mt-5 md:text-left">
+                        {game?.description
+                            ? game.description
+                            : "This game currently does not have a description."}
                     </p>
                     <span className="mt-2 flex flex-wrap justify-center gap-3 md:justify-start">
                         {game?.platforms.map((platform) => {
