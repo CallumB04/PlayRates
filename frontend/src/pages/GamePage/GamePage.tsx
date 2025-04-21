@@ -71,7 +71,7 @@ const GamePage = () => {
 
                                 {/* Log count hover menu */}
                                 {hoveringLogCount ? (
-                                    <div className="hover-menu fade-in-right absolute -right-36 top-0 flex w-max flex-col gap-1 p-3">
+                                    <div className="hover-menu fade-in-right absolute -right-36 top-0 flex w-max flex-col gap-1 px-3 py-2 shadow-md">
                                         {[
                                             "played",
                                             "playing",
