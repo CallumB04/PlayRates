@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchGameById, fetchGameLogs, Game, GameLog } from "../../api";
-import { gamePlatforms, getIconFromGameStatus } from "../../App";
+import {
+    fetchGameById,
+    fetchGameLogs,
+    fetchGameLogsByUserID,
+    Game,
+    GameLog,
+} from "../../api";
+import { gamePlatforms, getIconFromGameStatus, useUser } from "../../App";
 import { useQuery } from "@tanstack/react-query";
-import { stat } from "fs";
 
 const GamePage = () => {
+    const currentUser = useUser();
     const { gameID } = useParams(); // getting game id from URL
     const [game, setGame] = useState<Game | undefined>(undefined);
     const [gameLogs, setGameLogs] = useState<GameLog[] | undefined>(undefined);
@@ -20,6 +26,18 @@ const GamePage = () => {
     } = useQuery<{ [userID: string]: GameLog[] }>({
         queryKey: ["gamelogs"],
         queryFn: fetchGameLogs,
+    });
+
+    // fetching current users game logs from API, if logged in
+    const {
+        data: currentUserGameLogs,
+        refetch: refetchCurrentUserGameLogs,
+        error: currentUserGameLogsError,
+        isLoading: currentUserGameLogsLoading,
+    } = useQuery<GameLog[] | undefined>({
+        queryKey: ["currentUserGameLogs", currentUser?.id],
+        queryFn: () => fetchGameLogsByUserID(currentUser!.id),
+        enabled: !!currentUser,
     });
 
     useEffect(() => {
@@ -128,6 +146,36 @@ const GamePage = () => {
                                 )}
                                 <i className="fa-solid fa-star"></i>
                             </span>
+                            <button
+                                className={`${
+                                    currentUserGameLogs?.some(
+                                        (log) => log.id === game?.id
+                                    )
+                                        ? "button-secondary"
+                                        : "button-primary"
+                                } flex items-center justify-center gap-3`}
+                            >
+                                <p>
+                                    {currentUser
+                                        ? currentUserGameLogs?.some(
+                                              (log) => log.id === game?.id
+                                          )
+                                            ? "View my Log"
+                                            : "Log this Game"
+                                        : "Log in to Add"}
+                                </p>
+                                <i
+                                    className={`fa-solid ${
+                                        currentUser
+                                            ? currentUserGameLogs?.some(
+                                                  (log) => log.id === game?.id
+                                              )
+                                                ? "fa-eye"
+                                                : "fa-plus"
+                                            : "fa-arrow-right-to-bracket"
+                                    }`}
+                                ></i>
+                            </button>
                         </div>
                     </div>
                     <div className="flex flex-col gap-1 md:hidden">
