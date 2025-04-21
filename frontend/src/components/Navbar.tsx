@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserAccount } from "../api";
-import { useUser } from "../App";
+import { getIconFromGameStatus, useUser } from "../App";
 
 interface NavbarProps {
     signOutUser: () => void;
@@ -82,9 +82,9 @@ const Navbar: React.FC<NavbarProps> = ({
                     <input
                         type="text"
                         placeholder="Search for game..."
-                        className="bg-input-primary h-12 w-[70vw] max-w-[300px] rounded px-2 pr-9 focus:outline-none"
+                        className="h-12 w-[70vw] max-w-[300px] rounded bg-input-primary px-2 pr-9 focus:outline-none"
                     />
-                    <i className="fas fa-magnifying-glass text-input-icon absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
 
                 <Link
@@ -123,7 +123,9 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}?type=played`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-check-circle text-highlight-primary"></i>
+                            <i
+                                className={`${getIconFromGameStatus("played")} text-highlight-primary`}
+                            ></i>
                             <p>Played</p>
                         </Link>
                         <Link
@@ -131,7 +133,9 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}?type=playing`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-play-circle text-highlight-primary"></i>
+                            <i
+                                className={`${getIconFromGameStatus("playing")} text-highlight-primary`}
+                            ></i>
                             <p>Playing</p>
                         </Link>
                         <Link
@@ -139,7 +143,9 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}?type=backlog`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
+                            <i
+                                className={`${getIconFromGameStatus("backlog")} text-highlight-primary`}
+                            ></i>
                             <p>Backlog</p>
                         </Link>
                         <Link
@@ -147,7 +153,9 @@ const Navbar: React.FC<NavbarProps> = ({
                             to={`/user/${user?.username}?type=wishlist`}
                             onClick={closePhoneDropdown}
                         >
-                            <i className="fa-solid fa-heart text-highlight-primary"></i>
+                            <i
+                                className={`${getIconFromGameStatus("wishlist")} text-highlight-primary`}
+                            ></i>
                             <p>Wishlist</p>
                         </Link>
 
@@ -239,28 +247,36 @@ const Navbar: React.FC<NavbarProps> = ({
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}?type=played`}
                                 >
-                                    <i className="fa-regular fa-check-circle text-highlight-primary"></i>
+                                    <i
+                                        className={`${getIconFromGameStatus("played")} text-highlight-primary`}
+                                    ></i>
                                     <p>Played</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}?type=playing`}
                                 >
-                                    <i className="fa-regular fa-play-circle text-highlight-primary"></i>
+                                    <i
+                                        className={`${getIconFromGameStatus("playing")} text-highlight-primary`}
+                                    ></i>
                                     <p>Playing</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}?type=backlog`}
                                 >
-                                    <i className="fa-regular fa-calendar-plus text-highlight-primary"></i>
+                                    <i
+                                        className={`${getIconFromGameStatus("backlog")} text-highlight-primary`}
+                                    ></i>
                                     <p>Backlog</p>
                                 </Link>
                                 <Link
                                     className={`${dropdownItemStyles}`}
                                     to={`/user/${user?.username}?type=wishlist`}
                                 >
-                                    <i className="fa-solid fa-heart text-highlight-primary"></i>
+                                    <i
+                                        className={`${getIconFromGameStatus("wishlist")} text-highlight-primary`}
+                                    ></i>
                                     <p>Wishlist</p>
                                 </Link>
                                 <span className="my-1 w-11/12 bg-text-primary pt-[1px] opacity-0 transition-opacity duration-200 group-hover:opacity-100"></span>
@@ -310,7 +326,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         placeholder="Search for game..."
                         className="search-bar block w-60 lg:w-72"
                     />
-                    <i className="fas fa-magnifying-glass text-input-icon absolute right-1 top-1/2 -translate-y-1/2 transform p-2 transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
+                    <i className="fas fa-magnifying-glass absolute right-1 top-1/2 -translate-y-1/2 transform p-2 text-input-icon transition-colors hover:cursor-pointer hover:text-highlight-primary"></i>
                 </span>
             </div>
         </nav>
