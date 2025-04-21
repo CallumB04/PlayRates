@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGameById, fetchGameLogs, Game, GameLog } from "../../api";
-import { gamePlatforms } from "../../App";
+import { gamePlatforms, getIconFromGameStatus } from "../../App";
 import { useQuery } from "@tanstack/react-query";
+import { stat } from "fs";
 
 const GamePage = () => {
     const { gameID } = useParams(); // getting game id from URL
     const [game, setGame] = useState<Game | undefined>(undefined);
     const [gameLogs, setGameLogs] = useState<GameLog[] | undefined>(undefined);
+
+    const [hoveringLogCount, setHoveringLogCount] = useState<boolean>(false);
 
     // fetching gamelogs from API
     const {
@@ -55,12 +58,54 @@ const GamePage = () => {
                             className="max-h-64 max-w-52 rounded-md md:max-h-80 md:min-w-52 md:max-w-max"
                         />
                         <div className="flex w-full flex-col gap-2">
-                            <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                            <span
+                                className="relative flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary"
+                                onMouseOver={() => setHoveringLogCount(true)}
+                                onMouseOut={() => setHoveringLogCount(false)}
+                            >
                                 <p>
                                     {gameLogs?.length}{" "}
                                     {gameLogs?.length === 1 ? "Log" : "Logs"}
                                 </p>
                                 <i className="fa-solid fa-chart-bar"></i>
+
+                                {/* Log count hover menu */}
+                                {hoveringLogCount ? (
+                                    <div className="hover-menu fade-in-right absolute -right-36 top-0 flex w-max flex-col gap-1 p-3">
+                                        {[
+                                            "played",
+                                            "playing",
+                                            "backlog",
+                                            "wishlist",
+                                        ].map((status) => (
+                                            <span className="flex items-center gap-2 font-light">
+                                                <i
+                                                    className={getIconFromGameStatus(
+                                                        status
+                                                    )}
+                                                ></i>
+                                                <p>
+                                                    {status
+                                                        .slice(0, 1)
+                                                        .toUpperCase() +
+                                                        status.slice(1)}
+                                                    :
+                                                </p>
+                                                <p>
+                                                    {
+                                                        gameLogs?.filter(
+                                                            (log) =>
+                                                                log.status ===
+                                                                status
+                                                        ).length
+                                                    }
+                                                </p>
+                                            </span>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                             </span>
                             <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
                                 {gameLogs &&
