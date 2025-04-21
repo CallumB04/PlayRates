@@ -56,6 +56,19 @@ export const getColorFromGameStatus = (status: string) => {
     }
 };
 
+export const getIconFromGameStatus = (status: string) => {
+    switch (status) {
+        case "played":
+            return "fa-regular fa-check-circle";
+        case "playing":
+            return "fa-regular fa-play-circle";
+        case "backlog":
+            return "fa-regular fa-calendar-plus";
+        case "wishlist":
+            return "fa-solid fa-heart";
+    }
+};
+
 // game platforms and their associated font awesome icons
 export const gamePlatforms = [
     { name: "steam", display: "Steam", icon: "fab fa-steam" },
