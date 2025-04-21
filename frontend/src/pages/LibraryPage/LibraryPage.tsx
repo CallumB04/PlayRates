@@ -141,7 +141,6 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
             // 160 -> page top and bottom padding (80 each)
             // 128 -> height of header card
             // 12 -> gap between header card and games container
-            // TODO: when pagination buttons add, also add this to height total
             const rowsCount = Math.floor(
                 (windowHeight - (160 + 128 + 12)) / 140
             );
