@@ -10,7 +10,11 @@ import {
 import { gamePlatforms, getIconFromGameStatus, useUser } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 
-const GamePage = () => {
+interface GamePageProps {
+    openLoginForm: () => void;
+}
+
+const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
     const currentUser = useUser();
     const { gameID } = useParams(); // getting game id from URL
     const [game, setGame] = useState<Game | undefined>(undefined);
@@ -96,7 +100,10 @@ const GamePage = () => {
                                             "backlog",
                                             "wishlist",
                                         ].map((status) => (
-                                            <span className="flex items-center gap-2 font-light">
+                                            <span
+                                                className="flex items-center gap-2 font-light"
+                                                key={status}
+                                            >
                                                 <i
                                                     className={getIconFromGameStatus(
                                                         status
@@ -154,6 +161,15 @@ const GamePage = () => {
                                         ? "button-secondary"
                                         : "button-primary"
                                 } flex items-center justify-center gap-3`}
+                                onClick={
+                                    currentUser
+                                        ? currentUserGameLogs?.some(
+                                              (log) => log.id === game?.id
+                                          )
+                                            ? () => null
+                                            : () => null
+                                        : openLoginForm
+                                }
                             >
                                 <p>
                                     {currentUser

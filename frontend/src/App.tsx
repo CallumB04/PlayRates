@@ -211,7 +211,10 @@ function App() {
                                 />
                             }
                         />
-                        <Route path="/game/:gameID" element={<GamePage />} />
+                        <Route
+                            path="/game/:gameID"
+                            element={<GamePage openLoginForm={openLoginForm} />}
+                        />
                     </Routes>
                 </main>
                 <Footer />
