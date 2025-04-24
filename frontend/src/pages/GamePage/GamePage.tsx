@@ -70,7 +70,7 @@ const GamePage: React.FC<GamePageProps> = ({
                 currentUserGameLogs?.find((log) => log.id === game?.id)!
             );
         }
-    }, [currentUserGameLogs]);
+    }, [currentUserGameLogs, game]);
 
     useEffect(() => {
         const loadGameByID = async () => {
