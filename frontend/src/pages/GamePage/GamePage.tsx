@@ -9,22 +9,42 @@ import {
 } from "../../api";
 import { gamePlatforms, getIconFromGameStatus, useUser } from "../../App";
 import { useQuery } from "@tanstack/react-query";
+import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
+import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 
 interface GamePageProps {
     openLoginForm: () => void;
+    runNotification: (
+        text: string,
+        type: "success" | "error" | "pending"
+    ) => void;
 }
 
-const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
+const GamePage: React.FC<GamePageProps> = ({
+    openLoginForm,
+    runNotification,
+}) => {
     const currentUser = useUser();
     const { gameID } = useParams(); // getting game id from URL
     const [game, setGame] = useState<Game | undefined>(undefined);
     const [gameLogs, setGameLogs] = useState<GameLog[] | undefined>(undefined);
+    const [currentPageGameLog, setCurrentPageGameLog] =
+        useState<GameLog | null>(null);
 
     const [hoveringLogCount, setHoveringLogCount] = useState<boolean>(false);
+
+    // game log popup visiblilities
+    const [viewGameLogPopupVisible, setViewGameLogPopupVisible] =
+        useState<boolean>(false);
+    const [editGameLogPopupVisible, setEditGameLogPopupVisible] =
+        useState<boolean>(false);
+    const [createGameLogPopupVisible, setCreateGameLogPopupVisible] =
+        useState<boolean>(false);
 
     // fetching gamelogs from API
     const {
         data: overallGameLogs,
+        refetch: refetchOverallGameLogs,
         error: overallGameLogsError,
         isLoading: overallGameLogsLoading,
     } = useQuery<{ [userID: string]: GameLog[] }>({
@@ -43,6 +63,14 @@ const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
         queryFn: () => fetchGameLogsByUserID(currentUser!.id),
         enabled: !!currentUser,
     });
+
+    useEffect(() => {
+        if (currentUserGameLogs) {
+            setCurrentPageGameLog(
+                currentUserGameLogs?.find((log) => log.id === game?.id)!
+            );
+        }
+    }, [currentUserGameLogs]);
 
     useEffect(() => {
         const loadGameByID = async () => {
@@ -68,6 +96,13 @@ const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
             setGameLogs(matchingGameLogs);
         }
     }, [overallGameLogs, game]);
+
+    // function ran after successful edit or creation of a log
+    const viewUpdatedLog = async () => {
+        refetchCurrentUserGameLogs();
+        refetchOverallGameLogs();
+        setViewGameLogPopupVisible(true);
+    };
 
     return (
         <section className="mx-auto mt-20 max-w-[1200px] font-lexend">
@@ -166,8 +201,14 @@ const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
                                         ? currentUserGameLogs?.some(
                                               (log) => log.id === game?.id
                                           )
-                                            ? () => null
-                                            : () => null
+                                            ? () =>
+                                                  setViewGameLogPopupVisible(
+                                                      true
+                                                  )
+                                            : () =>
+                                                  setCreateGameLogPopupVisible(
+                                                      true
+                                                  )
                                         : openLoginForm
                                 }
                             >
@@ -262,6 +303,48 @@ const GamePage: React.FC<GamePageProps> = ({ openLoginForm }) => {
                     </span>
                 </div>
             </span>
+
+            {viewGameLogPopupVisible ? (
+                <ViewGameLogPopup
+                    closePopup={() => setViewGameLogPopupVisible(false)}
+                    isMyAccount={true}
+                    userLoggedIn={currentUser ? true : false}
+                    gamelog={currentPageGameLog}
+                    openEdit={() => setEditGameLogPopupVisible(true)}
+                    openCreate={() => setCreateGameLogPopupVisible(true)}
+                    currentUserSharesLog={true}
+                    redirectAndOpenView={() => {}}
+                />
+            ) : (
+                <></>
+            )}
+            {createGameLogPopupVisible ? (
+                <CreateOrEditGameLogPopup
+                    closePopup={() => setCreateGameLogPopupVisible(false)}
+                    editing={false}
+                    gameID={game?.id}
+                    userID={currentUser!.id}
+                    runNotification={runNotification}
+                    viewUpdatedLog={() => {
+                        refetchCurrentUserGameLogs();
+                        refetchOverallGameLogs();
+                    }}
+                />
+            ) : (
+                <></>
+            )}
+            {editGameLogPopupVisible ? (
+                <CreateOrEditGameLogPopup
+                    closePopup={() => setEditGameLogPopupVisible(false)}
+                    gamelog={currentPageGameLog}
+                    editing={true}
+                    userID={currentUser!.id}
+                    runNotification={runNotification}
+                    viewUpdatedLog={viewUpdatedLog}
+                />
+            ) : (
+                <></>
+            )}
         </section>
     );
 };
