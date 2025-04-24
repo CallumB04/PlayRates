@@ -433,7 +433,6 @@ const LibraryPage: React.FC<LibraryPageProps> = ({ runNotification }) => {
                     openCreate={() => setCreateGameLogPopupVisible(true)}
                     currentUserSharesLog={true}
                     redirectAndOpenView={() => {}}
-                    libraryPage={true}
                 />
             ) : (
                 <></>

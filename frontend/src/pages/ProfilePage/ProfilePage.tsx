@@ -1015,6 +1015,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                 `/user/${currentUser?.username}?log=${currentVisibleGameLog?.id}`
                             )
                         }
+                        profilePage={true}
                     />
                 ) : (
                     <></>
