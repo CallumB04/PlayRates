@@ -116,7 +116,7 @@ const GamePage: React.FC<GamePageProps> = ({
                         />
                         <div className="flex w-full flex-col gap-2">
                             <span
-                                className="relative flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary"
+                                className="relative flex w-full items-center justify-center gap-2 rounded border-2 border-text-secondary px-2.5 py-1.5 text-text-primary"
                                 onMouseOver={() => setHoveringLogCount(true)}
                                 onMouseOut={() => setHoveringLogCount(false)}
                             >
@@ -167,7 +167,7 @@ const GamePage: React.FC<GamePageProps> = ({
                                     <></>
                                 )}
                             </span>
-                            <span className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-text-secondary px-2.5 py-1 text-text-primary">
+                            <span className="flex w-full items-center justify-center gap-2 rounded border-2 border-text-secondary px-2.5 py-1.5 text-text-primary">
                                 {gameLogs &&
                                 gameLogs.filter((log) => log.rating).length >=
                                     1 ? (
