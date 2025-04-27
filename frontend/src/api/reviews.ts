@@ -4,7 +4,6 @@ const API_IP = import.meta.env.VITE_API_IP; // importing ip from .env if exists
 axios.defaults.baseURL = `http://${API_IP ? API_IP : "localhost"}:3000`; // setting base url as env server ip, or localhost if doesnt exist
 
 export interface Review {
-    userID: number;
     gameID: number;
     text: string;
     creationDate: string; // stored in ISO 8601 format for easy Date object conversion
