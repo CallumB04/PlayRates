@@ -6,6 +6,7 @@ const path = require("path");
 // using file path and fs.readFile for data retrieval, instead of require(), as .json files will change during runtime
 const reviewsFilePath = path.join(__dirname, "../data/reviews.json");
 const usersFilePath = path.join(__dirname, "../data/users.json");
+const gamesFilePath = path.join(__dirname, "../data/games.json");
 
 // function to read reviews JSON file
 const readUsersJSON = async () => {
@@ -13,7 +14,13 @@ const readUsersJSON = async () => {
     return JSON.parse(data);
 };
 
-// function to read users JSON file
+// function to read games JSON file
+const readGamesJSON = async () => {
+    const data = await fs.readFile(gamesFilePath, "utf-8");
+    return JSON.parse(data);
+};
+
+// function to read reviews JSON file
 const readReviewsJSON = async () => {
     const data = await fs.readFile(reviewsFilePath, "utf-8");
     return JSON.parse(data);
@@ -38,7 +45,7 @@ router.get("/", async (req, res) => {
 });
 
 // reviews of a given user
-router.get("/:userID", async (req, res) => {
+router.get("/user/:userID", async (req, res) => {
     try {
         const userID = req.params.userID;
         const users = await readUsersJSON();
@@ -53,6 +60,32 @@ router.get("/:userID", async (req, res) => {
         }
 
         res.status(200).json(reviews[userID] || []); // return user reviews, or empty array if none found
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching reviews" }); // internal server error
+    }
+});
+
+// reviews of a given game
+router.get("/game/:gameID", async (req, res) => {
+    try {
+        const gameID = req.params.gameID;
+        const games = await readGamesJSON();
+        const reviews = await readReviewsJSON();
+
+        // get game info from api request
+        const gameExists = games.some((game) => game.id === Number(gameID));
+
+        // ensuring game exists in database
+        if (!gameExists) {
+            return res.status(404).json({ message: "Game not found" });
+        }
+
+        // mapping reviews from given game into new array
+        const reviewsFromGame = Object.values(reviews)
+            .flatMap((review) => review)
+            .filter((review) => review.gameID === Number(gameID));
+
+        res.status(200).json(reviewsFromGame || []); // return game reviews, or empty array if none found
     } catch (error) {
         res.status(500).json({ message: "Error fetching reviews" }); // internal server error
     }

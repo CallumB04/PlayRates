@@ -21,7 +21,16 @@ export const fetchReviews = async () => {
 
 export const fetchReviewsByUserID = async (userID: number) => {
     try {
-        const response = await axios.get(`/reviews/${userID}`);
+        const response = await axios.get(`/reviews/user/${userID}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching reviews");
+    }
+};
+
+export const fetchReviewsByGameID = async (gameID: number) => {
+    try {
+        const response = await axios.get(`/reviews/game/${gameID}`);
         return response.data;
     } catch (error) {
         throw new Error("Error fetching reviews");
