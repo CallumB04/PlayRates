@@ -17,5 +17,7 @@ const friendsRouter = require("./routes/friends");
 app.use("/friends", friendsRouter); // all routes within friends.js start with /friends
 const gameLogsRouter = require("./routes/gamelogs");
 app.use("/gamelogs", gameLogsRouter); // all routes within gamelogs.js start with /gamelogs
+const reviewsRouter = require("./routes/reviews");
+app.use("/reviews", reviewsRouter); // all routes within reviews.js start with /reviews
 
 app.listen(3000); // localhost:3000
