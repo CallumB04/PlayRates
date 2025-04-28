@@ -13,6 +13,7 @@ export interface Review {
     reviewerName?: string;
     reviewerProfilePicture?: string;
     reviewerGameLogRating?: number;
+    reviewerGameLogPlatform?: string;
 }
 
 export const fetchReviews = async () => {

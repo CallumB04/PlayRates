@@ -106,6 +106,7 @@ router.get("/game/:gameID", async (req, res) => {
                             reviewerName: reviewer.username,
                             reviewerProfilePicture: reviewer.picture,
                             reviewerGameLogRating: gameLog?.rating,
+                            reviewerGameLogPlatform: gameLog?.platform,
                         };
                     })
         );
