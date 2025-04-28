@@ -317,46 +317,59 @@ const GamePage: React.FC<GamePageProps> = ({
                             </p>
                         </span>
                         <div className="mt-8 flex flex-col gap-5">
-                            {gameReviews?.map((review) => (
-                                <div key={review.text} className="flex gap-3">
-                                    <ProfilePicture
-                                        sizes={[{ value: 16, borderSize: 2 }]}
-                                        username={review.reviewerName!}
-                                        file={review.reviewerProfilePicture!}
-                                        link={true}
-                                    />
-                                    <div className="flex flex-col gap-0.5 pt-1">
-                                        <span className="flex items-center gap-2">
-                                            <Link
-                                                className="hover-text-white text-xl font-semibold"
-                                                to={`/user/${review.reviewerName}`}
-                                            >
-                                                {review.reviewerName}
-                                            </Link>
-                                            {review.reviewerGameLogPlatform && (
-                                                <GamePlatform
-                                                    platform={
-                                                        review.reviewerGameLogPlatform
-                                                    }
-                                                    textSize="xs"
-                                                />
-                                            )}
-                                        </span>
-                                        <span className="flex items-center gap-1 text-sm">
-                                            <p className="font-light text-text-primary">
-                                                {review.reviewerGameLogRating
-                                                    ? review.reviewerGameLogRating
-                                                    : "?"}
-                                                /10
+                            {gameReviews?.length ? (
+                                gameReviews?.map((review) => (
+                                    <div
+                                        key={review.text}
+                                        className="flex gap-3"
+                                    >
+                                        <ProfilePicture
+                                            sizes={[
+                                                { value: 16, borderSize: 2 },
+                                            ]}
+                                            username={review.reviewerName!}
+                                            file={
+                                                review.reviewerProfilePicture!
+                                            }
+                                            link={true}
+                                        />
+                                        <div className="flex flex-col gap-0.5 pt-1">
+                                            <span className="flex items-center gap-2">
+                                                <Link
+                                                    className="hover-text-white text-xl font-semibold"
+                                                    to={`/user/${review.reviewerName}`}
+                                                >
+                                                    {review.reviewerName}
+                                                </Link>
+                                                {review.reviewerGameLogPlatform && (
+                                                    <GamePlatform
+                                                        platform={
+                                                            review.reviewerGameLogPlatform
+                                                        }
+                                                        textSize="xs"
+                                                    />
+                                                )}
+                                            </span>
+                                            <span className="flex items-center gap-1 text-sm">
+                                                <p className="font-light text-text-primary">
+                                                    {review.reviewerGameLogRating
+                                                        ? review.reviewerGameLogRating
+                                                        : "?"}
+                                                    /10
+                                                </p>
+                                                <i className="fas fa-star text-highlight-primary"></i>
+                                            </span>
+                                            <p className="mt-1.5 text-text-secondary">
+                                                {review.text}
                                             </p>
-                                            <i className="fas fa-star text-highlight-primary"></i>
-                                        </span>
-                                        <p className="mt-1.5 text-text-secondary">
-                                            {review.text}
-                                        </p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            ) : (
+                                <h2 className="text-center text-xl text-text-secondary">
+                                    No Reviews found for this game...
+                                </h2>
+                            )}
                         </div>
                     </div>
                 </div>
