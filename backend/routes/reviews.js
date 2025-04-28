@@ -7,6 +7,7 @@ const path = require("path");
 const reviewsFilePath = path.join(__dirname, "../data/reviews.json");
 const usersFilePath = path.join(__dirname, "../data/users.json");
 const gamesFilePath = path.join(__dirname, "../data/games.json");
+const gameLogsFilePath = path.join(__dirname, "../data/gamelogs.json");
 
 // function to read reviews JSON file
 const readUsersJSON = async () => {
@@ -17,6 +18,12 @@ const readUsersJSON = async () => {
 // function to read games JSON file
 const readGamesJSON = async () => {
     const data = await fs.readFile(gamesFilePath, "utf-8");
+    return JSON.parse(data);
+};
+
+// function to read gamelogs JSON file
+const readGameLogsJSON = async () => {
+    const data = await fs.readFile(gameLogsFilePath, "utf-8");
     return JSON.parse(data);
 };
 
@@ -70,7 +77,9 @@ router.get("/game/:gameID", async (req, res) => {
     try {
         const gameID = req.params.gameID;
         const games = await readGamesJSON();
+        const users = await readUsersJSON();
         const reviews = await readReviewsJSON();
+        const gamelogs = await readGameLogsJSON();
 
         // get game info from api request
         const gameExists = games.some((game) => game.id === Number(gameID));
@@ -81,9 +90,25 @@ router.get("/game/:gameID", async (req, res) => {
         }
 
         // mapping reviews from given game into new array
-        const reviewsFromGame = Object.values(reviews)
-            .flatMap((review) => review)
-            .filter((review) => review.gameID === Number(gameID));
+        const reviewsFromGame = Object.entries(reviews).flatMap(
+            ([userID, reviewsData]) =>
+                reviewsData
+                    .filter((review) => review.gameID === Number(gameID))
+                    .map((review) => {
+                        const reviewer = users.find(
+                            (user) => user.id === Number(userID)
+                        );
+                        const gameLog = gamelogs[userID]?.find(
+                            (gamelog) => gamelog.id === review.gameID
+                        );
+                        return {
+                            ...review,
+                            reviewerName: reviewer.username,
+                            reviewerProfilePicture: reviewer.picture,
+                            reviewerGameLogRating: gameLog?.rating,
+                        };
+                    })
+        );
 
         res.status(200).json(reviewsFromGame || []); // return game reviews, or empty array if none found
     } catch (error) {

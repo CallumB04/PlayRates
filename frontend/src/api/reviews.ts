@@ -8,6 +8,11 @@ export interface Review {
     text: string;
     creationDate: string; // stored in ISO 8601 format for easy Date object conversion
     public: boolean; // if other users can see this review
+
+    // optional reviewer data for when fetching reviews for specific game
+    reviewerName?: string;
+    reviewerProfilePicture?: string;
+    reviewerGameLogRating?: number;
 }
 
 export const fetchReviews = async () => {
