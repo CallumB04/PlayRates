@@ -4,11 +4,10 @@ import {
     fetchGameById,
     fetchGameLogs,
     fetchGameLogsByUserID,
-    fetchUserByID,
     Game,
     GameLog,
 } from "../../api";
-import { gamePlatforms, getIconFromGameStatus, useUser } from "../../App";
+import { getIconFromGameStatus, useUser } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
@@ -121,7 +120,7 @@ const GamePage: React.FC<GamePageProps> = ({
     };
 
     return (
-        <section className="mx-auto mt-20 max-w-[1200px] font-lexend">
+        <section className="mx-auto mt-8 max-w-[1200px] font-lexend lg:mt-20">
             <span className="flex flex-col gap-8 md:flex-row">
                 {/* Left column */}
                 <div className="flex gap-4">
@@ -286,7 +285,7 @@ const GamePage: React.FC<GamePageProps> = ({
                     <p className="line-clamp-[8] text-center text-text-secondary md:mt-5 md:text-left">
                         {game?.description
                             ? game.description
-                            : "This game currently does not have a description."}
+                            : "This game currently does not have a description..."}
                     </p>
                     <span className="mt-2 flex flex-wrap justify-center gap-3 md:justify-start">
                         {game?.platforms.map((platform) => {
