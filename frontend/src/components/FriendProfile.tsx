@@ -20,7 +20,8 @@ const FriendProfile: React.FC<FriendProfileProps> = ({
             onClick={closePopup}
         >
             <ProfilePicture
-                user={user}
+                username={user.username}
+                file={user.picture}
                 sizes={[{ value: profilePictureSize, borderSize: 2 }]}
                 link={false}
             />

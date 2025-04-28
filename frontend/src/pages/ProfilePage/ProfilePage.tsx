@@ -518,7 +518,8 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         borderSize: 3,
                                     },
                                 ]}
-                                user={targetUser}
+                                username={targetUser.username}
+                                file={targetUser.picture}
                                 link={true}
                             />
                             {/* User status (online, offline, etc). Currently using test data for design purposes */}

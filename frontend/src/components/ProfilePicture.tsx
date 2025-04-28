@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { UserAccount } from "../api";
 
 interface Size {
     value: number;
@@ -9,29 +8,27 @@ interface Size {
 
 interface ProfilePictureProps {
     sizes: Size[];
-    user: UserAccount;
+    file: string;
+    username: string;
     link: boolean; // is clickable for navigation? allows for preventing nested <a> elements
 }
 
 const ProfilePicture: React.FC<ProfilePictureProps> = ({
     sizes,
-    user,
+    file,
+    username,
     link,
 }) => {
     return link ? (
         <Link
-            to={`/user/${user.username}`}
+            to={`/user/${username}`}
             className={`profile-picture-wrapper border-text-dark ${sizes
                 .map((size) => {
                     return `${size.breakpoint ? size.breakpoint + ":" : ""}size-${size.value} ${size.breakpoint ? size.breakpoint + ":" : ""}border-[${size.borderSize}px]`;
                 })
                 .join(" ")}`}
         >
-            {user.picture ? (
-                <img src={user.picture} className="profile-picture" />
-            ) : (
-                <></>
-            )}
+            {file ? <img src={file} className="profile-picture" /> : <></>}
         </Link>
     ) : (
         <div
@@ -41,11 +38,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({
                 })
                 .join(" ")}`}
         >
-            {user.picture ? (
-                <img src={user.picture} className="profile-picture" />
-            ) : (
-                <></>
-            )}
+            {file ? <img src={file} className="profile-picture" /> : <></>}
         </div>
     );
 };

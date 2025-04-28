@@ -86,7 +86,8 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         >
                             <ProfilePicture
                                 sizes={[{ value: 40, borderSize: 3 }]}
-                                user={user}
+                                username={user.username}
+                                file={user.picture}
                                 link={false}
                             />
                             <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-full bg-[#0e0e0e99] font-semibold text-text-primary opacity-0 transition-opacity duration-200 group-hover:opacity-100">
