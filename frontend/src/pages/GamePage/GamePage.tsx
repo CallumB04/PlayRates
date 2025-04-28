@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
     fetchGameById,
     fetchGameLogs,
     fetchGameLogsByUserID,
+    fetchUserByID,
     Game,
     GameLog,
 } from "../../api";
@@ -11,6 +12,9 @@ import { gamePlatforms, getIconFromGameStatus, useUser } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
+import { fetchReviewsByGameID, Review } from "../../api/reviews";
+import ProfilePicture from "../../components/ProfilePicture";
+import GamePlatform from "../../components/GamePlatform";
 
 interface GamePageProps {
     openLoginForm: () => void;
@@ -62,6 +66,18 @@ const GamePage: React.FC<GamePageProps> = ({
         queryKey: ["currentUserGameLogs", currentUser?.id],
         queryFn: () => fetchGameLogsByUserID(currentUser!.id),
         enabled: !!currentUser,
+    });
+
+    // fetching reviews off this game
+    const {
+        data: gameReviews,
+        refetch: refetchGameReviews,
+        error: gameReviewsError,
+        isLoading: gameReviewsLoading,
+    } = useQuery<Review[]>({
+        queryKey: ["gameReviews", game?.id],
+        queryFn: () => fetchReviewsByGameID(game!.id),
+        enabled: !!game,
     });
 
     useEffect(() => {
@@ -275,32 +291,74 @@ const GamePage: React.FC<GamePageProps> = ({
                     <span className="mt-2 flex flex-wrap justify-center gap-3 md:justify-start">
                         {game?.platforms.map((platform) => {
                             return (
-                                <span
-                                    className="flex items-center gap-2 rounded-full border-2 border-text-secondary px-2.5 py-0.5 text-text-primary"
+                                <GamePlatform
+                                    platform={platform}
+                                    textSize="base"
                                     key={platform}
-                                >
-                                    <p>
-                                        {
-                                            gamePlatforms.find(
-                                                (gamePlatform) =>
-                                                    gamePlatform.name ===
-                                                    platform
-                                            )?.display
-                                        }
-                                    </p>
-                                    <i
-                                        className={
-                                            gamePlatforms.find(
-                                                (gamePlatform) =>
-                                                    gamePlatform.name ===
-                                                    platform
-                                            )?.icon
-                                        }
-                                    ></i>
-                                </span>
+                                />
                             );
                         })}
                     </span>
+                    {/* Reviews Section */}
+                    <div className="mt-12">
+                        {/* Header and sorting */}
+                        <span className="flex items-center justify-between">
+                            <h2 className="text-2xl text-text-primary">
+                                Reviews
+                            </h2>
+                            <p className="flex gap-1 font-light text-text-primary">
+                                Sort By:{" "}
+                                <span className="flex items-center gap-1.5 text-highlight-primary">
+                                    <span className="font-normal">
+                                        Most Recent
+                                    </span>
+                                    <i className="fas fa-chevron-down text-xs"></i>
+                                </span>
+                            </p>
+                        </span>
+                        <div className="mt-8 flex flex-col gap-5">
+                            {gameReviews?.map((review) => (
+                                <div key={review.text} className="flex gap-3">
+                                    <ProfilePicture
+                                        sizes={[{ value: 16, borderSize: 2 }]}
+                                        username={review.reviewerName!}
+                                        file={review.reviewerProfilePicture!}
+                                        link={true}
+                                    />
+                                    <div className="flex flex-col gap-0.5 pt-1">
+                                        <span className="flex items-center gap-2">
+                                            <Link
+                                                className="hover-text-white text-xl font-semibold"
+                                                to={`/user/${review.reviewerName}`}
+                                            >
+                                                {review.reviewerName}
+                                            </Link>
+                                            {review.reviewerGameLogPlatform && (
+                                                <GamePlatform
+                                                    platform={
+                                                        review.reviewerGameLogPlatform
+                                                    }
+                                                    textSize="xs"
+                                                />
+                                            )}
+                                        </span>
+                                        <span className="flex items-center gap-1 text-sm">
+                                            <p className="font-light text-text-primary">
+                                                {review.reviewerGameLogRating
+                                                    ? review.reviewerGameLogRating
+                                                    : "?"}
+                                                /10
+                                            </p>
+                                            <i className="fas fa-star text-highlight-primary"></i>
+                                        </span>
+                                        <p className="mt-1.5 text-text-secondary">
+                                            {review.text}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </span>
 
