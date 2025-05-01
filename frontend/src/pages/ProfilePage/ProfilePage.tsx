@@ -1,6 +1,7 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../App";
 import {
+    fetchGameById,
     fetchGameLogsByUserID,
     fetchUserByID,
     fetchUserByUsername,
@@ -32,6 +33,7 @@ import EditProfilePopup from "./components/EditProfilePopup";
 import ViewGameLogPopup from "../../components/ViewGameLogPopup";
 import CreateOrEditGameLogPopup from "../../components/CreateOrEditGameLogPopup";
 import DeleteGameLogPopup from "../../components/DeleteGameLogPopup";
+import { fetchReviewsByUserID, Review } from "../../api/reviews";
 
 interface ProfilePageProps {
     runNotification: (
@@ -243,6 +245,18 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
         queryKey: ["currentUserGameLogs", currentUser?.id],
         queryFn: () => fetchGameLogsByUserID(currentUser!.id),
         enabled: !!currentUser && !isMyAccount,
+    });
+
+    // fetching reviews from this user
+    const {
+        data: currentUserReviews,
+        refetch: refetchCurrentUserReviews,
+        error: currentUserReviewsError,
+        isLoading: currentUserReviewsLoading,
+    } = useQuery<Review[]>({
+        queryKey: ["currentUserReviews", currentUser?.id],
+        queryFn: () => fetchReviewsByUserID(currentUser!.id),
+        enabled: !!currentUser,
     });
 
     // opening view log popup if url contains correct params
@@ -935,6 +949,22 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     </div>
                     <div className="card h-2/5 w-full">
                         <h2 className="card-header-text">Reviews</h2>
+                        <div className="mt-2 flex flex-col gap-2">
+                            {currentUserReviews?.map((review) => (
+                                <Link
+                                    to={`/game/${review.gameID}`}
+                                    className="flex h-20 items-center gap-3 rounded-md p-2 transition-colors duration-200 hover:bg-popup-end"
+                                >
+                                    <img
+                                        src={`/PlayRates/assets/game-covers/${review.gameID}.png`}
+                                        className="game-cover h-full object-cover"
+                                    />
+                                    <p className="line-clamp-3 h-max text-sm text-text-secondary">
+                                        {review.text}
+                                    </p>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 {/* Popups */}
