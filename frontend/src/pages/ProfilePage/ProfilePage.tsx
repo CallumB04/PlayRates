@@ -949,7 +949,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                     </div>
                     <div className="card h-2/5 w-full">
                         <h2 className="card-header-text">Reviews</h2>
-                        <div className="mt-2 flex h-64 flex-col gap-2 overflow-y-scroll">
+                        <div className="mt-2 flex h-[248px] flex-col gap-1 overflow-y-scroll">
                             {targetUserReviews?.map((review) => (
                                 <Link
                                     to={`/game/${review.gameID}`}
