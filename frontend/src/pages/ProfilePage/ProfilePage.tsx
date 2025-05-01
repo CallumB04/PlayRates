@@ -959,9 +959,21 @@ const ProfilePage: React.FC<ProfilePageProps> = ({
                                         src={`/PlayRates/assets/game-covers/${review.gameID}.png`}
                                         className="game-cover h-full object-cover"
                                     />
-                                    <p className="line-clamp-3 h-max text-sm text-text-secondary">
-                                        {review.text}
-                                    </p>
+                                    <div className="flex flex-col gap-1">
+                                        <span className="flex items-center gap-1 text-xs text-text-primary">
+                                            <p className="font-semibold tracking-wider">
+                                                {targetUserGameLogs?.find(
+                                                    (log) =>
+                                                        log.id === review.gameID
+                                                )?.rating || "?"}
+                                                /10
+                                            </p>
+                                            <i className="fas fa-star text-highlight-primary"></i>
+                                        </span>
+                                        <p className="line-clamp-2 h-max text-sm text-text-secondary">
+                                            {review.text}
+                                        </p>
+                                    </div>
                                 </Link>
                             ))}
                         </div>
